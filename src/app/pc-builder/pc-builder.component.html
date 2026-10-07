@@ -115,7 +115,7 @@
                 </igx-card-content>
                 <igx-card-actions>
                   <ng-container igxStart>
-                    <button igxButton="outlined" type="button" [routerLink]="[`/components`]" class="change-part">
+                    <button igxButton="outlined" type="button" [routerLink]="[`/components`]" [queryParams]="{ slot: toSlotParam(item.category) }" [attr.aria-label]="'Change ' + item.category + ' part: ' + item.selectedComponentName" class="change-part">
                       <igx-icon class="icon_2">
                         sync
                       </igx-icon>

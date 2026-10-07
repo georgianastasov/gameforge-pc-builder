@@ -5,6 +5,17 @@ export const HARDWARE_CATEGORIES = ['CPU', 'GPU', 'Motherboard', 'RAM', 'Storage
 
 export type HardwareCategory = (typeof HARDWARE_CATEGORIES)[number];
 
+/** URL form of a slot, used as `/components?slot=<slot>` (e.g. `gpu`). */
+export function toSlotParam(category: HardwareCategory): string {
+  return category.toLowerCase();
+}
+
+/** Resolves a `slot` query parameter back to its category; `null` when missing or unknown. */
+export function parseSlotParam(value: string | null | undefined): HardwareCategory | null {
+  const slot = value?.trim().toLowerCase();
+  return HARDWARE_CATEGORIES.find(category => toSlotParam(category) === slot) ?? null;
+}
+
 export type PerformanceTier = 'Flagship' | 'Enthusiast' | 'Mainstream';
 
 export type CpuSocket = 'AM5' | 'LGA1700';

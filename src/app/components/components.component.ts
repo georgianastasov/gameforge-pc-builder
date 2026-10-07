@@ -1,9 +1,11 @@
 import { DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IChipSelectEventArgs, IGX_ACCORDION_DIRECTIVES, IGX_CARD_DIRECTIVES, IGX_CHIPS_DIRECTIVES, IGX_DIALOG_DIRECTIVES, IGX_EXPANSION_PANEL_DIRECTIVES, IGX_INPUT_GROUP_DIRECTIVES, IGX_SELECT_DIRECTIVES, IgxBadgeComponent, IgxButtonDirective, IgxDialogComponent, IgxIconComponent, IgxSnackbarComponent } from '@infragistics/igniteui-angular';
-import { HardwarePart } from '../models/hardware/hardware-part';
+import { map } from 'rxjs';
+import { HardwareCategory, HardwarePart, parseSlotParam } from '../models/hardware/hardware-part';
 import { BuildStateService } from '../services/build-state.service';
 import { FlagshipPCHardwareCatalogService } from '../services/flagship-pchardware-catalog.service';
 import { CatalogCriteria, CategoryFilter, filterCatalog, hasActiveCriteria, PlatformFilter, QuickFilterId, SortOption, TierFilter } from './catalog-filters';
@@ -21,6 +23,17 @@ export class ComponentsComponent {
   private readonly buildState = inject(BuildStateService);
   private readonly router = inject(Router);
   private readonly allParts = inject(FlagshipPCHardwareCatalogService).parts;
+
+  /** Slot being replaced, from `/components?slot=<slot>`; `null` shows the normal full catalog. */
+  public readonly replaceSlot = toSignal(
+    inject(ActivatedRoute).queryParamMap.pipe(map(params => parseSlotParam(params.get('slot')))),
+    { requireSync: true }
+  );
+  /** The part currently in the slot being replaced. */
+  public readonly replacedPart = computed(() => {
+    const slot = this.replaceSlot();
+    return slot ? this.buildState.selectedParts()[slot] : null;
+  });
 
   // Filter state. `undefined` keeps each select's App Builder placeholder visible.
   public readonly searchTerm = signal('');
@@ -49,6 +62,14 @@ export class ComponentsComponent {
 
   public readonly hasQuickFilters = computed(() => this.quickFilters().length > 0);
 
+  constructor() {
+    // Entering (or leaving) replace mode starts from that slot's category.
+    effect(() => {
+      const slot = this.replaceSlot();
+      untracked(() => this.applyBaseline(slot));
+    });
+  }
+
   public isQuickFilterActive(id: QuickFilterId): boolean {
     return this.quickFilters().includes(id);
   }
@@ -69,9 +90,14 @@ export class ComponentsComponent {
     this.quickFilters.update(active => active.includes(id) ? active.filter(f => f !== id) : [...active, id]);
   }
 
+  /** Clears every filter; in replace mode the catalog stays scoped to the slot's category. */
   public resetFilters(): void {
+    this.applyBaseline(this.replaceSlot());
+  }
+
+  private applyBaseline(slot: HardwareCategory | null): void {
     this.searchTerm.set('');
-    this.category.set(undefined);
+    this.category.set(slot ?? undefined);
     this.tier.set(undefined);
     this.platform.set(undefined);
     this.sortBy.set(undefined);
@@ -80,7 +106,10 @@ export class ComponentsComponent {
 
   public resetFiltersWithNotice(snackbar: IgxSnackbarComponent): void {
     this.resetFilters();
-    this.showSnackbar(snackbar, `Filters cleared. Showing all ${this.totalPartCount} components.`);
+    const slot = this.replaceSlot();
+    this.showSnackbar(snackbar, slot
+      ? `Filters cleared. Showing all ${this.flagshipPCHardwareCatalogHighEndPcHardware().length} ${slot} options.`
+      : `Filters cleared. Showing all ${this.totalPartCount} components.`);
   }
 
   public selectForRig(part: HardwarePart, snackbar: IgxSnackbarComponent): void {
@@ -93,6 +122,15 @@ export class ComponentsComponent {
     this.showSnackbar(snackbar, replaced
       ? `${part.name} replaced ${replaced.name} in the ${part.category} slot.`
       : `${part.name} added to the ${part.category} slot.`);
+  }
+
+  public isInBuild(part: HardwarePart): boolean {
+    return this.buildState.selectedParts()[part.category]?.id === part.id;
+  }
+
+  /** Leaves replace mode and returns to the normal full catalog. */
+  public exitReplaceMode(): void {
+    this.router.navigate(['/components']);
   }
 
   public openSpecs(dialog: IgxDialogComponent, part: HardwarePart | null): void {

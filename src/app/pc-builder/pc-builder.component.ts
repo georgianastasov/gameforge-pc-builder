@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IGX_CARD_DIRECTIVES, IGX_CHIPS_DIRECTIVES, IGX_DIALOG_DIRECTIVES, IGX_INPUT_GROUP_DIRECTIVES, IGX_LINEAR_PROGRESS_BAR_DIRECTIVES, IGX_SELECT_DIRECTIVES, IgxAvatarComponent, IgxBadgeComponent, IgxButtonDirective, IgxIconComponent, IgxSnackbarComponent, IgxSwitchComponent } from '@infragistics/igniteui-angular';
+import { toSlotParam } from '../models/hardware/hardware-part';
 import { BuildStateService } from '../services/build-state.service';
 import { cardImage, PC_BUILDER_SLOT_IMAGES } from '../static-data/app-builder-images';
 
@@ -23,6 +24,7 @@ export class PCBuilderComponent {
   public readonly filledSlotCount = this.buildState.filledSlotCount;
   public readonly totalSlotCount = this.buildState.totalSlotCount;
   public readonly subtotal = this.buildState.subtotal;
+  public readonly toSlotParam = toSlotParam;
 
   public clickResetOptions(): void {
     this.assemblyTier = 'Standard Validation';

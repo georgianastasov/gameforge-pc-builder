@@ -484,3 +484,25 @@
   height: 40px;
   color: var(--ig-primary-500);
 }
+.replace-banner {
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid color-mix(in srgb, var(--ig-primary-500) 25%, transparent);
+  border-left: 4px solid var(--ig-primary-500);
+  border-radius: 8px;
+  background-color: color-mix(in srgb, var(--ig-primary-500) 6%, var(--ig-surface-500));
+}
+.replace-banner__icon {
+  --size: 28px;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  color: var(--ig-primary-600);
+  flex-shrink: 0;
+}
+.replace-banner__text {
+  flex: 1 1 auto;
+  gap: 4px;
+  min-width: 0;
+}
