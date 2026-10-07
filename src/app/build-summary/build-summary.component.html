@@ -15,8 +15,9 @@
             </p>
           </div>
           <div class="row-layout row-layout_3">
-            <igx-badge type="success" value="ALL 8 SLOTS VERIFIED" class="all-8-slots-verified"></igx-badge>
-            <igx-badge type="info" value="READY FOR BENCHMARKING" class="all-8-slots-verified"></igx-badge>
+            @for (badge of headerBadges(); track badge.value) {
+              <igx-badge [type]="badge.type" [value]="badge.value" class="all-8-slots-verified"></igx-badge>
+            }
           </div>
         </div>
         <div class="row-layout row-layout_4">
@@ -32,16 +33,16 @@
             <igx-card-content>
               <div class="column-layout column-layout_4">
                 <div class="row-layout row-layout_5">
-                  <igx-icon class="icon">
-                    check_circle
+                  <igx-icon class="icon" [class]="'is-' + slotsCard().type" aria-hidden="true">
+                    {{ slotsCard().icon }}
                   </igx-icon>
                   <p class="ig-typography__body-2 text">
-                    CPU, GPU, MB, RAM, Storage, AIO, PSU &amp; Case
+                    {{ slotsCard().text }}
                   </p>
                 </div>
-                <igx-linear-bar type="success" [value]="slotFillPercent()" [animationDuration]="500" textAlign="center" [textTop]="true" class="true"></igx-linear-bar>
+                <igx-linear-bar [type]="slotsCard().type" [value]="slotFillPercent()" [animationDuration]="500" textAlign="center" [textTop]="true" aria-label="Hardware slots filled" class="true"></igx-linear-bar>
                 <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
-                  Zero unfilled component bays remaining
+                  {{ slotsCard().caption }}
                 </p>
               </div>
             </igx-card-content>
@@ -53,7 +54,7 @@
           <igx-card class="of-8-configured">
             <igx-card-header>
               <h3 igxCardHeaderTitle>
-                685W Peak Draw
+                {{ power().drawW }}W Peak Draw
               </h3>
               <h5 igxCardHeaderSubtitle>
                 Estimated System Load
@@ -62,16 +63,16 @@
             <igx-card-content>
               <div class="column-layout column-layout_4">
                 <div class="row-layout row-layout_5">
-                  <igx-icon class="icon_1">
-                    bolt
+                  <igx-icon class="icon_1" [class]="'is-' + powerCard().type" aria-hidden="true">
+                    {{ powerCard().icon }}
                   </igx-icon>
                   <p class="ig-typography__body-2 text">
-                    Recommended 850W PSU • 80.5% Peak Capacity
+                    {{ powerCard().detail }}
                   </p>
                 </div>
-                <igx-linear-bar [value]="80" [animationDuration]="500" textAlign="center" [textTop]="true" class="true_1"></igx-linear-bar>
+                <igx-linear-bar [type]="powerCard().type" [value]="powerCard().value" [text]="powerCard().text" [animationDuration]="500" textAlign="center" [textTop]="true" aria-label="PSU load" class="true_1"></igx-linear-bar>
                 <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
-                  165W transient surge headroom preserved
+                  {{ powerCard().caption }}
                 </p>
               </div>
             </igx-card-content>
@@ -83,7 +84,7 @@
           <igx-card class="of-8-configured">
             <igx-card-header>
               <h3 igxCardHeaderTitle>
-                100% Compatible
+                {{ compatibilityCard().title }}
               </h3>
               <h5 igxCardHeaderSubtitle>
                 Physical &amp; Socket Clearance
@@ -92,16 +93,16 @@
             <igx-card-content>
               <div class="column-layout column-layout_4">
                 <div class="row-layout row-layout_5">
-                  <igx-icon class="icon_2">
-                    verified
+                  <igx-icon class="icon_2" [class]="'is-' + compatibilityCard().type" aria-hidden="true">
+                    {{ compatibilityCard().icon }}
                   </igx-icon>
                   <p class="ig-typography__body-2 text">
-                    LGA1700 Socket • 310mm GPU in 420mm Bay
+                    {{ compatibilityCard().detail }}
                   </p>
                 </div>
-                <igx-linear-bar type="success" [value]="100" [animationDuration]="500" textAlign="center" [textTop]="true" class="true_2"></igx-linear-bar>
+                <igx-linear-bar [type]="compatibilityCard().type" [value]="compatibilityCard().value" [animationDuration]="500" textAlign="center" [textTop]="true" aria-label="Compatibility checks passed" class="true_2"></igx-linear-bar>
                 <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
-                  Zero physical or thermal clearance conflicts
+                  {{ compatibilityCard().caption }}
                 </p>
               </div>
             </igx-card-content>
@@ -122,7 +123,7 @@
               Selected premium components across all 8 hardware categories with verified individual pricing and thermal wattage specifications.
             </p>
           </div>
-          <igx-badge type="info" value="8 CORE HARDWARE SLOTS" class="all-8-slots-verified"></igx-badge>
+          <igx-badge type="info" [value]="filledSlotCount() + ' OF ' + totalSlotCount + ' CORE HARDWARE SLOTS'" class="all-8-slots-verified"></igx-badge>
         </div>
         <div class="row-layout row-layout_7">
           @for (item of enthusiastGamingRigSpecificationGamingPcComponents(); track item.category) {
@@ -149,7 +150,7 @@
                         {{ item.category }}
                       </p>
                     </div>
-                    <igx-badge type="success" value="Compatible" class="all-8-slots-verified"></igx-badge>
+                    <igx-badge [type]="item.badgeType" [value]="item.badgeValue" class="all-8-slots-verified"></igx-badge>
                   </div>
                   <p class="ig-typography__body-2 text">
                     {{ item.specsDetail }}
@@ -205,16 +206,18 @@
               Physical clearance verification across chassis depth, GPU length, radiator thickness, and motherboard socket standards.
             </p>
           </div>
-          <igx-badge type="success" value="ALL CLEARANCES PASSED" class="all-8-slots-verified"></igx-badge>
+          <igx-badge [type]="clearanceBadge().type" [value]="clearanceBadge().value" class="all-8-slots-verified"></igx-badge>
         </div>
-        <igc-grid-lite [data]="hardwareCompatibilitySpecHardwareCompatibilitySpec()" class="grid-lite">
-          <igc-grid-lite-column field="id" dataType="number" header="id" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
-          <igc-grid-lite-column field="componentName" dataType="string" header="componentName" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
-          <igc-grid-lite-column field="socketOrFormFactor" dataType="string" header="socketOrFormFactor" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
-          <igc-grid-lite-column field="tdpWattage" dataType="number" header="tdpWattage" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
-          <igc-grid-lite-column field="dimensionClearanceMm" dataType="number" header="dimensionClearanceMm" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
-          <igc-grid-lite-column field="statusNote" dataType="string" header="statusNote" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
-        </igc-grid-lite>
+        <igx-grid-lite [data]="compatibilityRows()" class="grid-lite">
+          <igx-grid-lite-column field="check" dataType="string" header="Check" sortable filterable resizable></igx-grid-lite-column>
+          <igx-grid-lite-column field="components" dataType="string" header="Components" sortable filterable resizable></igx-grid-lite-column>
+          <igx-grid-lite-column field="status" dataType="string" header="Status" width="140px" sortable filterable resizable>
+            <ng-template igxGridLiteCell let-value>
+              <igx-badge [type]="badgeTypeForStatus(value)" [value]="value"></igx-badge>
+            </ng-template>
+          </igx-grid-lite-column>
+          <igx-grid-lite-column field="details" dataType="string" header="Details" sortable filterable resizable></igx-grid-lite-column>
+        </igx-grid-lite>
       </div>
       <div class="column-layout build-telemetry-system-header">
         <div class="column-layout column-layout_7">
@@ -236,7 +239,7 @@
                   Hardware Components Subtotal ({{ filledSlotCount() }} Parts):
                 </p>
                 <p class="ig-typography__subtitle-1 content">
-                  {{ subtotal() | currency }}
+                  {{ checkout().subtotal | currency }}
                 </p>
               </div>
               <div class="row-layout row-layout_13">
@@ -249,26 +252,58 @@
               </div>
               <div class="row-layout row-layout_13">
                 <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
-                  48-Hour Thermal Stress &amp; BIOS Flash:
+                  {{ assemblyTier() }}:
                 </p>
-                <p class="ig-typography__subtitle-1 content">
-                  $49.00
-                </p>
+                @if (checkout().assemblyFee) {
+                  <p class="ig-typography__subtitle-1 content">
+                    {{ checkout().assemblyFee | currency }}
+                  </p>
+                } @else {
+                  <p class="complimentary-00-0">
+                    Included ($0.00)
+                  </p>
+                }
               </div>
+              @if (precisionTuning()) {
+                <div class="row-layout row-layout_13">
+                  <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                    Precision Thermal Tuning:
+                  </p>
+                  <p class="ig-typography__subtitle-1 content">
+                    {{ checkout().thermalTuningFee | currency }}
+                  </p>
+                </div>
+              }
               <div class="row-layout row-layout_13">
                 <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
-                  Fragile Freight Rig Crating &amp; Insurance:
+                  Fragile Freight Rig Crating &amp; Insurance ({{ shippingOption()?.label }}):
                 </p>
-                <p class="complimentary-00-0">
-                  Free Expedited
-                </p>
+                @if (checkout().shippingFee) {
+                  <p class="ig-typography__subtitle-1 content">
+                    {{ checkout().shippingFee | currency }}
+                  </p>
+                } @else {
+                  <p class="complimentary-00-0">
+                    Free Insured Ground
+                  </p>
+                }
               </div>
+              @if (checkout().paymentDiscount) {
+                <div class="row-layout row-layout_13">
+                  <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                    Wire Transfer / ACH Discount (1.5%):
+                  </p>
+                  <p class="complimentary-00-0">
+                    -{{ checkout().paymentDiscount | currency }}
+                  </p>
+                </div>
+              }
               <div class="row-layout row-layout_13">
                 <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
                   Estimated State &amp; Local Sales Tax (6.5%):
                 </p>
                 <p class="ig-typography__subtitle-1 content">
-                  $188.37
+                  {{ checkout().tax | currency }}
                 </p>
               </div>
             </div>
@@ -282,7 +317,7 @@
                 </p>
               </div>
               <h5 class="content_1">
-                $3,086.37
+                {{ checkout().finalTotal | currency }}
               </h5>
             </div>
           </div>
@@ -329,13 +364,71 @@
                 <ng-container igxEnd></ng-container>
               </igx-card-actions>
             </igx-card>
+            @if (confirmedOrder(); as order) {
+              <igx-card class="game-forge-rig-guarantee order-confirmed" role="status">
+                <igx-card-header>
+                  <h3 igxCardHeaderTitle>
+                    Order Confirmed
+                  </h3>
+                  <h5 igxCardHeaderSubtitle>
+                    Order {{ order.id }}
+                  </h5>
+                </igx-card-header>
+                <igx-card-content>
+                  <div class="column-layout column-layout_6">
+                    <div class="row-layout row-layout_5">
+                      <igx-icon class="icon" aria-hidden="true">
+                        check_circle
+                      </igx-icon>
+                      <p class="ig-typography__body-2 text">
+                        {{ order.configurationName }} ({{ order.lines.length }} parts) entered assembly.
+                      </p>
+                    </div>
+                    <div class="row-layout row-layout_5">
+                      <igx-icon class="icon_1" aria-hidden="true">
+                        local_shipping
+                      </igx-icon>
+                      <p class="ig-typography__body-2 text">
+                        {{ order.dispatch }}
+                      </p>
+                    </div>
+                    <div class="row-layout row-layout_8">
+                      <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                        Charged Total:
+                      </p>
+                      <p class="content_1">
+                        {{ order.pricing.finalTotal | currency }}
+                      </p>
+                    </div>
+                  </div>
+                </igx-card-content>
+                <igx-card-actions>
+                  <ng-container igxStart></ng-container>
+                  <ng-container igxEnd></ng-container>
+                </igx-card-actions>
+              </igx-card>
+            }
             <div class="column-layout column-layout_12">
-              <button igxButton="contained" type="button" (click)="confirmCustomRigOrder.toggle()" class="place-order">
-                <igx-icon class="icon_4">
-                  shopping_cart
-                </igx-icon>
-                <span>Place Order</span>
-              </button>
+              @if (confirmedOrder()) {
+                <button igxButton="contained" type="button" (click)="startNewBuild(snackbar)" class="place-order">
+                  <igx-icon class="icon_4">
+                    add_circle
+                  </igx-icon>
+                  <span>Start New Build</span>
+                </button>
+              } @else {
+                <button igxButton="contained" type="button" [disabled]="!canOrder()" (click)="openCheckout(confirmCustomRigOrder)" class="place-order">
+                  <igx-icon class="icon_4">
+                    shopping_cart
+                  </igx-icon>
+                  <span>Place Order</span>
+                </button>
+                @if (orderBlockReason(); as reason) {
+                  <p class="ig-typography__caption order-blocked" role="alert">
+                    {{ reason }}
+                  </p>
+                }
+              }
               <button igxButton="outlined" type="button" [routerLink]="[`/pc-builder`]" class="back-to-builder">
                 <igx-icon class="icon_5">
                   arrow_back
@@ -346,12 +439,12 @@
           </div>
         </div>
       </div>
-      <igx-dialog [closeOnOutsideSelect]="true" (leftButtonSelect)="confirmCustomRigOrder.toggle()" (rightButtonSelect)="confirmCustomRigOrder.toggle()" #confirmCustomRigOrder class="confirm-custom-rig-order">
+      <igx-dialog [closeOnOutsideSelect]="true" (leftButtonSelect)="confirmCustomRigOrder.close()" (rightButtonSelect)="confirmCustomRigOrder.close()" #confirmCustomRigOrder class="confirm-custom-rig-order">
         <igx-dialog-title>
           Confirm Custom Rig Order
         </igx-dialog-title>
         <ng-container>
-          <div class="column-layout column-layout_13">
+          <div class="column-layout column-layout_13" [formGroup]="checkoutForm">
             <p class="ig-typography__body-2 text">
               Please review your customized GameForge rig configuration and delivery preferences before submitting to the system integration queue.
             </p>
@@ -361,7 +454,7 @@
                   Configuration Profile:
                 </p>
                 <p class="content">
-                  GameForge Apex Rig (8 Selected Slots)
+                  {{ configurationName() }} ({{ filledSlotCount() }} Selected Slots)
                 </p>
               </div>
               <div class="row-layout row-layout_8">
@@ -369,7 +462,7 @@
                   Final Total (Tax &amp; Testing Included):
                 </p>
                 <p class="content_1">
-                  $3,086.37
+                  {{ checkout().finalTotal | currency }}
                 </p>
               </div>
               <div class="row-layout row-layout_8">
@@ -377,47 +470,58 @@
                   Estimated Dispatch:
                 </p>
                 <p class="ig-typography__caption text">
-                  3 - 5 Business Days via Insured Rig Freight
+                  {{ shippingOption()?.dispatch ?? 'Select a shipping tier' }}
                 </p>
               </div>
             </div>
-            <igx-select type="border" [(ngModel)]="value" class="shipping-logistics-tier">
-              <igx-select-item value="1">
+            <igx-select type="border" formControlName="shipping" class="shipping-logistics-tier">
+              <igx-select-item value="ground">
                 Complimentary Insured Ground Rig Freight (3-5 Days)
               </igx-select-item>
-              <igx-select-item value="2">
+              <igx-select-item value="express">
                 Express Air Rig Dispatch ($65.00 • 2 Days)
               </igx-select-item>
-              <igx-select-item value="3">
+              <igx-select-item value="white-glove">
                 White-Glove Hand Delivery &amp; Desk Setup ($140.00)
               </igx-select-item>
               <label igxLabel>Shipping &amp; Logistics Tier</label>
+              @if (checkoutForm.controls.shipping.invalid && (checkoutForm.controls.shipping.touched || submitAttempted())) {
+                <igx-hint>Choose a shipping tier.</igx-hint>
+              }
             </igx-select>
-            <igx-select type="border" [(ngModel)]="value1" class="shipping-logistics-tier">
-              <igx-select-item value="1">
+            <igx-select type="border" formControlName="payment" class="shipping-logistics-tier">
+              <igx-select-item value="ach">
                 Direct Wire Transfer / ACH (1.5% Instant Discount)
               </igx-select-item>
-              <igx-select-item value="2">
+              <igx-select-item value="card">
                 Credit Card (Visa / Mastercard / Amex)
               </igx-select-item>
-              <igx-select-item value="3">
+              <igx-select-item value="purchase-order">
                 Corporate Purchase Order / Net 30
               </igx-select-item>
               <label igxLabel>Payment Method</label>
+              @if (checkoutForm.controls.payment.invalid && (checkoutForm.controls.payment.touched || submitAttempted())) {
+                <igx-hint>Choose a payment method to place the order.</igx-hint>
+              }
             </igx-select>
+            @if (orderBlockReason(); as reason) {
+              <p class="ig-typography__caption order-blocked" role="alert">
+                {{ reason }}
+              </p>
+            }
           </div>
         </ng-container>
         <igx-dialog-actions>
-          <button igxButton="outlined" type="button" (click)="confirmCustomRigOrder.toggle()" class="cancel">
+          <button igxButton="outlined" type="button" (click)="confirmCustomRigOrder.close()" class="cancel">
             Cancel
           </button>
-          <button igxButton="contained" type="button" (click)="confirmCustomRigOrder.toggle()" class="confirm-place-order">
+          <button igxButton="contained" type="button" [disabled]="!canOrder()" (click)="confirmOrder(confirmCustomRigOrder, snackbar)" class="confirm-place-order">
             Confirm &amp; Place Order
           </button>
         </igx-dialog-actions>
       </igx-dialog>
-      <igx-snackbar actionText="Action" (clicked)="snackbar.toggle()" #snackbar class="snackbar">
-        Order placed successfully! Your custom GameForge PC build has entered assembly.
+      <igx-snackbar actionText="Dismiss" (clicked)="snackbar.close()" #snackbar class="snackbar">
+        Order {{ confirmedOrder()?.id }} placed successfully! Your custom GameForge PC build has entered assembly.
       </igx-snackbar>
     </div>
   </div>

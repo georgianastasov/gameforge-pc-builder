@@ -1,6 +1,6 @@
 import { FlagshipPCHardwareCatalog } from '../../static-data/flagship-pchardware-catalog';
 import { EliteFlagshipPCTrio } from '../../static-data/elite-flagship-pctrio';
-import { analyseBuild, analysePower, CheckId, SelectedParts } from './build-analysis';
+import { analyseBuild, analysePower, CheckId, SelectedParts, slotStatus } from './build-analysis';
 import { HARDWARE_CATEGORIES, HardwareCategory, HardwarePart } from './hardware-part';
 
 const part = (id: string): HardwarePart => {
@@ -90,5 +90,15 @@ describe('analyseBuild', () => {
     expect(statusOf(parts, 'gpu-clearance')).toBe('pending');
     expect(statusOf(parts, 'psu-capacity')).toBe('pending');
     expect(analysis.power.capacityW).toBeNull();
+  });
+
+  it('derives a per-slot status from the checks that involve it', () => {
+    const parts: SelectedParts = { ...withPart(presetParts('raptor'), 'cool-noctua-nh-d15-g2'), Storage: null };
+    const analysis = analyseBuild(parts);
+    expect(slotStatus(analysis, 'Cooling')).toBe('fail');
+    expect(slotStatus(analysis, 'Case')).toBe('fail');
+    expect(slotStatus(analysis, 'CPU')).toBe('warning');
+    expect(slotStatus(analysis, 'GPU')).toBe('pass');
+    expect(slotStatus(analysis, 'Storage')).toBe('pending');
   });
 });

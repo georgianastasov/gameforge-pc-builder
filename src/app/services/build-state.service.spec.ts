@@ -102,4 +102,14 @@ describe('BuildStateService', () => {
     TestBed.configureTestingModule({});
     expect(TestBed.inject(BuildStateService).filledSlotCount()).toBe(8);
   });
+
+  it('starts a new build: empty slots, default options and no saved configuration', () => {
+    service.precisionTuning.set(true);
+    service.saveConfiguration();
+    service.startNewBuild();
+    expect(service.filledSlotCount()).toBe(0);
+    expect(service.precisionTuning()).toBe(false);
+    expect(service.analysis().isComplete).toBe(false);
+    expect(localStorage.getItem('gameforge.savedBuild')).toBeNull();
+  });
 });

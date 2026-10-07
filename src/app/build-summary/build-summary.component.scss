@@ -500,3 +500,21 @@
   --ig-size: var(--ig-size-medium);
   height: max-content;
 }
+// Build-state variants of the generated card icons (same tokens as PC Builder).
+.icon,
+.icon_1,
+.icon_2 {
+  &.is-warning {
+    color: var(--ig-warn-600);
+  }
+  &.is-error {
+    color: var(--ig-error-600);
+  }
+}
+.order-blocked {
+  color: var(--ig-error-900);
+  height: max-content;
+}
+.order-confirmed {
+  border-left: 4px solid var(--ig-success-500);
+}

@@ -49,6 +49,9 @@ export class BuildStateService {
 
   public readonly totalSlotCount = HARDWARE_CATEGORIES.length;
 
+  /** Part ids per slot, e.g. for order snapshots. */
+  public readonly currentSelection = this.selection.asReadonly();
+
   /** The selected part for each slot (`null` when empty). */
   public readonly selectedParts = computed<Record<HardwareCategory, HardwarePart | null>>(() => {
     const selection = this.selection();
@@ -109,6 +112,13 @@ export class BuildStateService {
       precisionTuning: this.precisionTuning(),
       savedAt: Date.now()
     });
+  }
+
+  /** Clears every slot and option and forgets the saved configuration. */
+  public startNewBuild(): void {
+    this.clearAll();
+    this.resetOptions();
+    this.storage.clear();
   }
 
   public resetOptions(): void {

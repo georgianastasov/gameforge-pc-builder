@@ -173,6 +173,28 @@ function psuCheck(parts: SelectedParts, power: PowerReport): CompatibilityCheck 
 
 const SEVERITY: Record<CheckStatus, number> = { fail: 0, warning: 1, pending: 2, pass: 3 };
 
+/** The hardware slots each check inspects. */
+export const CHECK_SLOTS: Record<CheckId, readonly HardwareCategory[]> = {
+  'slots': [],
+  'cpu-socket': ['CPU', 'Motherboard'],
+  'ram-board': ['RAM', 'Motherboard'],
+  'board-case': ['Motherboard', 'Case'],
+  'gpu-clearance': ['GPU', 'Case'],
+  'cooling-case': ['Cooling', 'Case'],
+  'cooler-cpu': ['Cooling', 'CPU'],
+  'psu-capacity': ['PSU']
+};
+
+/** Worst status among the checks that involve `category`; `pending` for an empty slot. */
+export function slotStatus(analysis: BuildAnalysis, category: HardwareCategory): CheckStatus {
+  if (analysis.missingSlots.includes(category)) {
+    return 'pending';
+  }
+  return analysis.checks
+    .filter(c => CHECK_SLOTS[c.id].includes(category) && c.status !== 'pending')
+    .reduce<CheckStatus>((worst, c) => SEVERITY[c.status] < SEVERITY[worst] ? c.status : worst, 'pass');
+}
+
 /** Runs every power and compatibility rule against the current selection. */
 export function analyseBuild(parts: SelectedParts): BuildAnalysis {
   const missingSlots = HARDWARE_CATEGORIES.filter(category => !parts[category]);
