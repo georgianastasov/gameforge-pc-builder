@@ -466,3 +466,21 @@
   height: max-content;
   min-width: min-content;
 }
+.catalog-empty-state {
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px dashed var(--ig-gray-300);
+  border-radius: 12px;
+  background-color: var(--ig-surface-500);
+}
+.catalog-empty-state__icon {
+  --size: 40px;
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: var(--ig-primary-500);
+}

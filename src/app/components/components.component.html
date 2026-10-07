@@ -15,7 +15,7 @@
             </p>
           </div>
           <div class="row-layout row-layout_3">
-            <button igxButton="outlined" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="platform-specs">
+            <button igxButton="outlined" type="button" (click)="openSpecs(componentArchitecturalSpecifications, null)" class="platform-specs">
               <igx-icon class="icon">
                 architecture
               </igx-icon>
@@ -36,67 +36,73 @@
                 search
               </igx-icon>
             </igx-prefix>
-            <input type="search" [(ngModel)]="value" placeholder="Search CPU, GPU, chipset, or socket..." igxInput />
+            <input type="search" [(ngModel)]="searchTerm" placeholder="Search CPU, GPU, chipset, or socket..." igxInput />
             <label igxLabel>Search Hardware</label>
           </igx-input-group>
-          <igx-select type="border" placeholder="Select category" class="component-category">
-            <igx-select-item value="1">
+          <igx-select type="border" [(ngModel)]="category" placeholder="Select category" class="component-category">
+            <igx-select-item value="all">
               All Components
             </igx-select-item>
-            <igx-select-item value="2">
+            <igx-select-item value="CPU">
               Processors (CPU)
             </igx-select-item>
-            <igx-select-item value="3">
+            <igx-select-item value="GPU">
               Graphics Cards (GPU)
             </igx-select-item>
-            <igx-select-item value="4">
+            <igx-select-item value="Motherboard">
               Motherboards
             </igx-select-item>
-            <igx-select-item value="5">
+            <igx-select-item value="RAM">
               DDR5 Memory
             </igx-select-item>
-            <igx-select-item value="6">
+            <igx-select-item value="Storage">
               High-Speed Storage
             </igx-select-item>
-            <igx-select-item value="7">
+            <igx-select-item value="Cooling">
+              CPU Cooling
+            </igx-select-item>
+            <igx-select-item value="PSU">
               Power Supplies (PSU)
+            </igx-select-item>
+            <igx-select-item value="Case">
+              PC Cases
             </igx-select-item>
             <label igxLabel>Component Category</label>
           </igx-select>
-          <igx-select type="border" placeholder="Filter tier" class="component-category">
-            <igx-select-item value="1">
+          <igx-select type="border" [(ngModel)]="tier" placeholder="Filter tier" class="component-category">
+            <igx-select-item value="all">
               All Performance Tiers
             </igx-select-item>
-            <igx-select-item value="2">
+            <igx-select-item value="Flagship">
               Flagship Tier
             </igx-select-item>
-            <igx-select-item value="3">
+            <igx-select-item value="Enthusiast">
               Enthusiast Tier
             </igx-select-item>
-            <igx-select-item value="4">
+            <igx-select-item value="Mainstream">
               Mainstream Tier
             </igx-select-item>
             <label igxLabel>Performance Tier</label>
           </igx-select>
-          <igx-select type="border" placeholder="Filter socket" class="component-category">
-            <igx-select-item value="1">
+          <igx-select type="border" [(ngModel)]="platform" placeholder="Filter socket" class="component-category">
+            <igx-select-item value="all">
               All Sockets &amp; Standards
             </igx-select-item>
-            <igx-select-item value="2">
+            <igx-select-item value="am5">
               AMD Socket AM5
             </igx-select-item>
-            <igx-select-item value="3">
+            <igx-select-item value="lga1700">
               Intel LGA1700
             </igx-select-item>
-            <igx-select-item value="4">
+            <igx-select-item value="pcie5">
               PCIe 5.0 Dedicated
             </igx-select-item>
-            <igx-select-item value="5">
+            <igx-select-item value="atx">
               Standard ATX
             </igx-select-item>
             <label igxLabel>Socket &amp; Form Factor</label>
           </igx-select>
-          <button igxButton="flat" type="button" (click)="snackbar.toggle()" class="reset-filters">
+          <button igxButton="flat" type="button" (click)="resetFiltersWithNotice(snackbar)" class="reset-filters">
             <igx-icon class="icon">
               restart_alt
             </igx-icon>
@@ -107,7 +113,7 @@
           <p class="ig-typography__caption quick-filters">
             Quick Filters:
           </p>
-          <igx-chip class="all-hardware">
+          <igx-chip [selectable]="true" [selected]="!hasQuickFilters()" (selectedChanging)="onQuickFilterChanging($event, 'all')" class="all-hardware">
             <igx-prefix>
               <igx-icon class="icon_3">
                 place
@@ -115,7 +121,7 @@
             </igx-prefix>
             All Hardware
           </igx-chip>
-          <igx-chip class="all-hardware">
+          <igx-chip [selectable]="true" [selected]="isQuickFilterActive('processors')" (selectedChanging)="onQuickFilterChanging($event, 'processors')" class="all-hardware">
             <igx-prefix>
               <igx-icon class="icon_3">
                 place
@@ -123,7 +129,7 @@
             </igx-prefix>
             Processors (AM5 / LGA1700)
           </igx-chip>
-          <igx-chip class="all-hardware">
+          <igx-chip [selectable]="true" [selected]="isQuickFilterActive('gpus')" (selectedChanging)="onQuickFilterChanging($event, 'gpus')" class="all-hardware">
             <igx-prefix>
               <igx-icon class="icon_3">
                 place
@@ -131,7 +137,7 @@
             </igx-prefix>
             Discrete GPUs (PCIe 5.0)
           </igx-chip>
-          <igx-chip class="all-hardware">
+          <igx-chip [selectable]="true" [selected]="isQuickFilterActive('ddr5')" (selectedChanging)="onQuickFilterChanging($event, 'ddr5')" class="all-hardware">
             <igx-prefix>
               <igx-icon class="icon_3">
                 place
@@ -139,7 +145,7 @@
             </igx-prefix>
             DDR5 High-Frequency
           </igx-chip>
-          <igx-chip class="all-hardware">
+          <igx-chip [selectable]="true" [selected]="isQuickFilterActive('high-tdp')" (selectedChanging)="onQuickFilterChanging($event, 'high-tdp')" class="all-hardware">
             <igx-prefix>
               <igx-icon class="icon_3">
                 place
@@ -147,7 +153,7 @@
             </igx-prefix>
             High TDP &gt; 250W
           </igx-chip>
-          <igx-chip class="all-hardware">
+          <igx-chip [selectable]="true" [selected]="isQuickFilterActive('high-benchmark')" (selectedChanging)="onQuickFilterChanging($event, 'high-benchmark')" class="all-hardware">
             <igx-prefix>
               <igx-icon class="icon_3">
                 place
@@ -168,20 +174,20 @@
             </p>
           </div>
           <div class="row-layout row-layout_7">
-            <p class="ig-typography__body-2 text">
-              {{ flagshipPCHardwareCatalogHighEndPcHardware.length }} Components Verified
+            <p class="ig-typography__body-2 text" role="status" aria-live="polite">
+              {{ flagshipPCHardwareCatalogHighEndPcHardware().length }} {{ flagshipPCHardwareCatalogHighEndPcHardware().length === 1 ? 'Component' : 'Components' }} Verified
             </p>
-            <igx-select type="border" placeholder="Sort catalog" class="sort-by">
-              <igx-select-item value="1">
+            <igx-select type="border" [(ngModel)]="sortBy" placeholder="Sort catalog" class="sort-by">
+              <igx-select-item value="benchmark-desc">
                 Benchmark Score (High-Low)
               </igx-select-item>
-              <igx-select-item value="2">
+              <igx-select-item value="price-asc">
                 Price (Low-High)
               </igx-select-item>
-              <igx-select-item value="3">
+              <igx-select-item value="price-desc">
                 Price (High-Low)
               </igx-select-item>
-              <igx-select-item value="4">
+              <igx-select-item value="tdp-asc">
                 TDP Rating (Low-High)
               </igx-select-item>
               <label igxLabel>Sort By</label>
@@ -189,7 +195,7 @@
           </div>
         </div>
         <div class="row-layout row-layout_8">
-          @for (item of flagshipPCHardwareCatalogHighEndPcHardware; track item.id) {
+          @for (item of flagshipPCHardwareCatalogHighEndPcHardware(); track item.id) {
             <igx-card class="card">
               <igx-card-media height="200px">
                 <img [src]="item.imageUrl" [alt]="item.name" class="image" />
@@ -261,13 +267,13 @@
               </igx-card-content>
               <igx-card-actions>
                 <ng-container igxStart>
-                  <button igxButton="contained" type="button" (click)="selectForRig(item); snackbar.open()" class="select-for-rig">
+                  <button igxButton="contained" type="button" (click)="selectForRig(item, snackbar)" class="select-for-rig">
                     <igx-icon class="icon_1">
                       add_shopping_cart
                     </igx-icon>
                     <span>Select for Rig</span>
                   </button>
-                  <button igxButton="outlined" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="benchmarks">
+                  <button igxButton="outlined" type="button" (click)="openSpecs(componentArchitecturalSpecifications, item)" class="benchmarks">
                     <igx-icon class="icon_4">
                       analytics
                     </igx-icon>
@@ -277,6 +283,24 @@
                 <ng-container igxEnd></ng-container>
               </igx-card-actions>
             </igx-card>
+          } @empty {
+            <div class="column-layout catalog-empty-state">
+              <igx-icon class="catalog-empty-state__icon" aria-hidden="true">
+                search_off
+              </igx-icon>
+              <h6 class="content">
+                No components match your filters
+              </h6>
+              <p class="ig-typography__body-2 quick-filters">
+                Try a broader search term, another category or tier, or fewer quick filters.
+              </p>
+              <button igxButton="outlined" type="button" (click)="resetFilters()" class="reset-filters">
+                <igx-icon class="icon">
+                  restart_alt
+                </igx-icon>
+                <span>Reset Filters</span>
+              </button>
+            </div>
           }
         </div>
       </div>
@@ -482,7 +506,7 @@
           <button igxButton="flat" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="dismiss">
             Dismiss
           </button>
-          <button igxButton="contained" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="add-to-custom-build">
+          <button igxButton="contained" type="button" [disabled]="!dialogPart()" (click)="addDialogPart(componentArchitecturalSpecifications, snackbar)" class="add-to-custom-build">
             <igx-icon class="icon_1">
               add_circle
             </igx-icon>
@@ -490,8 +514,8 @@
           </button>
         </igx-dialog-actions>
       </igx-dialog>
-      <igx-snackbar actionText="Review Rig" (clicked)="snackbar.toggle()" #snackbar class="snackbar">
-        Component added to custom build configuration.
+      <igx-snackbar actionText="Review Rig" (clicked)="reviewRig(snackbar)" #snackbar class="snackbar">
+        {{ snackbarMessage() }}
       </igx-snackbar>
     </div>
   </div>
