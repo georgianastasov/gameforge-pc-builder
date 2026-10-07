@@ -512,3 +512,36 @@
   --ig-size: var(--ig-size-medium);
   height: max-content;
 }
+// Build-state variants of the generated success styling (icons: 600, text: 900).
+.icon_3,
+.icon_5 {
+  &.is-warning {
+    color: var(--ig-warn-600);
+  }
+  &.is-error {
+    color: var(--ig-error-600);
+  }
+}
+.physical-clearance-bus-check,
+.check-issue {
+  &.is-warning {
+    color: var(--ig-warn-900);
+  }
+  &.is-error {
+    color: var(--ig-error-900);
+  }
+}
+.icon_5 {
+  flex-shrink: 0;
+}
+// The full 8-part review is taller than small viewports; keep the dialog actions visible.
+.review-scroll-region {
+  max-height: min(60vh, 640px);
+  max-width: 760px;
+  overflow-y: auto;
+  padding-right: 8px;
+  &:focus-visible {
+    outline: 2px solid var(--ig-primary-500);
+    outline-offset: 2px;
+  }
+}

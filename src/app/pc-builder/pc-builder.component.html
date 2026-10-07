@@ -15,8 +15,8 @@
             </p>
           </div>
           <div class="row-layout row-layout_3">
-            <igx-badge type="success" value="100% Clearance Verified" class="clearance-verified"></igx-badge>
-            <igx-badge value="Socket AM5 / ATX Platform" class="clearance-verified"></igx-badge>
+            <igx-badge [type]="clearanceBadge().type" [value]="clearanceBadge().value" class="clearance-verified"></igx-badge>
+            <igx-badge [type]="platformBadge().type" [value]="platformBadge().value" class="clearance-verified"></igx-badge>
           </div>
         </div>
         <div class="row-layout row-layout_4">
@@ -139,16 +139,22 @@
           </div>
           <div class="column-layout column-layout_7">
             <div class="row-layout row-layout_10">
-              <igx-icon class="icon_3">
-                verified
+              <igx-icon class="icon_3" [class.is-warning]="analysis().health === 'warning'" [class.is-error]="analysis().health === 'fail'" aria-hidden="true">
+                {{ statusIcon[analysis().health] }}
               </igx-icon>
-              <p class="physical-clearance-bus-check">
+              <p class="physical-clearance-bus-check" [class.is-warning]="analysis().health === 'warning'" [class.is-error]="analysis().health === 'fail'">
                 Physical Clearance &amp; Bus Check
               </p>
             </div>
-            <p class="ig-typography__caption text_2">
-              Motherboard VRM clearance verified. RAM heatsink profile clears 360mm AIO liquid cooling block. PCIe 5.0 x16 lanes routed without lane bifurcation penalties.
-            </p>
+            @for (issue of analysis().issues; track issue.id) {
+              <p class="ig-typography__caption text_2 check-issue" [class.is-warning]="issue.status === 'warning'" [class.is-error]="issue.status === 'fail'">
+                <strong>{{ issue.label }}:</strong> {{ issue.detail }}
+              </p>
+            } @empty {
+              <p class="ig-typography__caption text_2">
+                {{ clearanceSummary() }}
+              </p>
+            }
           </div>
           <div class="column-layout column-layout_8">
             <div class="row-layout row-layout_11">
@@ -156,16 +162,22 @@
                 Estimated Total TDP Load
               </p>
               <p class="content_1">
-                620W / 1000W
+                {{ power().drawW }}W / {{ power().capacityW ? power().capacityW + 'W' : 'No PSU' }}
               </p>
             </div>
-            <igx-linear-bar [value]="62" [animationDuration]="500" textAlign="center" [textTop]="true" class="true"></igx-linear-bar>
+            <igx-linear-bar [value]="loadBar().value" [text]="loadBar().text" [type]="loadBar().type" [animationDuration]="500" textAlign="center" [textTop]="true" aria-label="PSU load" class="true"></igx-linear-bar>
             <div class="row-layout row-layout_11">
               <p class="ig-typography__caption text_2">
-                Headroom: 380W (38% buffer)
+                @if (!power().capacityW) {
+                  Headroom: select a PSU
+                } @else if (power().headroomW >= 0) {
+                  Headroom: {{ power().headroomW }}W ({{ power().headroomPct }}% buffer)
+                } @else {
+                  Over capacity: {{ -power().headroomW }}W
+                }
               </p>
-              <p class="ig-typography__caption physical-clearance-bus-check">
-                Optimal 80+ Titanium Range
+              <p class="ig-typography__caption physical-clearance-bus-check" [class.is-warning]="power().status === 'warning'" [class.is-error]="power().status === 'fail'">
+                {{ power().summary }}
               </p>
             </div>
           </div>
@@ -178,7 +190,7 @@
                 Hardware Subtotal ({{ filledSlotCount() }} Parts)
               </p>
               <p class="content">
-                {{ subtotal() | currency }}
+                {{ pricing().subtotal | currency }}
               </p>
             </div>
             <div class="row-layout row-layout_12">
@@ -186,7 +198,7 @@
                 Assembly &amp; Testing Protocol:
               </p>
               <p class="content_1">
-                {{ assemblyTier }}
+                {{ assemblyTier() }} ({{ pricing().assemblyFee ? '+' + (pricing().assemblyFee | currency) : 'Included' }})
               </p>
             </div>
             <div class="row-layout row-layout_12">
@@ -194,7 +206,7 @@
                 Thermal Calibration Active:
               </p>
               <p class="content_1">
-                {{ precisionTuning }}
+                {{ precisionTuning() ? 'Yes (+' + (pricing().thermalTuningFee | currency) + ')' : 'No' }}
               </p>
             </div>
             <div class="row-layout row-layout_12">
@@ -210,7 +222,7 @@
                 Estimated Total
               </h6>
               <h5 class="content_1">
-                {{ subtotal() | currency }}
+                {{ pricing().total | currency }}
               </h5>
             </div>
           </div>
@@ -221,7 +233,7 @@
               </igx-icon>
               <span>Review Build</span>
             </button>
-            <button igxButton="outlined" type="button" (click)="snackbar.toggle()" class="save-configuration">
+            <button igxButton="outlined" type="button" (click)="saveConfiguration(snackbar)" class="save-configuration">
               <igx-icon class="icon">
                 save
               </igx-icon>
@@ -235,59 +247,93 @@
           Rig Architecture Audit &amp; Checkout Review
         </igx-dialog-title>
         <ng-container>
-          <div class="column-layout column-layout_11">
+          <div class="column-layout column-layout_11 review-scroll-region" tabindex="0" role="region" aria-label="Build review details">
             <p class="ig-typography__body-2 text_1">
               Review full 8-slot component specifications, thermal load envelope, and final assembly details before dispatching to engineering assembly.
             </p>
             <div class="column-layout column-layout_8">
+              @for (row of reviewRows(); track row.category) {
+                <div class="row-layout row-layout_11">
+                  <p class="content">
+                    {{ row.label }}
+                  </p>
+                  <p class="ig-typography__body-2 text_1">
+                    @if (row.part; as part) {
+                      {{ part.name }} ({{ part.specsDetail }}) &middot; {{ part.price | currency }}
+                    } @else {
+                      Not selected
+                    }
+                  </p>
+                </div>
+              }
+            </div>
+            <div class="column-layout column-layout_8">
               <div class="row-layout row-layout_11">
                 <p class="content">
-                  CPU &amp; Socket:
+                  Estimated Power Draw:
                 </p>
                 <p class="ig-typography__body-2 text_1">
-                  AMD Ryzen 9 7950X (16C/32T, 5.7 GHz, Socket AM5, 170W TDP)
+                  {{ power().drawW }}W / {{ power().capacityW ? power().capacityW + 'W' : 'No PSU' }} ({{ power().utilisationPct }}% load)
                 </p>
               </div>
               <div class="row-layout row-layout_11">
                 <p class="content">
-                  GPU &amp; VRAM:
+                  Hardware Subtotal ({{ filledSlotCount() }} Parts):
                 </p>
                 <p class="ig-typography__body-2 text_1">
-                  NVIDIA GeForce RTX 4090 24GB GDDR6X (PCIe 4.0 x16, 450W TDP)
+                  {{ pricing().subtotal | currency }}
                 </p>
               </div>
               <div class="row-layout row-layout_11">
                 <p class="content">
-                  Motherboard:
+                  {{ assemblyTier() }}:
                 </p>
                 <p class="ig-typography__body-2 text_1">
-                  ASUS ROG Crosshair X670E Hero (ATX, PCIe 5.0, USB4)
+                  {{ pricing().assemblyFee ? (pricing().assemblyFee | currency) : 'Included' }}
                 </p>
               </div>
               <div class="row-layout row-layout_11">
                 <p class="content">
-                  Memory:
+                  Precision Thermal Tuning:
                 </p>
                 <p class="ig-typography__body-2 text_1">
-                  G.Skill Trident Z5 64GB (2x32GB) DDR5-6000 CL30 EXPO
+                  {{ precisionTuning() ? (pricing().thermalTuningFee | currency) : 'Not selected' }}
                 </p>
               </div>
               <div class="row-layout row-layout_11">
                 <p class="content">
-                  Storage:
+                  Estimated Total:
                 </p>
-                <p class="ig-typography__body-2 text_1">
-                  Samsung 990 Pro 2TB NVMe M.2 (PCIe 4.0, 7,450 MB/s)
-                </p>
-              </div>
-              <div class="row-layout row-layout_11">
-                <p class="content">
-                  Power Supply:
-                </p>
-                <p class="ig-typography__body-2 text_1">
-                  Seasonic Prime TX-1000 ATX 3.0 (1000W, 80+ Titanium)
+                <p class="content_1">
+                  {{ pricing().total | currency }}
                 </p>
               </div>
+            </div>
+            <div class="column-layout column-layout_8">
+              @for (issue of analysis().issues; track issue.id) {
+                <div class="row-layout row-layout_14">
+                  <igx-icon class="icon_5" [class.is-warning]="issue.status === 'warning'" [class.is-error]="issue.status === 'fail'" aria-hidden="true">
+                    {{ statusIcon[issue.status] }}
+                  </igx-icon>
+                  <p class="ig-typography__caption text_2 check-issue" [class.is-warning]="issue.status === 'warning'" [class.is-error]="issue.status === 'fail'">
+                    <strong>{{ issue.label }}:</strong> {{ issue.detail }}
+                  </p>
+                </div>
+              } @empty {
+                <div class="row-layout row-layout_14">
+                  <igx-icon class="icon_3" aria-hidden="true">
+                    verified
+                  </igx-icon>
+                  <p class="ig-typography__caption physical-clearance-bus-check">
+                    All {{ analysis().checks.length }} compatibility and power checks passed.
+                  </p>
+                </div>
+              }
+              @if (!canCheckout()) {
+                <p class="ig-typography__caption text_2 check-issue is-error">
+                  Resolve the conflicts above before proceeding to checkout.
+                </p>
+              }
             </div>
             <div class="row-layout row-layout_14">
               <igx-icon class="icon_5">
@@ -303,13 +349,13 @@
           <button igxButton="flat" type="button" (click)="rigArchitectureAuditCheckoutReview.toggle()" class="return-to-builder">
             Return to Builder
           </button>
-          <button igxButton="contained" type="button" (click)="rigArchitectureAuditCheckoutReview.toggle()" class="proceed-to-checkout">
+          <button igxButton="contained" type="button" [disabled]="!canCheckout()" (click)="proceedToCheckout(rigArchitectureAuditCheckoutReview)" class="proceed-to-checkout">
             Proceed to Checkout
           </button>
         </igx-dialog-actions>
       </igx-dialog>
-      <igx-snackbar actionText="Dismiss" (clicked)="snackbar.toggle()" #snackbar class="snackbar">
-        Custom rig configuration successfully validated and saved to session.
+      <igx-snackbar actionText="Dismiss" (clicked)="snackbar.close()" #snackbar class="snackbar">
+        {{ snackbarMessage() }}
       </igx-snackbar>
     </div>
   </div>

@@ -1,7 +1,10 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { analyseBuild } from '../models/hardware/build-analysis';
 import { BuildPreset, BuildSelection } from '../models/hardware/build-preset';
+import { AssemblyTier, calculatePricing, DEFAULT_ASSEMBLY_TIER } from '../models/hardware/build-pricing';
 import { BuildSlot } from '../models/hardware/build-slot';
 import { HARDWARE_CATEGORIES, HardwareCategory, HardwarePart } from '../models/hardware/hardware-part';
+import { BuildStorageService } from './build-storage.service';
 import { EliteFlagshipPCTrioService } from './elite-flagship-pctrio.service';
 import { FlagshipPCHardwareCatalogService } from './flagship-pchardware-catalog.service';
 
@@ -39,6 +42,7 @@ function toSlot(category: HardwareCategory, part: HardwarePart | null): BuildSlo
 export class BuildStateService {
   private readonly catalog = inject(FlagshipPCHardwareCatalogService);
   private readonly presetService = inject(EliteFlagshipPCTrioService);
+  private readonly storage = inject(BuildStorageService);
 
   private readonly selection = signal<BuildSelection>(emptySelection());
   private readonly loadedPresetId = signal<string | null>(null);
@@ -65,6 +69,15 @@ export class BuildStateService {
 
   public readonly subtotal = computed(() => this.slots().reduce((sum, slot) => sum + slot.price, 0));
 
+  /** Assembly & testing options chosen in PC Builder; they are priced into `pricing`. */
+  public readonly assemblyTier = signal<AssemblyTier>(DEFAULT_ASSEMBLY_TIER);
+  public readonly precisionTuning = signal(false);
+
+  /** Live power budget and compatibility report for the current selection. */
+  public readonly analysis = computed(() => analyseBuild(this.selectedParts()));
+
+  public readonly pricing = computed(() => calculatePricing(this.subtotal(), this.assemblyTier(), this.precisionTuning()));
+
   /** The preset last loaded, or `null` once the build has been changed. */
   public readonly activePreset = computed<BuildPreset | null>(() => {
     const id = this.loadedPresetId();
@@ -72,11 +85,35 @@ export class BuildStateService {
   });
 
   constructor() {
-    // Start from the first featured configuration so every page has a full rig to show.
+    // Restore the saved configuration; otherwise start from the first featured preset.
+    const saved = this.storage.load();
+    if (saved) {
+      this.selection.set(saved.selection);
+      this.loadedPresetId.set(saved.presetId);
+      this.assemblyTier.set(saved.assemblyTier);
+      this.precisionTuning.set(saved.precisionTuning);
+      return;
+    }
     const [defaultPreset] = this.presetService.presets;
     if (defaultPreset) {
       this.loadPreset(defaultPreset.id);
     }
+  }
+
+  /** Persists the current build and options so they are restored after a reload. */
+  public saveConfiguration(): boolean {
+    return this.storage.save({
+      selection: this.selection(),
+      presetId: this.loadedPresetId(),
+      assemblyTier: this.assemblyTier(),
+      precisionTuning: this.precisionTuning(),
+      savedAt: Date.now()
+    });
+  }
+
+  public resetOptions(): void {
+    this.assemblyTier.set(DEFAULT_ASSEMBLY_TIER);
+    this.precisionTuning.set(false);
   }
 
   public loadPreset(presetId: string): void {

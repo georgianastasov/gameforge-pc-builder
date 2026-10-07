@@ -4,11 +4,14 @@ import { EliteFlagshipPCTrioService } from './elite-flagship-pctrio.service';
 import { FlagshipPCHardwareCatalogService } from './flagship-pchardware-catalog.service';
 
 describe('BuildStateService', () => {
+  afterEach(() => localStorage.clear());
+
   let service: BuildStateService;
   let catalog: FlagshipPCHardwareCatalogService;
   let presets: EliteFlagshipPCTrioService;
 
   beforeEach(() => {
+    localStorage.clear();
     TestBed.configureTestingModule({});
     service = TestBed.inject(BuildStateService);
     catalog = TestBed.inject(FlagshipPCHardwareCatalogService);
@@ -54,5 +57,49 @@ describe('BuildStateService', () => {
     service.clearAll();
     expect(service.filledSlotCount()).toBe(0);
     expect(service.subtotal()).toBe(0);
+  });
+
+  it('prices the assembly options into the build total', () => {
+    const subtotal = service.subtotal();
+    service.assemblyTier.set('Extreme Benchmarking & Burn-in');
+    service.precisionTuning.set(true);
+    expect(service.pricing().total).toBe(subtotal + 149 + 79);
+    service.resetOptions();
+    expect(service.pricing().total).toBe(subtotal);
+  });
+
+  it('exposes a live compatibility analysis', () => {
+    expect(service.analysis().health).toBe('pass');
+    service.selectPart(catalog.getPartById('cpu-core-i7-14700k')!);
+    expect(service.analysis().issues.map(issue => issue.id)).toContain('cpu-socket');
+  });
+
+  it('restores the saved build and options in a fresh service', () => {
+    service.loadPreset('raptor');
+    service.selectPart(catalog.getPartById('gpu-rtx-5080-fe')!);
+    service.assemblyTier.set('Precision Stress-Testing');
+    service.precisionTuning.set(true);
+    expect(service.saveConfiguration()).toBe(true);
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    const restored = TestBed.inject(BuildStateService);
+    expect(restored.selectedParts().CPU?.id).toBe('cpu-core-i7-14700k');
+    expect(restored.selectedParts().GPU?.id).toBe('gpu-rtx-5080-fe');
+    expect(restored.assemblyTier()).toBe('Precision Stress-Testing');
+    expect(restored.precisionTuning()).toBe(true);
+    expect(restored.pricing().total).toBe(service.pricing().total);
+  });
+
+  it('ignores corrupt or stale saved data', () => {
+    localStorage.setItem('gameforge.savedBuild', '{not json');
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    expect(TestBed.inject(BuildStateService).activePreset()?.id).toBe(presets.presets[0].id);
+
+    localStorage.setItem('gameforge.savedBuild', JSON.stringify({ version: 1, selection: { CPU: 'retired-part', GPU: 'cpu-ryzen7-9800x3d' } }));
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    expect(TestBed.inject(BuildStateService).filledSlotCount()).toBe(8);
   });
 });
