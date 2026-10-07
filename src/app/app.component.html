@@ -1,0 +1,144 @@
+<igx-navbar class="top-nav-bar">
+  <igx-navbar-title class="navbar-content">
+    <div class="row-layout nav-brand-group">
+      <igx-icon class="nav-brand-icon">
+        memory
+      </igx-icon>
+      <h6 class="content">
+        GameForge
+      </h6>
+    </div>
+    <button igxButton="flat" type="button" [routerLink]="[`/home`]" class="nav-btn-home">
+      Home
+    </button>
+    <button igxButton="flat" type="button" [routerLink]="[`/pc-builder`]" class="nav-btn-home">
+      PC Builder
+    </button>
+    <button igxButton="flat" type="button" [routerLink]="[`/components`]" class="nav-btn-home">
+      Components
+    </button>
+    <button igxButton="flat" type="button" [routerLink]="[`/build-summary`]" class="nav-btn-home">
+      Build Summary
+    </button>
+  </igx-navbar-title>
+</igx-navbar>
+<div class="view-container-main">
+  <router-outlet></router-outlet>
+</div>
+<div class="column-layout column-layout_1">
+  <div class="column-layout site-footer">
+    <div class="row-layout footer-columns">
+      <div class="column-layout brand-column">
+        <igx-badge type="info" value="Precision PC Configurator" class="brand-badge"></igx-badge>
+        <div class="row-layout brand-header">
+          <igx-icon class="nav-brand-icon">
+            sports_esports
+          </igx-icon>
+          <h3 class="content">
+            GameForge
+          </h3>
+        </div>
+        <p class="ig-typography__body-2 brand-tagline">
+          Engineered for enthusiasts building custom gaming and workstation rigs with surgical compatibility checks and thermal headroom validation.
+        </p>
+        <div class="row-layout brand-chips">
+          <igx-chip class="pcie-chip">
+            <igx-prefix>
+              <igx-icon class="icon">
+                developer_board
+              </igx-icon>
+            </igx-prefix>
+            PCIe 5.0 Clearance
+          </igx-chip>
+          <igx-chip class="pcie-chip">
+            <igx-prefix>
+              <igx-icon class="icon">
+                bolt
+              </igx-icon>
+            </igx-prefix>
+            ATX 3.1 &amp; 12V-2x6
+          </igx-chip>
+        </div>
+      </div>
+      <div class="column-layout navigation-column">
+        <p class="ig-typography__subtitle-2 content">
+          Configurator Views
+        </p>
+        <div class="column-layout nav-buttons-list">
+          <button igxButton="flat" type="button" [routerLink]="[`/home`]" class="nav-btn-home">
+            <igx-icon class="icon_1">
+              home
+            </igx-icon>
+            <span>Home</span>
+          </button>
+          <button igxButton="flat" type="button" [routerLink]="[`/pc-builder`]" class="nav-btn-home">
+            <igx-icon class="icon_1">
+              tune
+            </igx-icon>
+            <span>PC Builder</span>
+          </button>
+          <button igxButton="flat" type="button" [routerLink]="[`/components`]" class="nav-btn-home">
+            <igx-icon class="icon_1">
+              memory
+            </igx-icon>
+            <span>Components</span>
+          </button>
+          <button igxButton="flat" type="button" [routerLink]="[`/build-summary`]" class="nav-btn-home">
+            <igx-icon class="icon_1">
+              fact_check
+            </igx-icon>
+            <span>Build Summary</span>
+          </button>
+        </div>
+      </div>
+      <div class="column-layout support-column">
+        <p class="ig-typography__subtitle-2 content">
+          Hardware Support
+        </p>
+        <div class="column-layout support-list">
+          <div class="row-layout contact-email">
+            <igx-icon class="icon">
+              mail
+            </igx-icon>
+            <p class="ig-typography__body-2 brand-tagline">
+              support&#64;gameforge.tech
+            </p>
+          </div>
+          <div class="row-layout contact-email">
+            <igx-icon class="icon">
+              call
+            </igx-icon>
+            <p class="ig-typography__body-2 brand-tagline">
+              +1 (800) 426-3674
+            </p>
+          </div>
+          <div class="row-layout contact-email">
+            <igx-icon class="icon">
+              schedule
+            </igx-icon>
+            <p class="ig-typography__caption brand-tagline">
+              Mon–Fri: 08:00 – 18:00 EST
+            </p>
+          </div>
+        </div>
+        <button igxButton="outlined" type="button" class="contact-button">
+          <igx-icon class="icon_1">
+            chat
+          </igx-icon>
+          <span>Direct Architecture Desk</span>
+        </button>
+      </div>
+    </div>
+    <div class="row-layout footer-baseline-row">
+      <p class="ig-typography__body-2 brand-tagline">
+        © 2026 GameForge. All rights reserved.
+      </p>
+      <div class="row-layout baseline-meta-row">
+        <p class="ig-typography__caption brand-tagline">
+          Hardware Engine v2.4
+        </p>
+        <igx-badge type="success" value="Systems Nominal" class="brand-badge"></igx-badge>
+      </div>
+    </div>
+  </div>
+</div>

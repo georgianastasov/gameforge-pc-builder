@@ -1,0 +1,27 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { IgxBadgeComponent, IGX_SELECT_DIRECTIVES, IGX_INPUT_GROUP_DIRECTIVES, IgxSwitchComponent, IgxButtonDirective, IgxIconComponent, IGX_CHIPS_DIRECTIVES, IGX_CARD_DIRECTIVES, IgxAvatarComponent, IGX_LINEAR_PROGRESS_BAR_DIRECTIVES, IGX_DIALOG_DIRECTIVES, IgxSnackbarComponent } from '@infragistics/igniteui-angular';
+import { PCBuilderComponent } from './pc-builder.component';
+
+describe('PCBuilderComponent', () => {
+  let component: PCBuilderComponent;
+  let fixture: ComponentFixture<PCBuilderComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [PCBuilderComponent, NoopAnimationsModule, FormsModule, ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, IgxBadgeComponent, IGX_SELECT_DIRECTIVES, IGX_INPUT_GROUP_DIRECTIVES, IgxSwitchComponent, IgxButtonDirective, IgxIconComponent, IGX_CHIPS_DIRECTIVES, IGX_CARD_DIRECTIVES, IgxAvatarComponent, IGX_LINEAR_PROGRESS_BAR_DIRECTIVES, IGX_DIALOG_DIRECTIVES, IgxSnackbarComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(PCBuilderComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

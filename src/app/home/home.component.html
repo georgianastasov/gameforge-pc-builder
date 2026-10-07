@@ -1,0 +1,254 @@
+<div class="column-layout placeholder-home">
+  <div class="row-layout row-layout_1">
+    <div class="column-layout column-layout_1">
+      <div class="column-layout column-layout_2">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_3">
+            <igx-badge value="PRECISION HARDWARE ARCHITECTURE // 2025" class="badge"></igx-badge>
+            <h3 class="content">
+              Bespoke Flagship PCs Engineered for Peak Output
+            </h3>
+            <p class="text">
+              Design your dream workstation or high-frame-rate battle station. Real-time TDP headroom calculation, millimeter mechanical clearance validation, and socket architecture pairing with zero compromise.
+            </p>
+            <div class="row-layout row-layout_3">
+              <button igxButton="contained" type="button" [routerLink]="[`/pc-builder`]" class="build-your-pc">
+                <igx-icon class="icon">
+                  hardware
+                </igx-icon>
+                <span>Build Your PC</span>
+              </button>
+              <button igxButton="outlined" type="button" [routerLink]="[`/components`]" class="browse-components">
+                <igx-icon class="icon_1">
+                  storage
+                </igx-icon>
+                <span>Browse Components</span>
+              </button>
+            </div>
+            <div class="row-layout row-layout_4">
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_5">
+                  <igx-icon class="icon_2">
+                    sports_esports
+                  </igx-icon>
+                  <p class="ig-typography__subtitle-2 content">
+                    4K Gaming
+                  </p>
+                </div>
+                <p class="ig-typography__caption high-clock-speed-frame-timing">
+                  High Clock Speed &amp; Frame Timing
+                </p>
+              </div>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_5">
+                  <igx-icon class="icon_3">
+                    memory
+                  </igx-icon>
+                  <p class="ig-typography__subtitle-2 content">
+                    Creator Studio
+                  </p>
+                </div>
+                <p class="ig-typography__caption high-clock-speed-frame-timing">
+                  Maximum VRAM &amp; Multi-Thread
+                </p>
+              </div>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_5">
+                  <igx-icon class="icon_4">
+                    speed
+                  </igx-icon>
+                  <p class="ig-typography__subtitle-2 content">
+                    Enthusiast OC
+                  </p>
+                </div>
+                <p class="ig-typography__caption high-clock-speed-frame-timing">
+                  Unlocked TDP Liquid Loops
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column-layout column-layout_5">
+            <img src="/assets/custom-liquid-cooled-graphite-c79123e8fdf1.png" alt="" class="image" />
+            <div class="row-layout row-layout_6">
+              <div class="row-layout row-layout_7">
+                <igx-icon class="icon_5">
+                  developer_board
+                </igx-icon>
+                <p class="ig-typography__caption text">
+                  PCIe 5.0 x16 Bus
+                </p>
+              </div>
+              <div class="row-layout row-layout_7">
+                <igx-icon class="icon_5">
+                  tune
+                </igx-icon>
+                <p class="ig-typography__caption text">
+                  DDR5 Low-Latency
+                </p>
+              </div>
+              <div class="row-layout row-layout_7">
+                <igx-icon class="icon_5">
+                  bolt
+                </igx-icon>
+                <p class="ig-typography__caption text">
+                  ATX 3.0 1200W Ready
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column-layout column-layout_2">
+        <div class="row-layout row-layout_8">
+          <div class="column-layout column-layout_6">
+            <h5 class="content">
+              Featured Flagship Configurations
+            </h5>
+            <p class="ig-typography__body-2 high-clock-speed-frame-timing">
+              Turnkey custom builds calibrated for thermal efficiency, high clock speed retention, and acoustic discipline.
+            </p>
+          </div>
+          <igx-badge type="info" value="BENCHMARK CERTIFIED" class="badge"></igx-badge>
+        </div>
+        <div class="row-layout row-layout_9">
+          @for (item of eliteFlagshipPCTrioCustomPcBuilds; track item) {
+            <igx-card class="card">
+              <igx-card-media height="200px">
+                <img [src]="item.imageUrl" alt="" class="image_1" />
+              </igx-card-media>
+              <igx-card-header>
+                <h3 igxCardHeaderTitle>
+                  {{ item.name }}
+                </h3>
+                <h5 igxCardHeaderSubtitle>
+                  {{ item.tier }}
+                </h5>
+              </igx-card-header>
+              <igx-card-content>
+                <div class="column-layout column-layout_7">
+                  <div class="row-layout row-layout_10">
+                    <p class="ig-typography__caption high-clock-speed-frame-timing">
+                      Benchmark Score
+                    </p>
+                    <igx-badge [value]="item.benchmarkScore?.toString() ?? ''" class="badge"></igx-badge>
+                  </div>
+                  <div class="column-layout column-layout_8">
+                    <p class="ig-typography__caption high-clock-speed-frame-timing">
+                      Architecture Specification
+                    </p>
+                    <p class="ig-typography__body-2 text">
+                      {{ item.specsSummary }}
+                    </p>
+                  </div>
+                  <div class="row-layout row-layout_11">
+                    <p class="ig-typography__caption high-clock-speed-frame-timing">
+                      Configured Baseline
+                    </p>
+                    <div class="row-layout row-layout_12">
+                      <p class="text_1">
+                        $
+                      </p>
+                      <p class="content">
+                        {{ item.price }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </igx-card-content>
+              <igx-card-actions>
+                <ng-container igxStart>
+                  <button igxButton="contained" type="button" [routerLink]="[`/pc-builder`]" class="configure-build">
+                    <igx-icon class="icon">
+                      tune
+                    </igx-icon>
+                    <span>Configure Build</span>
+                  </button>
+                  <button igxButton="outlined" type="button" [routerLink]="[`/pc-builder`]" class="inspect-rig">
+                    Inspect Rig
+                  </button>
+                </ng-container>
+                <ng-container igxEnd></ng-container>
+              </igx-card-actions>
+            </igx-card>
+          }
+        </div>
+      </div>
+      <div class="column-layout column-layout_2">
+        <div class="column-layout column-layout_9">
+          <h5 class="content">
+            The GameForge Engineering Protocol
+          </h5>
+          <p class="ig-typography__body-2 high-clock-speed-frame-timing">
+            Every bespoke machine progresses through four phases of mechanical clearance, thermal stress profiling, and electrical verification.
+          </p>
+        </div>
+        <div class="row-layout row-layout_13">
+          <div class="column-layout column-layout_10">
+            <div class="row-layout row-layout_10">
+              <igx-avatar shape="rounded" class="avatar avatar_3">
+                <igx-icon class="icon">
+                  layers
+                </igx-icon>
+              </igx-avatar>
+              <igx-badge value="PHASE 01" class="badge"></igx-badge>
+            </div>
+            <h6 class="content">
+              Component Architecture
+            </h6>
+            <p class="ig-typography__body-2 text">
+              Pair CPU sockets, motherboard chipsets, DDR5 frequency ceilings, and PCIe 5.0 lanes with guaranteed socket alignment.
+            </p>
+          </div>
+          <div class="column-layout column-layout_10">
+            <div class="row-layout row-layout_10">
+              <igx-avatar shape="rounded" class="avatar_1 avatar_1_1">
+                <igx-icon class="icon_6">
+                  straighten
+                </igx-icon>
+              </igx-avatar>
+              <igx-badge type="info" value="PHASE 02" class="badge"></igx-badge>
+            </div>
+            <h6 class="content">
+              Clearance &amp; Wattage
+            </h6>
+            <p class="ig-typography__body-2 text">
+              Millimeter chassis audits verify GPU clearance, liquid radiator displacement, and transient wattage draw under peak load.
+            </p>
+          </div>
+          <div class="column-layout column-layout_10">
+            <div class="row-layout row-layout_10">
+              <igx-avatar shape="rounded" class="avatar_2 avatar_2_1">
+                <igx-icon class="icon_7">
+                  thermostat
+                </igx-icon>
+              </igx-avatar>
+              <igx-badge type="warning" value="PHASE 03" class="badge"></igx-badge>
+            </div>
+            <h6 class="content">
+              Thermal Stress Profiling
+            </h6>
+            <p class="ig-typography__body-2 text">
+              Continuous 72-hour benchmark testing audits VRM junction temperatures, fan acoustic curves, and sustained clock speed stability.
+            </p>
+          </div>
+          <div class="column-layout column-layout_10">
+            <div class="row-layout row-layout_10">
+              <igx-avatar shape="rounded" class="avatar_1 avatar_1_2">
+                <igx-icon class="icon_6">
+                  verified
+                </igx-icon>
+              </igx-avatar>
+              <igx-badge type="success" value="PHASE 04" class="badge"></igx-badge>
+            </div>
+            <h6 class="content">
+              White-Glove Dispatch
+            </h6>
+            <p class="ig-typography__body-2 text">
+              Dispatched in reinforced custom crating with individual hardware inspection certificates, calibrated BIOS profiles, and zero bloatware.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

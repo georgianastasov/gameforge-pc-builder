@@ -1,0 +1,502 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 0;
+}
+.column-layout {
+  display: flex;
+  flex-direction: column;
+}
+.column-layout_1 {
+  background-color: var(--ig-surface-50);
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 28px 0;
+  position: relative;
+  padding: 32px 40px 48px;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.row-layout {
+  display: flex;
+}
+.row-layout_1 {
+  justify-content: center;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 0;
+  position: relative;
+  padding: 48px 32px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.column-layout_2 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 32px;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 1280px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.build-telemetry-system-header {
+  background-color: var(--ig-surface-100);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 12px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  padding: 24px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_2 {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.column-layout_3 {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 6px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+}
+.row-layout_3 {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.row-layout_4 {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.of-8-configured {
+  --background: var(--ig-surface-50);
+  --border-radius: 8px;
+  min-width: 280px;
+  flex-grow: 1;
+  flex-basis: 280px;
+}
+.column-layout_4 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.row-layout_5 {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_6 {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 12px 16px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.column-layout_5 {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 4px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+}
+.row-layout_7 {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.card {
+  --background: var(--ig-surface-50);
+  --border-radius: 8px;
+  min-width: 340px;
+  flex-grow: 1;
+  flex-basis: 340px;
+}
+.column-layout_6 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.row-layout_8 {
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_9 {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 6px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_10 {
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-start;
+  gap: 0 2px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_11 {
+  border-color: var(--ig-gray-200);
+  border-width: 1px 0px 0px;
+  border-style: solid;
+  justify-content: space-between;
+  align-items: baseline;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  padding: 8px 0 0;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_12 {
+  justify-content: flex-end;
+  align-items: baseline;
+  align-content: flex-start;
+  gap: 0 2px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.column-layout_7 {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 4px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.column-layout_8 {
+  background-color: var(--ig-surface-50);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  padding: 20px;
+  min-width: 340px;
+  flex-grow: 1;
+  flex-basis: 520px;
+}
+.column-layout_9 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 10px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.row-layout_13 {
+  border-color: var(--ig-gray-200);
+  border-style: solid;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_14 {
+  border-color: var(--ig-gray-200);
+  border-width: 1px 0px 0px;
+  border-style: solid;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  padding: 16px 0 0;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.column-layout_10 {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 2px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.column-layout_11 {
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 320px;
+  flex-grow: 1;
+  flex-basis: 420px;
+}
+.game-forge-rig-guarantee {
+  --background: var(--ig-surface-50);
+  --border-radius: 8px;
+  min-width: 280px;
+  flex-grow: 1;
+}
+.column-layout_12 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.column-layout_13 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.column-layout_14 {
+  background-color: var(--ig-surface-50);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  padding: 12px 16px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.content_1 {
+  color: var(--ig-primary-600);
+  height: max-content;
+  min-width: min-content;
+}
+.content {
+  color: var(--ig-gray-900);
+  height: max-content;
+  min-width: min-content;
+}
+.text {
+  color: var(--ig-gray-800);
+  height: max-content;
+  min-width: min-content;
+}
+.icon {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-success-600);
+}
+.zero-unfilled-component-bays-remaining {
+  color: var(--ig-gray-700);
+  height: max-content;
+  min-width: min-content;
+}
+.icon_1 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-primary-600);
+}
+.icon_2 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-secondary-600);
+}
+.image {
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+.complimentary-00-0 {
+  color: var(--ig-success-900);
+  height: max-content;
+  min-width: min-content;
+}
+.icon_3 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-primary-400);
+}
+.icon_4 {
+  color: var(--ig-primary-500-contrast);
+}
+.icon_5 {
+  color: var(--ig-gray-800);
+}
+.all-8-slots-verified {
+  width: max-content;
+  height: max-content;
+}
+.true {
+  --fill-color-success: var(--ig-success-500);
+  --track-color: var(--ig-gray-200);
+  width: 100%;
+  height: max-content;
+  min-width: 75px;
+  min-height: null;
+  max-width: 100%;
+}
+.true_1 {
+  --fill-color-default: var(--ig-primary-500);
+  --track-color: var(--ig-gray-200);
+  width: 100%;
+  height: max-content;
+  min-width: 75px;
+  min-height: null;
+  max-width: 100%;
+}
+.true_2 {
+  --fill-color-success: var(--ig-secondary-500);
+  --track-color: var(--ig-gray-200);
+  width: 100%;
+  height: max-content;
+  min-width: 75px;
+  min-height: null;
+  max-width: 100%;
+}
+.confirm-custom-rig-order {
+  position: absolute;
+}
+.snackbar {
+  height: max-content;
+  min-width: min-content;
+}
+.grid-lite {
+  width: 100%;
+  min-width: 100%;
+  min-height: 420px;
+  max-width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.place-order {
+  --foreground: var(--ig-primary-500-contrast);
+  --background: var(--ig-primary-500);
+  --ig-size: var(--ig-size-large);
+  height: max-content;
+}
+.back-to-builder {
+  --foreground: var(--ig-gray-800);
+  --border-color: var(--ig-gray-300);
+  --ig-size: var(--ig-size-large);
+  height: max-content;
+}
+.shipping-logistics-tier {
+  height: max-content;
+  min-width: min-content;
+}
+.cancel {
+  --foreground: var(--ig-gray-800);
+  --border-color: var(--ig-gray-300);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+}
+.confirm-place-order {
+  --foreground: var(--ig-primary-500-contrast);
+  --background: var(--ig-primary-500);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+}

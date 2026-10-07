@@ -1,0 +1,424 @@
+<div class="column-layout column-layout_1">
+  <div class="row-layout row-layout_1">
+    <div class="column-layout column-layout_2">
+      <div class="column-layout build-telemetry-system-header">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_3">
+            <p class="ig-typography__overline content_1">
+              SYSTEM CONFIGURATION REVIEW
+            </p>
+            <h3 class="content">
+              Custom Rig Build Summary
+            </h3>
+            <p class="ig-typography__body-2 text">
+              Comprehensive hardware manifest, socket clearance verification, power budget headroom, and final invoice calculations for your custom GameForge rig.
+            </p>
+          </div>
+          <div class="row-layout row-layout_3">
+            <igx-badge type="success" value="ALL 8 SLOTS VERIFIED" class="all-8-slots-verified"></igx-badge>
+            <igx-badge type="info" value="READY FOR BENCHMARKING" class="all-8-slots-verified"></igx-badge>
+          </div>
+        </div>
+        <div class="row-layout row-layout_4">
+          <igx-card class="of-8-configured">
+            <igx-card-header>
+              <h3 igxCardHeaderTitle>
+                8 of 8 Configured
+              </h3>
+              <h5 igxCardHeaderSubtitle>
+                Hardware Slots Complete
+              </h5>
+            </igx-card-header>
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_5">
+                  <igx-icon class="icon">
+                    check_circle
+                  </igx-icon>
+                  <p class="ig-typography__body-2 text">
+                    CPU, GPU, MB, RAM, Storage, AIO, PSU &amp; Case
+                  </p>
+                </div>
+                <igx-linear-bar type="success" [value]="100" [animationDuration]="500" textAlign="center" [textTop]="true" class="true"></igx-linear-bar>
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  Zero unfilled component bays remaining
+                </p>
+              </div>
+            </igx-card-content>
+            <igx-card-actions>
+              <ng-container igxStart></ng-container>
+              <ng-container igxEnd></ng-container>
+            </igx-card-actions>
+          </igx-card>
+          <igx-card class="of-8-configured">
+            <igx-card-header>
+              <h3 igxCardHeaderTitle>
+                685W Peak Draw
+              </h3>
+              <h5 igxCardHeaderSubtitle>
+                Estimated System Load
+              </h5>
+            </igx-card-header>
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_5">
+                  <igx-icon class="icon_1">
+                    bolt
+                  </igx-icon>
+                  <p class="ig-typography__body-2 text">
+                    Recommended 850W PSU • 80.5% Peak Capacity
+                  </p>
+                </div>
+                <igx-linear-bar [value]="80" [animationDuration]="500" textAlign="center" [textTop]="true" class="true_1"></igx-linear-bar>
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  165W transient surge headroom preserved
+                </p>
+              </div>
+            </igx-card-content>
+            <igx-card-actions>
+              <ng-container igxStart></ng-container>
+              <ng-container igxEnd></ng-container>
+            </igx-card-actions>
+          </igx-card>
+          <igx-card class="of-8-configured">
+            <igx-card-header>
+              <h3 igxCardHeaderTitle>
+                100% Compatible
+              </h3>
+              <h5 igxCardHeaderSubtitle>
+                Physical &amp; Socket Clearance
+              </h5>
+            </igx-card-header>
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_5">
+                  <igx-icon class="icon_2">
+                    verified
+                  </igx-icon>
+                  <p class="ig-typography__body-2 text">
+                    LGA1700 Socket • 310mm GPU in 420mm Bay
+                  </p>
+                </div>
+                <igx-linear-bar type="success" [value]="100" [animationDuration]="500" textAlign="center" [textTop]="true" class="true_2"></igx-linear-bar>
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  Zero physical or thermal clearance conflicts
+                </p>
+              </div>
+            </igx-card-content>
+            <igx-card-actions>
+              <ng-container igxStart></ng-container>
+              <ng-container igxEnd></ng-container>
+            </igx-card-actions>
+          </igx-card>
+        </div>
+      </div>
+      <div class="column-layout build-telemetry-system-header">
+        <div class="row-layout row-layout_6">
+          <div class="column-layout column-layout_5">
+            <h3 class="content">
+              Configured Hardware Inventory
+            </h3>
+            <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+              Selected premium components across all 8 hardware categories with verified individual pricing and thermal wattage specifications.
+            </p>
+          </div>
+          <igx-badge type="info" value="8 CORE HARDWARE SLOTS" class="all-8-slots-verified"></igx-badge>
+        </div>
+        <div class="row-layout row-layout_7">
+          @for (item of enthusiastGamingRigSpecificationGamingPcComponents; track item) {
+            <igx-card class="card">
+              <igx-card-media height="200px">
+                <img [src]="item.imageUrl" alt="" class="image" />
+              </igx-card-media>
+              <igx-card-header>
+                <h3 igxCardHeaderTitle>
+                  {{ item.selectedComponentName }}
+                </h3>
+                <h5 igxCardHeaderSubtitle>
+                  {{ item.category }}
+                </h5>
+              </igx-card-header>
+              <igx-card-content>
+                <div class="column-layout column-layout_6">
+                  <div class="row-layout row-layout_8">
+                    <div class="row-layout row-layout_9">
+                      <igx-icon class="icon_1">
+                        memory
+                      </igx-icon>
+                      <p class="ig-typography__caption content_1">
+                        {{ item.category }}
+                      </p>
+                    </div>
+                    <igx-badge type="success" value="Compatible" class="all-8-slots-verified"></igx-badge>
+                  </div>
+                  <p class="ig-typography__body-2 text">
+                    {{ item.specsDetail }}
+                  </p>
+                  <div class="row-layout row-layout_8">
+                    <div class="row-layout row-layout_9">
+                      <igx-icon class="icon_2">
+                        bolt
+                      </igx-icon>
+                      <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                        Estimated Power Draw:
+                      </p>
+                    </div>
+                    <div class="row-layout row-layout_10">
+                      <p class="ig-typography__caption content_1">
+                        {{ item.wattage }}
+                      </p>
+                      <p class="ig-typography__caption content_1">
+                        W
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row-layout row-layout_11">
+                    <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                      Component Price:
+                    </p>
+                    <div class="row-layout row-layout_12">
+                      <p class="content_1">
+                        $
+                      </p>
+                      <p class="content">
+                        {{ item.price }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </igx-card-content>
+              <igx-card-actions>
+                <ng-container igxStart></ng-container>
+                <ng-container igxEnd></ng-container>
+              </igx-card-actions>
+            </igx-card>
+          }
+        </div>
+      </div>
+      <div class="column-layout build-telemetry-system-header">
+        <div class="row-layout row-layout_6">
+          <div class="column-layout column-layout_5">
+            <h3 class="content">
+              Hardware Compatibility &amp; Clearance Checks
+            </h3>
+            <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+              Physical clearance verification across chassis depth, GPU length, radiator thickness, and motherboard socket standards.
+            </p>
+          </div>
+          <igx-badge type="success" value="ALL CLEARANCES PASSED" class="all-8-slots-verified"></igx-badge>
+        </div>
+        <igc-grid-lite [data]="hardwareCompatibilitySpecHardwareCompatibilitySpec" class="grid-lite">
+          <igc-grid-lite-column field="id" dataType="number" header="id" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
+          <igc-grid-lite-column field="componentName" dataType="string" header="componentName" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
+          <igc-grid-lite-column field="socketOrFormFactor" dataType="string" header="socketOrFormFactor" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
+          <igc-grid-lite-column field="tdpWattage" dataType="number" header="tdpWattage" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
+          <igc-grid-lite-column field="dimensionClearanceMm" dataType="number" header="dimensionClearanceMm" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
+          <igc-grid-lite-column field="statusNote" dataType="string" header="statusNote" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
+        </igc-grid-lite>
+      </div>
+      <div class="column-layout build-telemetry-system-header">
+        <div class="column-layout column-layout_7">
+          <h3 class="content">
+            Pricing Breakdown &amp; Final Actions
+          </h3>
+          <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+            Itemized hardware pricing, GameForge precision assembly warranty guarantees, and final checkout controls.
+          </p>
+        </div>
+        <div class="row-layout row-layout_7">
+          <div class="column-layout column-layout_8">
+            <h6 class="content">
+              Custom Rig Invoice Manifest
+            </h6>
+            <div class="column-layout column-layout_9">
+              <div class="row-layout row-layout_8">
+                <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                  Hardware Components Subtotal (8 Parts):
+                </p>
+                <p class="ig-typography__subtitle-1 content">
+                  $2,849.00
+                </p>
+              </div>
+              <div class="row-layout row-layout_13">
+                <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                  Clean Cable Routing &amp; Hardware Assembly:
+                </p>
+                <p class="complimentary-00-0">
+                  Complimentary ($0.00)
+                </p>
+              </div>
+              <div class="row-layout row-layout_13">
+                <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                  48-Hour Thermal Stress &amp; BIOS Flash:
+                </p>
+                <p class="ig-typography__subtitle-1 content">
+                  $49.00
+                </p>
+              </div>
+              <div class="row-layout row-layout_13">
+                <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                  Fragile Freight Rig Crating &amp; Insurance:
+                </p>
+                <p class="complimentary-00-0">
+                  Free Expedited
+                </p>
+              </div>
+              <div class="row-layout row-layout_13">
+                <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
+                  Estimated State &amp; Local Sales Tax (6.5%):
+                </p>
+                <p class="ig-typography__subtitle-1 content">
+                  $188.37
+                </p>
+              </div>
+            </div>
+            <div class="row-layout row-layout_14">
+              <div class="column-layout column-layout_10">
+                <h6 class="content">
+                  Estimated Final Total
+                </h6>
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  Fully configured, tested &amp; crated
+                </p>
+              </div>
+              <h5 class="content_1">
+                $3,086.37
+              </h5>
+            </div>
+          </div>
+          <div class="column-layout column-layout_11">
+            <igx-card class="game-forge-rig-guarantee">
+              <igx-card-header>
+                <h3 igxCardHeaderTitle>
+                  GameForge Rig Guarantee
+                </h3>
+                <h5 igxCardHeaderSubtitle>
+                  Comprehensive Builder Protection
+                </h5>
+              </igx-card-header>
+              <igx-card-content>
+                <div class="column-layout column-layout_6">
+                  <div class="row-layout row-layout_5">
+                    <igx-icon class="icon_1">
+                      security
+                    </igx-icon>
+                    <p class="ig-typography__body-2 text">
+                      3-Year comprehensive parts &amp; labor replacement warranty
+                    </p>
+                  </div>
+                  <div class="row-layout row-layout_5">
+                    <igx-icon class="icon_1">
+                      tune
+                    </igx-icon>
+                    <p class="ig-typography__body-2 text">
+                      Clean-room cable dressing and fan curve acoustic profiling
+                    </p>
+                  </div>
+                  <div class="row-layout row-layout_5">
+                    <igx-icon class="icon_3">
+                      speed
+                    </igx-icon>
+                    <p class="ig-typography__body-2 text">
+                      Full 3DMark and Cinebench benchmark documentation included
+                    </p>
+                  </div>
+                </div>
+              </igx-card-content>
+              <igx-card-actions>
+                <ng-container igxStart></ng-container>
+                <ng-container igxEnd></ng-container>
+              </igx-card-actions>
+            </igx-card>
+            <div class="column-layout column-layout_12">
+              <button igxButton="contained" type="button" (click)="confirmCustomRigOrder.toggle()" class="place-order">
+                <igx-icon class="icon_4">
+                  shopping_cart
+                </igx-icon>
+                <span>Place Order</span>
+              </button>
+              <button igxButton="outlined" type="button" [routerLink]="[`/pc-builder`]" class="back-to-builder">
+                <igx-icon class="icon_5">
+                  arrow_back
+                </igx-icon>
+                <span>Back to Builder</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <igx-dialog [closeOnOutsideSelect]="true" (leftButtonSelect)="confirmCustomRigOrder.toggle()" (rightButtonSelect)="confirmCustomRigOrder.toggle()" #confirmCustomRigOrder class="confirm-custom-rig-order">
+        <igx-dialog-title>
+          Confirm Custom Rig Order
+        </igx-dialog-title>
+        <ng-container>
+          <div class="column-layout column-layout_13">
+            <p class="ig-typography__body-2 text">
+              Please review your customized GameForge rig configuration and delivery preferences before submitting to the system integration queue.
+            </p>
+            <div class="column-layout column-layout_14">
+              <div class="row-layout row-layout_8">
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  Configuration Profile:
+                </p>
+                <p class="content">
+                  GameForge Apex Rig (8 Selected Slots)
+                </p>
+              </div>
+              <div class="row-layout row-layout_8">
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  Final Total (Tax &amp; Testing Included):
+                </p>
+                <p class="content_1">
+                  $3,086.37
+                </p>
+              </div>
+              <div class="row-layout row-layout_8">
+                <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
+                  Estimated Dispatch:
+                </p>
+                <p class="ig-typography__caption text">
+                  3 - 5 Business Days via Insured Rig Freight
+                </p>
+              </div>
+            </div>
+            <igx-select type="border" [(ngModel)]="value" class="shipping-logistics-tier">
+              <igx-select-item value="1">
+                Complimentary Insured Ground Rig Freight (3-5 Days)
+              </igx-select-item>
+              <igx-select-item value="2">
+                Express Air Rig Dispatch ($65.00 • 2 Days)
+              </igx-select-item>
+              <igx-select-item value="3">
+                White-Glove Hand Delivery &amp; Desk Setup ($140.00)
+              </igx-select-item>
+              <label igxLabel>Shipping &amp; Logistics Tier</label>
+            </igx-select>
+            <igx-select type="border" [(ngModel)]="value1" class="shipping-logistics-tier">
+              <igx-select-item value="1">
+                Direct Wire Transfer / ACH (1.5% Instant Discount)
+              </igx-select-item>
+              <igx-select-item value="2">
+                Credit Card (Visa / Mastercard / Amex)
+              </igx-select-item>
+              <igx-select-item value="3">
+                Corporate Purchase Order / Net 30
+              </igx-select-item>
+              <label igxLabel>Payment Method</label>
+            </igx-select>
+          </div>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="outlined" type="button" (click)="confirmCustomRigOrder.toggle()" class="cancel">
+            Cancel
+          </button>
+          <button igxButton="contained" type="button" (click)="confirmCustomRigOrder.toggle()" class="confirm-place-order">
+            Confirm &amp; Place Order
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-snackbar actionText="Action" (clicked)="snackbar.toggle()" #snackbar class="snackbar">
+        Order placed successfully! Your custom GameForge PC build has entered assembly.
+      </igx-snackbar>
+    </div>
+  </div>
+</div>

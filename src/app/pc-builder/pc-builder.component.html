@@ -1,0 +1,316 @@
+<div class="column-layout placeholder-pc-builder">
+  <div class="row-layout row-layout_1">
+    <div class="column-layout column-layout_1">
+      <div class="column-layout configurator-header">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_2">
+            <p class="ig-typography__overline content_1">
+              HARDWARE CONFIGURATOR // ACTIVE REVISION 4.2
+            </p>
+            <h3 class="content">
+              Custom Rig Configurator
+            </h3>
+            <p class="ig-typography__body-2 text_1">
+              Assemble a custom flagship station with real-time Socket AM5 validation, PCIe 5.0 lane verification, and dynamic system wattage telemetry.
+            </p>
+          </div>
+          <div class="row-layout row-layout_3">
+            <igx-badge type="success" value="100% Clearance Verified" class="clearance-verified"></igx-badge>
+            <igx-badge value="Socket AM5 / ATX Platform" class="clearance-verified"></igx-badge>
+          </div>
+        </div>
+        <div class="row-layout row-layout_4">
+          <div class="row-layout row-layout_5">
+            <igx-select type="box" [(ngModel)]="assemblyTier" class="assembly-testing-tier">
+              <igx-select-item value="Standard Validation">
+                Standard Validation
+              </igx-select-item>
+              <igx-select-item value="Precision Stress-Testing">
+                Precision Stress-Testing
+              </igx-select-item>
+              <igx-select-item value="Extreme Benchmarking & Burn-in">
+                Extreme Benchmarking &amp; Burn-in
+              </igx-select-item>
+              <label igxLabel>Assembly &amp; Testing Tier</label>
+            </igx-select>
+            <igx-switch [(ngModel)]="precisionTuning" class="precision-thermal-tuning">
+              Precision Thermal Tuning
+            </igx-switch>
+          </div>
+          <button igxButton="outlined" type="button" (click)="clickResetOptions()" class="reset-options">
+            <igx-icon class="icon">
+              refresh
+            </igx-icon>
+            <span>Reset Options</span>
+          </button>
+        </div>
+      </div>
+      <div class="row-layout configurator-workspace">
+        <div class="column-layout hardware-slot-matrix">
+          <div class="row-layout row-layout_6">
+            <div class="column-layout column-layout_3">
+              <h5 class="content">
+                Configured Hardware Slots
+              </h5>
+              <p class="ig-typography__caption text_2">
+                8 of 8 Primary Architectural Slots Populated
+              </p>
+            </div>
+            <igx-chip class="pcie-50-ddr5-ready">
+              <igx-prefix>
+                <igx-icon class="icon_1">
+                  memory
+                </igx-icon>
+              </igx-prefix>
+              PCIe 5.0 &amp; DDR5 Ready
+            </igx-chip>
+          </div>
+          <div class="column-layout_4">
+            @for (item of flagshipEnthusiastPCBuildPcBuilderSlots; track item) {
+              <igx-card class="card">
+                <igx-card-header>
+                  <div igxCardThumbnail>
+                    <igx-avatar [src]="item.imageUrl ?? ''" shape="rounded" class="avatar"></igx-avatar>
+                  </div>
+                  <h3 igxCardHeaderTitle>
+                    {{ item.category }}
+                  </h3>
+                  <h5 igxCardHeaderSubtitle>
+                    {{ item.selectedComponentName }}
+                  </h5>
+                </igx-card-header>
+                <igx-card-content>
+                  <div class="column-layout column-layout_5">
+                    <p class="ig-typography__body-2 text_1">
+                      {{ item.specsDetail }}
+                    </p>
+                    <div class="row-layout row-layout_7">
+                      <div class="row-layout row-layout_8">
+                        <igx-icon class="icon_1">
+                          bolt
+                        </igx-icon>
+                        <p class="ig-typography__caption text_2">
+                          Rated Draw:
+                        </p>
+                        <p class="text_3">
+                          {{ item.wattage }}
+                        </p>
+                        <p class="ig-typography__caption text_2">
+                          W
+                        </p>
+                      </div>
+                      <div class="row-layout row-layout_9">
+                        <p class="ig-typography__caption text_2">
+                          Unit Price:
+                        </p>
+                        <p class="content_1">
+                          $
+                        </p>
+                        <p class="content">
+                          {{ item.price }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </igx-card-content>
+                <igx-card-actions>
+                  <ng-container igxStart>
+                    <button igxButton="outlined" type="button" [routerLink]="[`/components`]" class="change-part">
+                      <igx-icon class="icon_2">
+                        sync
+                      </igx-icon>
+                      <span>Change Part</span>
+                    </button>
+                  </ng-container>
+                  <ng-container igxEnd></ng-container>
+                </igx-card-actions>
+              </igx-card>
+            }
+          </div>
+        </div>
+        <div class="column-layout build-telemetry-summary">
+          <div class="column-layout column-layout_6">
+            <p class="ig-typography__overline content_1">
+              LIVE SYSTEM DIAGNOSTICS
+            </p>
+            <h5 class="content">
+              Build Telemetry
+            </h5>
+          </div>
+          <div class="column-layout column-layout_7">
+            <div class="row-layout row-layout_10">
+              <igx-icon class="icon_3">
+                verified
+              </igx-icon>
+              <p class="physical-clearance-bus-check">
+                Physical Clearance &amp; Bus Check
+              </p>
+            </div>
+            <p class="ig-typography__caption text_2">
+              Motherboard VRM clearance verified. RAM heatsink profile clears 360mm AIO liquid cooling block. PCIe 5.0 x16 lanes routed without lane bifurcation penalties.
+            </p>
+          </div>
+          <div class="column-layout column-layout_8">
+            <div class="row-layout row-layout_11">
+              <p class="ig-typography__body-2 text_1">
+                Estimated Total TDP Load
+              </p>
+              <p class="content_1">
+                620W / 1000W
+              </p>
+            </div>
+            <igx-linear-bar [value]="62" [animationDuration]="500" textAlign="center" [textTop]="true" class="true"></igx-linear-bar>
+            <div class="row-layout row-layout_11">
+              <p class="ig-typography__caption text_2">
+                Headroom: 380W (38% buffer)
+              </p>
+              <p class="ig-typography__caption physical-clearance-bus-check">
+                Optimal 80+ Titanium Range
+              </p>
+            </div>
+          </div>
+          <div class="column-layout column-layout_9">
+            <h6 class="content">
+              Custom Build Invoice
+            </h6>
+            <div class="row-layout row-layout_11">
+              <p class="ig-typography__body-2 text_2">
+                Hardware Subtotal (8 Parts)
+              </p>
+              <p class="content">
+                $3,648.92
+              </p>
+            </div>
+            <div class="row-layout row-layout_12">
+              <p class="ig-typography__body-2 text_2">
+                Assembly &amp; Testing Protocol:
+              </p>
+              <p class="content_1">
+                {{ assemblyTier }}
+              </p>
+            </div>
+            <div class="row-layout row-layout_12">
+              <p class="ig-typography__body-2 text_2">
+                Thermal Calibration Active:
+              </p>
+              <p class="content_1">
+                {{ precisionTuning }}
+              </p>
+            </div>
+            <div class="row-layout row-layout_12">
+              <p class="ig-typography__body-2 text_2">
+                Insulated Armor Crate
+              </p>
+              <p class="physical-clearance-bus-check">
+                Complimentary
+              </p>
+            </div>
+            <div class="row-layout row-layout_13">
+              <h6 class="content">
+                Estimated Total
+              </h6>
+              <h5 class="content_1">
+                $3,648.92
+              </h5>
+            </div>
+          </div>
+          <div class="column-layout column-layout_10">
+            <button igxButton="contained" type="button" (click)="rigArchitectureAuditCheckoutReview.toggle()" class="review-build">
+              <igx-icon class="icon_4">
+                verified
+              </igx-icon>
+              <span>Review Build</span>
+            </button>
+            <button igxButton="outlined" type="button" (click)="snackbar.toggle()" class="save-configuration">
+              <igx-icon class="icon">
+                save
+              </igx-icon>
+              <span>Save Configuration</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <igx-dialog [closeOnOutsideSelect]="true" (leftButtonSelect)="rigArchitectureAuditCheckoutReview.toggle()" (rightButtonSelect)="rigArchitectureAuditCheckoutReview.toggle()" #rigArchitectureAuditCheckoutReview class="rig-architecture-audit-checkout-review">
+        <igx-dialog-title>
+          Rig Architecture Audit &amp; Checkout Review
+        </igx-dialog-title>
+        <ng-container>
+          <div class="column-layout column-layout_11">
+            <p class="ig-typography__body-2 text_1">
+              Review full 8-slot component specifications, thermal load envelope, and final assembly details before dispatching to engineering assembly.
+            </p>
+            <div class="column-layout column-layout_8">
+              <div class="row-layout row-layout_11">
+                <p class="content">
+                  CPU &amp; Socket:
+                </p>
+                <p class="ig-typography__body-2 text_1">
+                  AMD Ryzen 9 7950X (16C/32T, 5.7 GHz, Socket AM5, 170W TDP)
+                </p>
+              </div>
+              <div class="row-layout row-layout_11">
+                <p class="content">
+                  GPU &amp; VRAM:
+                </p>
+                <p class="ig-typography__body-2 text_1">
+                  NVIDIA GeForce RTX 4090 24GB GDDR6X (PCIe 4.0 x16, 450W TDP)
+                </p>
+              </div>
+              <div class="row-layout row-layout_11">
+                <p class="content">
+                  Motherboard:
+                </p>
+                <p class="ig-typography__body-2 text_1">
+                  ASUS ROG Crosshair X670E Hero (ATX, PCIe 5.0, USB4)
+                </p>
+              </div>
+              <div class="row-layout row-layout_11">
+                <p class="content">
+                  Memory:
+                </p>
+                <p class="ig-typography__body-2 text_1">
+                  G.Skill Trident Z5 64GB (2x32GB) DDR5-6000 CL30 EXPO
+                </p>
+              </div>
+              <div class="row-layout row-layout_11">
+                <p class="content">
+                  Storage:
+                </p>
+                <p class="ig-typography__body-2 text_1">
+                  Samsung 990 Pro 2TB NVMe M.2 (PCIe 4.0, 7,450 MB/s)
+                </p>
+              </div>
+              <div class="row-layout row-layout_11">
+                <p class="content">
+                  Power Supply:
+                </p>
+                <p class="ig-typography__body-2 text_1">
+                  Seasonic Prime TX-1000 ATX 3.0 (1000W, 80+ Titanium)
+                </p>
+              </div>
+            </div>
+            <div class="row-layout row-layout_14">
+              <igx-icon class="icon_5">
+                security
+              </igx-icon>
+              <p class="ig-typography__caption text_2">
+                Includes GameForge 3-Year Zero-Dead-Pixel Guarantee, bespoke thermal repasting, and insured freight crate delivery.
+              </p>
+            </div>
+          </div>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="flat" type="button" (click)="rigArchitectureAuditCheckoutReview.toggle()" class="return-to-builder">
+            Return to Builder
+          </button>
+          <button igxButton="contained" type="button" (click)="rigArchitectureAuditCheckoutReview.toggle()" class="proceed-to-checkout">
+            Proceed to Checkout
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-snackbar actionText="Dismiss" (clicked)="snackbar.toggle()" #snackbar class="snackbar">
+        Custom rig configuration successfully validated and saved to session.
+      </igx-snackbar>
+    </div>
+  </div>
+</div>

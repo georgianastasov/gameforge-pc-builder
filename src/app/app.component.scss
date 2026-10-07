@@ -1,0 +1,238 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 0;
+  overflow: auto;
+}
+.top-nav-bar {
+  --igx-navbar-text-color: var(--ig-gray-900);
+  --igx-navbar-background: var(--ig-surface-50);
+  z-index: 1;
+  position: sticky;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+}
+.view-container-main {
+  overflow: auto;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.navbar-content {
+  gap: 1rem;
+}
+.row-layout {
+  display: flex;
+}
+.nav-brand-group {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.column-layout {
+  display: flex;
+  flex-direction: column;
+}
+.column-layout_1 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.site-footer {
+  background-color: var(--ig-surface-100);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 12px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  padding: 24px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.footer-columns {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.brand-column {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 280px;
+  flex-grow: 1;
+  flex-basis: 320px;
+}
+.brand-header {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  height: max-content;
+  min-width: min-content;
+  flex-shrink: 0;
+}
+.brand-chips {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 6px 8px;
+  position: relative;
+  height: max-content;
+  min-width: min-content;
+  flex-shrink: 0;
+}
+.navigation-column {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 180px;
+  flex-grow: 1;
+  flex-basis: 200px;
+}
+.nav-buttons-list {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 4px;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.support-column {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 220px;
+  flex-grow: 1;
+  flex-basis: 240px;
+}
+.support-list {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.contact-email {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 2px 6px;
+  position: relative;
+  height: max-content;
+  min-width: min-content;
+  flex-shrink: 0;
+}
+.footer-baseline-row {
+  border-color: var(--ig-gray-200);
+  border-width: 1px 0px 0px;
+  border-style: solid;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px 16px;
+  position: relative;
+  padding: 16px 0 0;
+  min-width: 50px;
+  min-height: 40px;
+  flex-shrink: 0;
+}
+.baseline-meta-row {
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-start;
+  gap: 0 12px;
+  position: relative;
+  height: max-content;
+  min-width: min-content;
+}
+.nav-brand-icon {
+  --size: 24px;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: var(--ig-primary-600);
+}
+.content {
+  color: var(--ig-gray-900);
+  height: max-content;
+  min-width: min-content;
+}
+.brand-tagline {
+  color: var(--ig-gray-700);
+  height: max-content;
+  min-width: min-content;
+}
+.pcie-chip {
+  --ig-size: var(--ig-size-small);
+  width: max-content;
+  height: max-content;
+}
+.icon {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-primary-600);
+}
+.icon_1 {
+  color: var(--ig-gray-800);
+}
+.nav-btn-home {
+  --foreground: var(--ig-gray-800);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+}
+.contact-button {
+  --foreground: var(--ig-gray-800);
+  --border-color: var(--ig-gray-300);
+  --ig-size: var(--ig-size-small);
+  height: max-content;
+}
+.brand-badge {
+  width: max-content;
+  height: max-content;
+}

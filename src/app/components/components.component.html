@@ -1,0 +1,498 @@
+<div class="column-layout placeholder-components">
+  <div class="row-layout row-layout_1">
+    <div class="column-layout column-layout_1">
+      <div class="column-layout catalog-filter-toolbar">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_2">
+            <p class="ig-typography__overline text">
+              HARDWARE CATALOG // PRECISION SPECIFICATIONS
+            </p>
+            <h3 class="content">
+              Component Inventory &amp; Benchmarks
+            </h3>
+            <p class="ig-typography__body-2 text_1">
+              Browse verified processors, graphics cards, motherboards, and power solutions with thermal dissipation ratings, socket compatibility, and synthetic benchmark scores.
+            </p>
+          </div>
+          <div class="row-layout row-layout_3">
+            <button igxButton="outlined" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="platform-specs">
+              <igx-icon class="icon">
+                architecture
+              </igx-icon>
+              <span>Platform Specs</span>
+            </button>
+            <button igxButton="contained" type="button" [routerLink]="[`/pc-builder`]" class="open-pc-builder">
+              <igx-icon class="icon_1">
+                construction
+              </igx-icon>
+              <span>Open PC Builder</span>
+            </button>
+          </div>
+        </div>
+        <div class="row-layout row-layout_4">
+          <igx-input-group type="search" class="search-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_2">
+                search
+              </igx-icon>
+            </igx-prefix>
+            <input type="search" [(ngModel)]="value" placeholder="Search CPU, GPU, chipset, or socket..." igxInput />
+            <label igxLabel>Search Hardware</label>
+          </igx-input-group>
+          <igx-select type="border" placeholder="Select category" class="component-category">
+            <igx-select-item value="1">
+              All Components
+            </igx-select-item>
+            <igx-select-item value="2">
+              Processors (CPU)
+            </igx-select-item>
+            <igx-select-item value="3">
+              Graphics Cards (GPU)
+            </igx-select-item>
+            <igx-select-item value="4">
+              Motherboards
+            </igx-select-item>
+            <igx-select-item value="5">
+              DDR5 Memory
+            </igx-select-item>
+            <igx-select-item value="6">
+              High-Speed Storage
+            </igx-select-item>
+            <igx-select-item value="7">
+              Power Supplies (PSU)
+            </igx-select-item>
+            <label igxLabel>Component Category</label>
+          </igx-select>
+          <igx-select type="border" placeholder="Filter tier" class="component-category">
+            <igx-select-item value="1">
+              All Performance Tiers
+            </igx-select-item>
+            <igx-select-item value="2">
+              Flagship Tier
+            </igx-select-item>
+            <igx-select-item value="3">
+              Enthusiast Tier
+            </igx-select-item>
+            <igx-select-item value="4">
+              Mainstream Tier
+            </igx-select-item>
+            <label igxLabel>Performance Tier</label>
+          </igx-select>
+          <igx-select type="border" placeholder="Filter socket" class="component-category">
+            <igx-select-item value="1">
+              All Sockets &amp; Standards
+            </igx-select-item>
+            <igx-select-item value="2">
+              AMD Socket AM5
+            </igx-select-item>
+            <igx-select-item value="3">
+              Intel LGA1700
+            </igx-select-item>
+            <igx-select-item value="4">
+              PCIe 5.0 Dedicated
+            </igx-select-item>
+            <igx-select-item value="5">
+              Standard ATX
+            </igx-select-item>
+            <label igxLabel>Socket &amp; Form Factor</label>
+          </igx-select>
+          <button igxButton="flat" type="button" (click)="snackbar.toggle()" class="reset-filters">
+            <igx-icon class="icon">
+              restart_alt
+            </igx-icon>
+            <span>Reset Filters</span>
+          </button>
+        </div>
+        <div class="row-layout row-layout_5">
+          <p class="ig-typography__caption quick-filters">
+            Quick Filters:
+          </p>
+          <igx-chip class="all-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_3">
+                place
+              </igx-icon>
+            </igx-prefix>
+            All Hardware
+          </igx-chip>
+          <igx-chip class="all-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_3">
+                place
+              </igx-icon>
+            </igx-prefix>
+            Processors (AM5 / LGA1700)
+          </igx-chip>
+          <igx-chip class="all-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_3">
+                place
+              </igx-icon>
+            </igx-prefix>
+            Discrete GPUs (PCIe 5.0)
+          </igx-chip>
+          <igx-chip class="all-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_3">
+                place
+              </igx-icon>
+            </igx-prefix>
+            DDR5 High-Frequency
+          </igx-chip>
+          <igx-chip class="all-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_3">
+                place
+              </igx-icon>
+            </igx-prefix>
+            High TDP &gt; 250W
+          </igx-chip>
+          <igx-chip class="all-hardware">
+            <igx-prefix>
+              <igx-icon class="icon_3">
+                place
+              </igx-icon>
+            </igx-prefix>
+            Benchmark Score &gt; 30,000
+          </igx-chip>
+        </div>
+      </div>
+      <div class="column-layout hardware-grid">
+        <div class="row-layout row-layout_6">
+          <div class="column-layout column-layout_3">
+            <h5 class="content">
+              Verified Hardware Catalog
+            </h5>
+            <p class="ig-typography__body-2 quick-filters">
+              Live components populated with synthetic benchmark indices, TDP thermal values, and physical clearance parameters.
+            </p>
+          </div>
+          <div class="row-layout row-layout_7">
+            <p class="ig-typography__body-2 text">
+              18 Components Verified
+            </p>
+            <igx-select type="border" placeholder="Sort catalog" class="sort-by">
+              <igx-select-item value="1">
+                Benchmark Score (High-Low)
+              </igx-select-item>
+              <igx-select-item value="2">
+                Price (Low-High)
+              </igx-select-item>
+              <igx-select-item value="3">
+                Price (High-Low)
+              </igx-select-item>
+              <igx-select-item value="4">
+                TDP Rating (Low-High)
+              </igx-select-item>
+              <label igxLabel>Sort By</label>
+            </igx-select>
+          </div>
+        </div>
+        <div class="row-layout row-layout_8">
+          @for (item of flagshipPCHardwareCatalogHighEndPcHardware; track item) {
+            <igx-card class="card">
+              <igx-card-media height="200px">
+                <img [src]="item.imageUrl" alt="" class="image" />
+              </igx-card-media>
+              <igx-card-header>
+                <h3 igxCardHeaderTitle>
+                  {{ item.name }}
+                </h3>
+                <h5 igxCardHeaderSubtitle>
+                  {{ item.brand }}
+                </h5>
+              </igx-card-header>
+              <igx-card-content>
+                <div class="column-layout column-layout_4">
+                  <div class="row-layout row-layout_9">
+                    <igx-badge [value]="item.category ?? ''" class="badge"></igx-badge>
+                    <igx-badge type="info" [value]="item.performanceTier ?? ''" class="badge"></igx-badge>
+                  </div>
+                  <div class="column-layout column-layout_5">
+                    <div class="row-layout row-layout_10">
+                      <p class="ig-typography__caption quick-filters">
+                        Socket / Form Factor:
+                      </p>
+                      <p class="ig-typography__body-2 content">
+                        {{ item.socketOrFormFactor }}
+                      </p>
+                    </div>
+                    <div class="row-layout row-layout_10">
+                      <p class="ig-typography__caption quick-filters">
+                        TDP Thermal Draw:
+                      </p>
+                      <div class="row-layout row-layout_11">
+                        <p class="ig-typography__body-2 text_2">
+                          {{ item.tdpWattage }}
+                        </p>
+                        <p class="ig-typography__caption text_2">
+                          W
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row-layout row-layout_10">
+                      <p class="ig-typography__caption quick-filters">
+                        Benchmark Score:
+                      </p>
+                      <div class="row-layout row-layout_11">
+                        <p class="ig-typography__body-2 text">
+                          {{ item.benchmarkScore }}
+                        </p>
+                        <p class="ig-typography__caption text">
+                          pts
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row-layout row-layout_12">
+                    <p class="ig-typography__caption quick-filters">
+                      Retail Unit Price
+                    </p>
+                    <div class="row-layout row-layout_13">
+                      <p class="text">
+                        $
+                      </p>
+                      <p class="content">
+                        {{ item.price }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </igx-card-content>
+              <igx-card-actions>
+                <ng-container igxStart>
+                  <button igxButton="contained" type="button" (click)="snackbar.toggle()" class="select-for-rig">
+                    <igx-icon class="icon_1">
+                      add_shopping_cart
+                    </igx-icon>
+                    <span>Select for Rig</span>
+                  </button>
+                  <button igxButton="outlined" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="benchmarks">
+                    <igx-icon class="icon_4">
+                      analytics
+                    </igx-icon>
+                    <span>Benchmarks</span>
+                  </button>
+                </ng-container>
+                <ng-container igxEnd></ng-container>
+              </igx-card-actions>
+            </igx-card>
+          }
+        </div>
+      </div>
+      <div class="column-layout catalog-filter-toolbar">
+        <div class="column-layout column-layout_6">
+          <h5 class="content">
+            Architecture &amp; Socket Standards Guide
+          </h5>
+          <p class="ig-typography__body-2 quick-filters">
+            Technical engineering reference for socket pinouts, memory channel topologies, PCIe lane distribution, and thermal ceiling headroom.
+          </p>
+        </div>
+        <igx-accordion [singleBranchExpand]="true" class="accordion">
+          <igx-expansion-panel>
+            <igx-expansion-panel-body>
+              <div class="column-layout column-layout_4">
+                <p class="ig-typography__body-2 text_1">
+                  The AM5 socket introduces native LGA1718 mechanical integrity, eliminating bent pins on the CPU package. Zen 4 and Zen 5 architectures route 28 PCIe 5.0 lanes directly from the processor package, allowing 16 dedicated lanes for the primary discrete graphics slot alongside 8 lanes dedicated to bifurcated ultra-fast NVMe storage.
+                </p>
+                <div class="row-layout row-layout_14">
+                  <div class="column-layout column-layout_7">
+                    <p class="text">
+                      DDR5 Memory Sweet Spot
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      Dual-channel DDR5-6000 with CL30 timings achieves 1:1 FCLK clock synchronicity (2000 MHz fabric), preventing latency penalties on monolithic and 3D V-Cache chipsets.
+                    </p>
+                  </div>
+                  <div class="column-layout column-layout_7">
+                    <p class="text">
+                      PCIe 5.0 Lane Allocation
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      X670E and B650E chipsets provide full x16 Gen 5 GPU slots simultaneously with PCIe 5.0 x4 M.2 slots without lane-sharing drop-downs or bandwidth throttling.
+                    </p>
+                  </div>
+                  <div class="column-layout column-layout_7">
+                    <p class="text">
+                      Package Power &amp; Thermals
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      With 170W native TDP and 230W Package Power Tracking (PPT), systems benefit heavily from premium dual-tower air coolers or 360mm AIO liquid loops under sustained compute workloads.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </igx-expansion-panel-body>
+            <igx-expansion-panel-header>
+              <igx-expansion-panel-title>AMD Socket AM5 Platform (LGA1718) &amp; Zen 5 Architecture</igx-expansion-panel-title>
+              <igx-expansion-panel-description>Native PCIe 5.0 M.2 lanes, EXPO DDR5-6000 profiles, and 170W PPT thermal headroom</igx-expansion-panel-description>
+            </igx-expansion-panel-header>
+          </igx-expansion-panel>
+          <igx-expansion-panel>
+            <igx-expansion-panel-body>
+              <div class="column-layout column-layout_4">
+                <p class="ig-typography__body-2 text_1">
+                  Modern Intel core architectures leverage hybrid compute nodes dividing heavy gaming threads onto Performance-cores and background tasks onto Efficient-cores. Motherboard VRM configuration (16+1+1 90A smart power stages) is vital to sustained high clock speeds during 253W+ Maximum Turbo Power excursions.
+                </p>
+                <div class="row-layout row-layout_14">
+                  <div class="column-layout column-layout_7">
+                    <p class="pl1-pl2-power-boundaries">
+                      PL1 = PL2 Power Boundaries
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      Flagship chips utilize unlocked 253W limits under continuous workload. Adequate contact frames prevent socket curvature and ensure uniform thermal paste distribution.
+                    </p>
+                  </div>
+                  <div class="column-layout column-layout_7">
+                    <p class="pl1-pl2-power-boundaries">
+                      XMP 3.0 &amp; High-Frequency DDR5
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      Z790 architectures feature optimized memory trace topographies capable of stable operation beyond DDR5-7200 MT/s using Intel Extreme Memory Profiles (XMP 3.0).
+                    </p>
+                  </div>
+                  <div class="column-layout column-layout_7">
+                    <p class="pl1-pl2-power-boundaries">
+                      PCIe Lane Bifurcation
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      Attaching PCIe 5.0 M.2 SSDs on specific motherboards will bifurcate the primary graphics slot from x16 down to x8 mode; check board manual block diagrams carefully.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </igx-expansion-panel-body>
+            <igx-expansion-panel-header>
+              <igx-expansion-panel-title>Intel LGA1700 / LGA1851 Platform &amp; Hybrid Architecture</igx-expansion-panel-title>
+              <igx-expansion-panel-description>Performance-core / Efficient-core scheduling, PL1/PL2 power envelopes, and VRM thermal ceilings</igx-expansion-panel-description>
+            </igx-expansion-panel-header>
+          </igx-expansion-panel>
+          <igx-expansion-panel>
+            <igx-expansion-panel-body>
+              <div class="column-layout column-layout_4">
+                <p class="ig-typography__body-2 text_1">
+                  Current-generation flagship graphics cards exhibit microsecond transient power spikes up to 200% of rated TDP. The ATX 3.1 standard and revised 12V-2x6 connectors incorporate recessed sideband sense pins to guarantee full connector seating before high-amperage delivery commences.
+                </p>
+                <div class="row-layout row-layout_14">
+                  <div class="column-layout column-layout_7">
+                    <p class="text">
+                      Connector Bend Clearance
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      Ensure at least 35mm of clearance between the GPU power terminal and side glass panel to avoid lateral strain on internal terminal pins.
+                    </p>
+                  </div>
+                  <div class="column-layout column-layout_7">
+                    <p class="text">
+                      Power Supply Sizing
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      For builds combining 250W+ TDP processors with 450W+ graphics accelerators, an 80-Plus Platinum or Titanium ATX 3.1 PSU of 1000W or higher is strongly recommended.
+                    </p>
+                  </div>
+                  <div class="column-layout column-layout_8">
+                    <p class="text">
+                      Chassis Slot Clearance
+                    </p>
+                    <p class="ig-typography__caption quick-filters">
+                      Check physical GPU dimensions: modern triple-fan flagships routinely exceed 340mm in length and 3.5 PCI slot widths (70mm depth).
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </igx-expansion-panel-body>
+            <igx-expansion-panel-header>
+              <igx-expansion-panel-title>High-Wattage PCIe 5.0 &amp; ATX 3.1 12V-2x6 Power Integrity</igx-expansion-panel-title>
+              <igx-expansion-panel-description>Transient excursion damping, 600W single-cable delivery, and chassis clearance tolerances</igx-expansion-panel-description>
+            </igx-expansion-panel-header>
+          </igx-expansion-panel>
+        </igx-accordion>
+      </div>
+      <igx-dialog [closeOnOutsideSelect]="true" (leftButtonSelect)="componentArchitecturalSpecifications.toggle()" (rightButtonSelect)="componentArchitecturalSpecifications.toggle()" #componentArchitecturalSpecifications class="component-architectural-specifications">
+        <igx-dialog-title>
+          Component Architectural Specifications
+        </igx-dialog-title>
+        <ng-container>
+          <div class="column-layout column-layout_4">
+            <p class="ig-typography__body-2 text_1">
+              Engineering verification profile for selected component class. Confirm compatibility with your chosen motherboard form factor and PSU capacity before finalizing.
+            </p>
+            <div class="column-layout column-layout_9">
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  Microarchitecture Node:
+                </p>
+                <p class="ig-typography__body-2 content">
+                  4nm FinFET High-Density Substrate
+                </p>
+              </div>
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  Cache Hierarchy Topology:
+                </p>
+                <p class="ig-typography__body-2 content">
+                  32MB L2 + 96MB 3D V-Cache Layer
+                </p>
+              </div>
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  Base / Boost Clock Speed:
+                </p>
+                <p class="ig-typography__body-2 content">
+                  4.2 GHz Base / 5.7 GHz Boost Clock
+                </p>
+              </div>
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  PCIe Lane Distribution:
+                </p>
+                <p class="ig-typography__body-2 content">
+                  28 Lanes PCIe Gen 5.0 Direct
+                </p>
+              </div>
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  Memory Controller Standard:
+                </p>
+                <p class="ig-typography__body-2 content">
+                  Dual-Channel DDR5-6000 (EXPO / XMP 3.0)
+                </p>
+              </div>
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  Thermal Ceiling (TJMax):
+                </p>
+                <p class="ig-typography__body-2 text_2">
+                  89°C Thermal Throttle Target
+                </p>
+              </div>
+              <div class="row-layout row-layout_15">
+                <p class="ig-typography__caption quick-filters">
+                  Manufacturer Warranty:
+                </p>
+                <p class="ig-typography__body-2 text">
+                  3-Year Limited Warranty with Advanced RMA
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="flat" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="dismiss">
+            Dismiss
+          </button>
+          <button igxButton="contained" type="button" (click)="componentArchitecturalSpecifications.toggle()" class="add-to-custom-build">
+            <igx-icon class="icon_1">
+              add_circle
+            </igx-icon>
+            <span>Add to Custom Build</span>
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-snackbar actionText="Review Rig" (clicked)="snackbar.toggle()" #snackbar class="snackbar">
+        Component added to custom build configuration.
+      </igx-snackbar>
+    </div>
+  </div>
+</div>
