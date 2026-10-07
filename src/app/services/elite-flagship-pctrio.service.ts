@@ -1,13 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { CustomPcBuildsType } from '../models/elite-flagship-pctrio/custom-pc-builds-type';
+import { inject, Injectable } from '@angular/core';
+import { BuildPreset } from '../models/hardware/build-preset';
+import { HARDWARE_CATEGORIES } from '../models/hardware/hardware-part';
 import { EliteFlagshipPCTrio } from '../static-data/elite-flagship-pctrio';
+import { FlagshipPCHardwareCatalogService } from './flagship-pchardware-catalog.service';
 
+/** Featured GameForge build presets, priced from the shared catalog. */
 @Injectable({
   providedIn: 'root'
 })
 export class EliteFlagshipPCTrioService {
-  public getCustomPcBuilds(): Observable<CustomPcBuildsType[]> {
-    return of(EliteFlagshipPCTrio['CustomPcBuildsType']);
+  private readonly catalog = inject(FlagshipPCHardwareCatalogService);
+
+  public readonly presets: readonly BuildPreset[] = EliteFlagshipPCTrio.map(preset => ({
+    ...preset,
+    price: HARDWARE_CATEGORIES.reduce((sum, category) => sum + (this.catalog.getPartById(preset.parts[category])?.price ?? 0), 0)
+  }));
+
+  public getPresetById(id: string): BuildPreset | null {
+    return this.presets.find(preset => preset.id === id) ?? null;
   }
 }

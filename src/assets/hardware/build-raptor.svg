@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Raptor build">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DCE7F5"/><stop offset="1" stop-color="#F7FAFD"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#bg)"/>
+<g fill="none" stroke="#0256B4" stroke-opacity=".08"><path d="M20 0V200"/><path d="M40 0V200"/><path d="M60 0V200"/><path d="M80 0V200"/><path d="M100 0V200"/><path d="M120 0V200"/><path d="M140 0V200"/><path d="M160 0V200"/><path d="M180 0V200"/><path d="M200 0V200"/><path d="M220 0V200"/><path d="M240 0V200"/><path d="M260 0V200"/><path d="M280 0V200"/><path d="M300 0V200"/><path d="M0 20H320"/><path d="M0 40H320"/><path d="M0 60H320"/><path d="M0 80H320"/><path d="M0 100H320"/><path d="M0 120H320"/><path d="M0 140H320"/><path d="M0 160H320"/><path d="M0 180H320"/></g>
+<ellipse cx="160" cy="186" rx="110" ry="8" fill="#0F1B2D" fill-opacity=".18"/>
+<rect x="96" y="14" width="128" height="170" rx="10" fill="#0F1B2D"/>
+<rect x="106" y="24" width="108" height="150" rx="5" fill="#152238" stroke="#D97706" stroke-width="2"/>
+<circle cx="132" cy="58" r="18" fill="none" stroke="#FFB547" stroke-width="3"/><circle cx="132" cy="58" r="5" fill="#FFB547"/><circle cx="132" cy="100" r="18" fill="none" stroke="#FFB547" stroke-width="3"/><circle cx="132" cy="100" r="5" fill="#FFB547"/><circle cx="132" cy="142" r="18" fill="none" stroke="#FFB547" stroke-width="3"/><circle cx="132" cy="142" r="5" fill="#FFB547"/>
+<rect x="158" y="40" width="44" height="40" rx="3" fill="#24344D"/><rect x="170" y="52" width="20" height="16" rx="2" fill="#FFB547" fill-opacity=".85"/>
+<rect x="156" y="100" width="50" height="16" rx="3" fill="#24344D" stroke="#D97706" stroke-width="2"/>
+<rect x="156" y="140" width="50" height="22" rx="3" fill="#24344D"/>
+<rect x="106" y="24" width="108" height="4" fill="#FFB547"/>
+</svg>

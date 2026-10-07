@@ -95,8 +95,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "runnerConfig": true,
-            "styles": []
+            "runnerConfig": true
           }
         },
         "lint": {

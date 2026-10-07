@@ -1,37 +1,23 @@
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IGX_CARD_DIRECTIVES, IgxAvatarComponent, IgxBadgeComponent, IgxButtonDirective, IgxIconComponent } from '@infragistics/igniteui-angular';
-import { Subject, takeUntil } from 'rxjs';
-import { CustomPcBuildsType } from '../models/elite-flagship-pctrio/custom-pc-builds-type';
+import { BuildPreset } from '../models/hardware/build-preset';
+import { BuildStateService } from '../services/build-state.service';
 import { EliteFlagshipPCTrioService } from '../services/elite-flagship-pctrio.service';
 
 @Component({
   selector: 'app-home',
-  imports: [IGX_CARD_DIRECTIVES, IgxBadgeComponent, IgxButtonDirective, IgxIconComponent, IgxAvatarComponent, RouterLink],
+  imports: [IGX_CARD_DIRECTIVES, IgxBadgeComponent, IgxButtonDirective, IgxIconComponent, IgxAvatarComponent, RouterLink, DecimalPipe],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
-  private changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
-  public eliteFlagshipPCTrioCustomPcBuilds: CustomPcBuildsType[] = [];
+export class HomeComponent {
+  private readonly buildState = inject(BuildStateService);
+  public readonly eliteFlagshipPCTrioCustomPcBuilds = inject(EliteFlagshipPCTrioService).presets;
 
-  constructor(
-    public eliteFlagshipPCTrioService: EliteFlagshipPCTrioService,
-  ) {}
-
-
-  ngOnInit() {
-    this.eliteFlagshipPCTrioService.getCustomPcBuilds().pipe(takeUntil(this.destroy$)).subscribe(
-      data => {
-        this.eliteFlagshipPCTrioCustomPcBuilds = data;
-        this.changeDetectorRef.markForCheck();
-      }
-    );
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+  public loadPreset(preset: BuildPreset): void {
+    this.buildState.loadPreset(preset.id);
   }
 }

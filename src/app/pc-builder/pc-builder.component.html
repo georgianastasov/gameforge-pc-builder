@@ -53,7 +53,7 @@
                 Configured Hardware Slots
               </h5>
               <p class="ig-typography__caption text_2">
-                8 of 8 Primary Architectural Slots Populated
+                {{ filledSlotCount() }} of {{ totalSlotCount }} Primary Architectural Slots Populated
               </p>
             </div>
             <igx-chip class="pcie-50-ddr5-ready">
@@ -66,11 +66,11 @@
             </igx-chip>
           </div>
           <div class="column-layout_4">
-            @for (item of flagshipEnthusiastPCBuildPcBuilderSlots; track item) {
+            @for (item of flagshipEnthusiastPCBuildPcBuilderSlots(); track item.category) {
               <igx-card class="card">
                 <igx-card-header>
                   <div igxCardThumbnail>
-                    <igx-avatar [src]="item.imageUrl ?? ''" shape="rounded" class="avatar"></igx-avatar>
+                    <igx-avatar [src]="item.imageUrl" shape="rounded" class="avatar"></igx-avatar>
                   </div>
                   <h3 igxCardHeaderTitle>
                     {{ item.category }}
@@ -107,7 +107,7 @@
                           $
                         </p>
                         <p class="content">
-                          {{ item.price }}
+                          {{ item.price | number: '1.2-2' }}
                         </p>
                       </div>
                     </div>
@@ -175,10 +175,10 @@
             </h6>
             <div class="row-layout row-layout_11">
               <p class="ig-typography__body-2 text_2">
-                Hardware Subtotal (8 Parts)
+                Hardware Subtotal ({{ filledSlotCount() }} Parts)
               </p>
               <p class="content">
-                $3,648.92
+                {{ subtotal() | currency }}
               </p>
             </div>
             <div class="row-layout row-layout_12">
@@ -210,7 +210,7 @@
                 Estimated Total
               </h6>
               <h5 class="content_1">
-                $3,648.92
+                {{ subtotal() | currency }}
               </h5>
             </div>
           </div>

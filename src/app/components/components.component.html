@@ -169,7 +169,7 @@
           </div>
           <div class="row-layout row-layout_7">
             <p class="ig-typography__body-2 text">
-              18 Components Verified
+              {{ flagshipPCHardwareCatalogHighEndPcHardware.length }} Components Verified
             </p>
             <igx-select type="border" placeholder="Sort catalog" class="sort-by">
               <igx-select-item value="1">
@@ -189,10 +189,10 @@
           </div>
         </div>
         <div class="row-layout row-layout_8">
-          @for (item of flagshipPCHardwareCatalogHighEndPcHardware; track item) {
+          @for (item of flagshipPCHardwareCatalogHighEndPcHardware; track item.id) {
             <igx-card class="card">
               <igx-card-media height="200px">
-                <img [src]="item.imageUrl" alt="" class="image" />
+                <img [src]="item.imageUrl" [alt]="item.name" class="image" />
               </igx-card-media>
               <igx-card-header>
                 <h3 igxCardHeaderTitle>
@@ -205,8 +205,8 @@
               <igx-card-content>
                 <div class="column-layout column-layout_4">
                   <div class="row-layout row-layout_9">
-                    <igx-badge [value]="item.category ?? ''" class="badge"></igx-badge>
-                    <igx-badge type="info" [value]="item.performanceTier ?? ''" class="badge"></igx-badge>
+                    <igx-badge [value]="item.category" class="badge"></igx-badge>
+                    <igx-badge type="info" [value]="item.performanceTier" class="badge"></igx-badge>
                   </div>
                   <div class="column-layout column-layout_5">
                     <div class="row-layout row-layout_10">
@@ -236,7 +236,7 @@
                       </p>
                       <div class="row-layout row-layout_11">
                         <p class="ig-typography__body-2 text">
-                          {{ item.benchmarkScore }}
+                          {{ item.benchmarkScore | number }}
                         </p>
                         <p class="ig-typography__caption text">
                           pts
@@ -253,7 +253,7 @@
                         $
                       </p>
                       <p class="content">
-                        {{ item.price }}
+                        {{ item.price | number: '1.2-2' }}
                       </p>
                     </div>
                   </div>
@@ -261,7 +261,7 @@
               </igx-card-content>
               <igx-card-actions>
                 <ng-container igxStart>
-                  <button igxButton="contained" type="button" (click)="snackbar.toggle()" class="select-for-rig">
+                  <button igxButton="contained" type="button" (click)="selectForRig(item); snackbar.open()" class="select-for-rig">
                     <igx-icon class="icon_1">
                       add_shopping_cart
                     </igx-icon>

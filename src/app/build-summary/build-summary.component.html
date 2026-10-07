@@ -23,7 +23,7 @@
           <igx-card class="of-8-configured">
             <igx-card-header>
               <h3 igxCardHeaderTitle>
-                8 of 8 Configured
+                {{ filledSlotCount() }} of {{ totalSlotCount }} Configured
               </h3>
               <h5 igxCardHeaderSubtitle>
                 Hardware Slots Complete
@@ -39,7 +39,7 @@
                     CPU, GPU, MB, RAM, Storage, AIO, PSU &amp; Case
                   </p>
                 </div>
-                <igx-linear-bar type="success" [value]="100" [animationDuration]="500" textAlign="center" [textTop]="true" class="true"></igx-linear-bar>
+                <igx-linear-bar type="success" [value]="slotFillPercent()" [animationDuration]="500" textAlign="center" [textTop]="true" class="true"></igx-linear-bar>
                 <p class="ig-typography__caption zero-unfilled-component-bays-remaining">
                   Zero unfilled component bays remaining
                 </p>
@@ -125,10 +125,10 @@
           <igx-badge type="info" value="8 CORE HARDWARE SLOTS" class="all-8-slots-verified"></igx-badge>
         </div>
         <div class="row-layout row-layout_7">
-          @for (item of enthusiastGamingRigSpecificationGamingPcComponents; track item) {
+          @for (item of enthusiastGamingRigSpecificationGamingPcComponents(); track item.category) {
             <igx-card class="card">
               <igx-card-media height="200px">
-                <img [src]="item.imageUrl" alt="" class="image" />
+                <img [src]="item.imageUrl" [alt]="item.selectedComponentName" class="image" />
               </igx-card-media>
               <igx-card-header>
                 <h3 igxCardHeaderTitle>
@@ -181,7 +181,7 @@
                         $
                       </p>
                       <p class="content">
-                        {{ item.price }}
+                        {{ item.price | number: '1.2-2' }}
                       </p>
                     </div>
                   </div>
@@ -207,7 +207,7 @@
           </div>
           <igx-badge type="success" value="ALL CLEARANCES PASSED" class="all-8-slots-verified"></igx-badge>
         </div>
-        <igc-grid-lite [data]="hardwareCompatibilitySpecHardwareCompatibilitySpec" class="grid-lite">
+        <igc-grid-lite [data]="hardwareCompatibilitySpecHardwareCompatibilitySpec()" class="grid-lite">
           <igc-grid-lite-column field="id" dataType="number" header="id" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
           <igc-grid-lite-column field="componentName" dataType="string" header="componentName" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
           <igc-grid-lite-column field="socketOrFormFactor" dataType="string" header="socketOrFormFactor" [filterable]="true" [sortable]="true" [resizable]="true"></igc-grid-lite-column>
@@ -233,10 +233,10 @@
             <div class="column-layout column-layout_9">
               <div class="row-layout row-layout_8">
                 <p class="ig-typography__body-2 zero-unfilled-component-bays-remaining">
-                  Hardware Components Subtotal (8 Parts):
+                  Hardware Components Subtotal ({{ filledSlotCount() }} Parts):
                 </p>
                 <p class="ig-typography__subtitle-1 content">
-                  $2,849.00
+                  {{ subtotal() | currency }}
                 </p>
               </div>
               <div class="row-layout row-layout_13">

@@ -111,10 +111,10 @@
           <igx-badge type="info" value="BENCHMARK CERTIFIED" class="badge"></igx-badge>
         </div>
         <div class="row-layout row-layout_9">
-          @for (item of eliteFlagshipPCTrioCustomPcBuilds; track item) {
+          @for (item of eliteFlagshipPCTrioCustomPcBuilds; track item.id) {
             <igx-card class="card">
               <igx-card-media height="200px">
-                <img [src]="item.imageUrl" alt="" class="image_1" />
+                <img [src]="item.imageUrl" [alt]="item.name + ' build render'" class="image_1" />
               </igx-card-media>
               <igx-card-header>
                 <h3 igxCardHeaderTitle>
@@ -130,7 +130,7 @@
                     <p class="ig-typography__caption high-clock-speed-frame-timing">
                       Benchmark Score
                     </p>
-                    <igx-badge [value]="item.benchmarkScore?.toString() ?? ''" class="badge"></igx-badge>
+                    <igx-badge [value]="(item.benchmarkScore | number) ?? ''" class="badge"></igx-badge>
                   </div>
                   <div class="column-layout column-layout_8">
                     <p class="ig-typography__caption high-clock-speed-frame-timing">
@@ -149,7 +149,7 @@
                         $
                       </p>
                       <p class="content">
-                        {{ item.price }}
+                        {{ item.price | number: '1.2-2' }}
                       </p>
                     </div>
                   </div>
@@ -157,13 +157,13 @@
               </igx-card-content>
               <igx-card-actions>
                 <ng-container igxStart>
-                  <button igxButton="contained" type="button" [routerLink]="[`/pc-builder`]" class="configure-build">
+                  <button igxButton="contained" type="button" (click)="loadPreset(item)" [routerLink]="[`/pc-builder`]" class="configure-build">
                     <igx-icon class="icon">
                       tune
                     </igx-icon>
                     <span>Configure Build</span>
                   </button>
-                  <button igxButton="outlined" type="button" [routerLink]="[`/pc-builder`]" class="inspect-rig">
+                  <button igxButton="outlined" type="button" (click)="loadPreset(item)" [routerLink]="[`/build-summary`]" class="inspect-rig">
                     Inspect Rig
                   </button>
                 </ng-container>
