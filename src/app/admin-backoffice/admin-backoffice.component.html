@@ -1,0 +1,849 @@
+<div class="column-layout column-layout_1">
+  <div class="row-layout row-layout_1">
+    <div class="column-layout column-layout_2">
+      <section class="column-layout admin-overview-section" aria-labelledby="admin-overview-title">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_3">
+            <div class="row-layout row-layout_3">
+              <igx-badge type="info" value="GAMEFORGE BACKOFFICE" class="gameforge-backoffice"></igx-badge>
+              <p class="ig-typography__caption live-telemetry-synchronized">
+                Signed in as {{ adminEmail() }}
+              </p>
+            </div>
+            <h3 id="admin-overview-title" class="content">
+              Admin Overview
+            </h3>
+            <p class="ig-typography__body-2 live-telemetry-synchronized">
+              Real-time store telemetry, transaction audit logs, and hardware component inventory control across the GameForge network.
+            </p>
+          </div>
+          <div class="row-layout row-layout_4">
+            <button igxButton="outlined" type="button" (click)="syncInventory()" class="sync-inventory">
+              <igx-icon class="icon" aria-hidden="true">
+                sync
+              </igx-icon>
+              <span>Sync Inventory</span>
+            </button>
+            <button igxButton="outlined" type="button" (click)="exportAudit()" class="sync-inventory">
+              <igx-icon class="icon" aria-hidden="true">
+                file_download
+              </igx-icon>
+              <span>Export Audit</span>
+            </button>
+            <button igxButton="contained" type="button" (click)="openAddDialog(addHardwareComponent)" class="add-component">
+              <igx-icon class="icon_1" aria-hidden="true">
+                add
+              </igx-icon>
+              <span>Add Component</span>
+            </button>
+          </div>
+        </div>
+        @let kpi = overview();
+        <div class="row-layout row-layout_5">
+          <igx-card class="card">
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_6">
+                  <p class="ig-typography__overline live-telemetry-synchronized">
+                    TOTAL ORDERS
+                  </p>
+                  <igx-avatar shape="rounded" class="avatar avatar_2" aria-hidden="true">
+                    <igx-icon class="icon_2">
+                      receipt_long
+                    </igx-icon>
+                  </igx-avatar>
+                </div>
+                <h4 class="content">
+                  {{ kpi.totalOrders | number }}
+                </h4>
+                <div class="row-layout row-layout_7">
+                  <igx-icon class="icon_3" aria-hidden="true">
+                    {{ (kpi.ordersTrendPct ?? 0) < 0 ? 'trending_down' : 'trending_up' }}
+                  </igx-icon>
+                  <p class="ig-typography__caption text">
+                    {{ kpi.ordersTrendPct === null ? 'New' : (kpi.ordersTrendPct > 0 ? '+' : '') + kpi.ordersTrendPct + '%' }}
+                  </p>
+                  <p class="ig-typography__caption live-telemetry-synchronized">
+                    last 30 days vs prior 30
+                  </p>
+                </div>
+              </div>
+            </igx-card-content>
+          </igx-card>
+          <igx-card class="card">
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_6">
+                  <p class="ig-typography__overline live-telemetry-synchronized">
+                    PENDING ORDERS
+                  </p>
+                  <igx-avatar shape="rounded" class="avatar avatar_3" aria-hidden="true">
+                    <igx-icon class="icon_2">
+                      hourglass_top
+                    </igx-icon>
+                  </igx-avatar>
+                </div>
+                <h4 class="content">
+                  {{ kpi.pendingOrders | number }}
+                </h4>
+                <div class="row-layout row-layout_7">
+                  <igx-icon class="icon_4" aria-hidden="true">
+                    pending_actions
+                  </igx-icon>
+                  <p class="ig-typography__caption awaiting-review">
+                    {{ kpi.onHoldOrders }} on hold
+                  </p>
+                  <p class="ig-typography__caption live-telemetry-synchronized">
+                    {{ kpi.onHoldOrders ? 'action required' : 'no action required' }}
+                  </p>
+                </div>
+              </div>
+            </igx-card-content>
+          </igx-card>
+          <igx-card class="card">
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_6">
+                  <p class="ig-typography__overline live-telemetry-synchronized">
+                    GROSS REVENUE
+                  </p>
+                  <igx-avatar shape="rounded" class="avatar avatar_4" aria-hidden="true">
+                    <igx-icon class="icon_2">
+                      payments
+                    </igx-icon>
+                  </igx-avatar>
+                </div>
+                <h4 class="content">
+                  {{ kpi.grossRevenue | currency: 'USD' : 'symbol' : '1.0-0' }}
+                </h4>
+                <div class="row-layout row-layout_7">
+                  <igx-icon class="icon_3" aria-hidden="true">
+                    {{ (kpi.revenueTrendPct ?? 0) < 0 ? 'trending_down' : 'trending_up' }}
+                  </igx-icon>
+                  <p class="ig-typography__caption text">
+                    {{ kpi.revenueTrendPct === null ? 'New' : (kpi.revenueTrendPct > 0 ? '+' : '') + kpi.revenueTrendPct + '%' }}
+                  </p>
+                  <p class="ig-typography__caption live-telemetry-synchronized">
+                    avg {{ kpi.averageOrderValue | currency: 'USD' : 'symbol' : '1.0-0' }}/build
+                  </p>
+                </div>
+              </div>
+            </igx-card-content>
+          </igx-card>
+          <igx-card class="card">
+            <igx-card-content>
+              <div class="column-layout column-layout_4">
+                <div class="row-layout row-layout_6">
+                  <p class="ig-typography__overline live-telemetry-synchronized">
+                    LOW STOCK COMPONENTS
+                  </p>
+                  <igx-avatar shape="rounded" class="avatar_1 avatar_1_1" aria-hidden="true">
+                    <igx-icon class="icon_5">
+                      notification_important
+                    </igx-icon>
+                  </igx-avatar>
+                </div>
+                <h4 class="content">
+                  {{ kpi.lowStockCount | number }}
+                </h4>
+                <div class="row-layout row-layout_7">
+                  <igx-icon class="icon_6" aria-hidden="true">
+                    warning
+                  </igx-icon>
+                  <p class="ig-typography__caption reorder-threshold">
+                    Reorder threshold
+                  </p>
+                  <p class="ig-typography__caption live-telemetry-synchronized">
+                    {{ kpi.outOfStockCount }} sold out
+                  </p>
+                </div>
+              </div>
+            </igx-card-content>
+          </igx-card>
+        </div>
+      </section>
+      <section class="column-layout admin-overview-section" aria-labelledby="orders-management-title">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_3">
+            <p class="ig-typography__overline awaiting-review">
+              TRANSACTION AUDIT &amp; FULFILLMENT
+            </p>
+            <h3 id="orders-management-title" class="content">
+              Orders Management
+            </h3>
+            <p class="ig-typography__body-2 live-telemetry-synchronized">
+              Review customer purchase history, verify payment confirmations, and update fulfillment stages across all custom PC builds.
+            </p>
+          </div>
+          <div class="row-layout row-layout_4">
+            <button igxButton="outlined" type="button" (click)="exportOrders()" class="sync-inventory">
+              <igx-icon class="icon" aria-hidden="true">
+                download
+              </igx-icon>
+              <span>Export Orders</span>
+            </button>
+            <button igxButton="contained" type="button" [disabled]="!actionableOrderIds().length" (click)="processShipments()" class="add-component">
+              <igx-icon class="icon_1" aria-hidden="true">
+                local_shipping
+              </igx-icon>
+              <span>Process Shipments</span>
+            </button>
+          </div>
+        </div>
+        <div class="row-layout row-layout_8" role="listbox" aria-label="Order queue">
+          <p class="ig-typography__caption live-telemetry-synchronized">
+            Queue View:
+          </p>
+          @for (queue of orderQueues; track queue.id) {
+            <igx-chip [selectable]="true" [selected]="orderQueue() === queue.id" (selectedChanging)="onQueueChanging($event, queue.id)" class="all-orders-1-4-2">
+              <igx-prefix>
+                <igx-icon class="icon_4" aria-hidden="true">
+                  {{ queue.icon }}
+                </igx-icon>
+              </igx-prefix>
+              {{ queue.label }} ({{ queueCounts()[queue.id] }})
+            </igx-chip>
+          }
+        </div>
+        <div class="row-layout row-layout_9">
+          <igx-input-group type="search" class="search-orders">
+            <igx-prefix>
+              <igx-icon class="icon_7" aria-hidden="true">
+                search
+              </igx-icon>
+            </igx-prefix>
+            <input type="search" [(ngModel)]="orderSearch" placeholder="Filter by Order ID or customer name..." igxInput />
+            <label igxLabel>Search Orders</label>
+          </igx-input-group>
+          <igx-select type="border" [(ngModel)]="paymentFilter" placeholder="All Payments" class="payment-status">
+            <igx-select-item value="all">
+              All Payments
+            </igx-select-item>
+            @for (status of paymentStatuses; track status.id) {
+              <igx-select-item [value]="status.id">
+                {{ status.label }}
+              </igx-select-item>
+            }
+            <label igxLabel>Payment Status</label>
+          </igx-select>
+          <igx-select type="border" [(ngModel)]="stageFilter" placeholder="All Stages" class="payment-status">
+            <igx-select-item value="all">
+              All Stages
+            </igx-select-item>
+            @for (stage of fulfillmentStages; track stage.id) {
+              <igx-select-item [value]="stage.id">
+                {{ stage.label }}
+              </igx-select-item>
+            }
+            <label igxLabel>Fulfillment Stage</label>
+          </igx-select>
+          <button igxButton="flat" type="button" (click)="resetOrderFilters()" class="reset">
+            <igx-icon class="icon" aria-hidden="true">
+              restart_alt
+            </igx-icon>
+            <span>Reset</span>
+          </button>
+        </div>
+        <igx-grid #ordersGrid [data]="orderRows()" primaryKey="id" [autoGenerate]="false" rowSelection="multiple" [selectedRows]="selectedOrderIds()" (rowSelectionChanging)="onOrderSelection($event)" [allowFiltering]="true" filterMode="excelStyleFilter" emptyGridMessage="No orders match these filters." width="100%" height="450px" class="grid">
+          <igx-column field="id" dataType="string" header="Order ID" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="customerName" dataType="string" header="Customer" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="orderDate" dataType="date" header="Order Date" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="configurationName" dataType="string" header="Configuration" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="totalAmount" dataType="currency" header="Total" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="paymentStatus" dataType="string" header="Payment" [filterable]="true" [sortable]="true" [resizable]="true">
+            <ng-template igxCell let-cell="cell">
+              <igx-badge [type]="paymentBadge(cell.value)" [value]="cell.value" class="status-badge"></igx-badge>
+            </ng-template>
+          </igx-column>
+          <igx-column field="fulfillmentStatus" dataType="string" header="Fulfillment" [filterable]="true" [sortable]="true" [resizable]="true">
+            <ng-template igxCell let-cell="cell">
+              <igx-badge [type]="fulfillmentBadge(cell.value)" [value]="cell.value" class="status-badge"></igx-badge>
+            </ng-template>
+          </igx-column>
+        </igx-grid>
+        <div class="row-layout row-layout_10">
+          <p class="ig-typography__caption live-telemetry-synchronized" aria-live="polite">
+            @if (actionableOrderIds().length) {
+              {{ actionableOrderIds().length }} {{ actionableOrderIds().length === 1 ? 'order' : 'orders' }} selected. Update fulfillment or dispatch the funded orders.
+            } @else {
+              Displaying {{ orderRows().length }} customer transactions. Select an order to update fulfillment or dispatch tracking telemetry.
+            }
+          </p>
+          <div class="row-layout row-layout_11">
+            <button igxButton="outlined" type="button" [disabled]="!actionableOrderIds().length" (click)="openStatusDialog(updateOrderStatus)" class="sync-inventory">
+              <igx-icon class="icon" aria-hidden="true">
+                sync
+              </igx-icon>
+              <span>Update Status</span>
+            </button>
+            <button igxButton="flat" type="button" (click)="printInvoices()" class="reset">
+              <igx-icon class="icon" aria-hidden="true">
+                print
+              </igx-icon>
+              <span>Print Invoices</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="column-layout admin-overview-section" aria-labelledby="components-management-title">
+        <div class="row-layout row-layout_2">
+          <div class="column-layout column-layout_3">
+            <p class="ig-typography__overline awaiting-review">
+              HARDWARE REPOSITORY &amp; STOCK CONTROL
+            </p>
+            <h3 id="components-management-title" class="content">
+              Components Management
+            </h3>
+            <p class="ig-typography__body-2 live-telemetry-synchronized">
+              Maintain the GameForge PC component catalog, update unit pricing, audit warehouse stock quantities, and adjust availability states.
+            </p>
+          </div>
+          <div class="row-layout row-layout_4">
+            <button igxButton="contained" type="button" (click)="openAddDialog(addHardwareComponent)" class="add-component">
+              <igx-icon class="icon_1" aria-hidden="true">
+                add
+              </igx-icon>
+              <span>Add Component</span>
+            </button>
+            <button igxButton="outlined" type="button" [disabled]="!selectedPart()" (click)="openEditDialog(editHardwareComponent)" class="sync-inventory">
+              <igx-icon class="icon" aria-hidden="true">
+                edit
+              </igx-icon>
+              <span>Edit Component</span>
+            </button>
+            <button igxButton="outlined" type="button" [disabled]="!selectedPart()" (click)="openEditDialog(editHardwareComponent)" class="sync-inventory">
+              <igx-icon class="icon" aria-hidden="true">
+                price_change
+              </igx-icon>
+              <span>Update Price</span>
+            </button>
+            <button igxButton="outlined" type="button" [disabled]="!selectedPart()" (click)="discontinueComponent.open()" class="delete-component">
+              <igx-icon class="icon_8" aria-hidden="true">
+                {{ selectedPartDiscontinued() ? 'restore_from_trash' : 'delete' }}
+              </igx-icon>
+              <span>{{ selectedPartDiscontinued() ? 'Restore Component' : 'Discontinue Component' }}</span>
+            </button>
+          </div>
+        </div>
+        <div class="row-layout row-layout_9">
+          <igx-input-group type="search" class="search-orders">
+            <igx-prefix>
+              <igx-icon class="icon_7" aria-hidden="true">
+                search
+              </igx-icon>
+            </igx-prefix>
+            <input type="search" [(ngModel)]="catalogSearch" placeholder="Filter by component name, brand, or model..." igxInput />
+            <label igxLabel>Search Catalog</label>
+          </igx-input-group>
+          <igx-select type="border" [(ngModel)]="categoryFilter" placeholder="All Categories" class="payment-status">
+            <igx-select-item value="all">
+              All Categories
+            </igx-select-item>
+            @for (category of categories; track category) {
+              <igx-select-item [value]="category">
+                {{ categoryFilterLabels[category] }}
+              </igx-select-item>
+            }
+            <label igxLabel>Category</label>
+          </igx-select>
+          <igx-select type="border" [(ngModel)]="brandFilter" placeholder="All Brands" class="payment-status">
+            <igx-select-item [value]="allBrands">
+              All Brands
+            </igx-select-item>
+            @for (brand of brands(); track brand) {
+              <igx-select-item [value]="brand">
+                {{ brand }}
+              </igx-select-item>
+            }
+            <label igxLabel>Brand Tier</label>
+          </igx-select>
+          <button igxButton="flat" type="button" (click)="resetCatalogFilters()" class="reset">
+            <igx-icon class="icon" aria-hidden="true">
+              restart_alt
+            </igx-icon>
+            <span>Reset</span>
+          </button>
+        </div>
+        <igx-grid [data]="catalogRows()" primaryKey="id" [autoGenerate]="false" rowSelection="single" [selectedRows]="selectedPartIds()" (rowSelectionChanging)="onPartSelection($event, 'id')" [allowFiltering]="true" filterMode="excelStyleFilter" emptyGridMessage="No components match these filters." width="100%" height="450px" class="grid">
+          <igx-column field="imageUrl" dataType="string" header="Image" [filterable]="false" [sortable]="false" width="88px">
+            <ng-template igxCell let-cell="cell">
+              <img [src]="cell.value" [alt]="cell.row.data.name" width="40" height="40" class="part-thumbnail" />
+            </ng-template>
+          </igx-column>
+          <igx-column field="name" dataType="string" header="Component" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="brand" dataType="string" header="Brand" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="category" dataType="string" header="Category" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="performanceTier" dataType="string" header="Tier" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="price" dataType="currency" header="Price" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          <igx-column field="listing" dataType="string" header="Listing" [filterable]="true" [sortable]="true" [resizable]="true">
+            <ng-template igxCell let-cell="cell">
+              <igx-badge [type]="cell.value === 'Listed' ? 'success' : 'error'" [value]="cell.value" class="status-badge"></igx-badge>
+            </ng-template>
+          </igx-column>
+        </igx-grid>
+        <div class="column-layout column-layout_5">
+          <div class="row-layout row-layout_10">
+            <div class="column-layout column-layout_6">
+              <div class="row-layout row-layout_3">
+                <igx-icon class="icon_9" aria-hidden="true">
+                  warehouse
+                </igx-icon>
+                <h5 class="content">
+                  Warehouse Stock &amp; Availability
+                </h5>
+              </div>
+              <p class="ig-typography__body-2 live-telemetry-synchronized">
+                Track on-hand component units against automated reorder thresholds to prevent assembly stockouts.
+              </p>
+            </div>
+            <div class="row-layout row-layout_11">
+              <button igxButton="outlined" type="button" [disabled]="!selectedPart()" (click)="openEditDialog(editHardwareComponent)" class="sync-inventory">
+                <igx-icon class="icon" aria-hidden="true">
+                  inventory
+                </igx-icon>
+                <span>Update Stock</span>
+              </button>
+              <button igxButton="outlined" type="button" [disabled]="!selectedPart()" (click)="openEditDialog(editHardwareComponent)" class="sync-inventory">
+                <igx-icon class="icon" aria-hidden="true">
+                  toggle_on
+                </igx-icon>
+                <span>Change Availability</span>
+              </button>
+            </div>
+          </div>
+          <igx-grid [data]="inventoryRows()" primaryKey="partId" [autoGenerate]="false" rowSelection="single" [selectedRows]="selectedPartIds()" (rowSelectionChanging)="onPartSelection($event, 'partId')" [allowFiltering]="true" filterMode="excelStyleFilter" emptyGridMessage="No stock records match these filters." width="100%" height="380px" class="grid_1">
+            <igx-column field="partId" dataType="string" header="Part ID" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+            <igx-column field="componentName" dataType="string" header="Component" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+            <igx-column field="stockQuantity" dataType="number" header="On Hand" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+            <igx-column field="reorderThreshold" dataType="number" header="Reorder Threshold" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+            <igx-column field="availabilityStatus" dataType="string" header="Availability" [filterable]="true" [sortable]="true" [resizable]="true">
+              <ng-template igxCell let-cell="cell">
+                <igx-badge [type]="stockBadge(cell.value)" [value]="cell.value" class="status-badge"></igx-badge>
+              </ng-template>
+            </igx-column>
+            <igx-column field="availabilityRule" dataType="string" header="Availability Rule" [filterable]="true" [sortable]="true" [resizable]="true"></igx-column>
+          </igx-grid>
+        </div>
+      </section>
+      <igx-dialog [closeOnOutsideSelect]="true" #addHardwareComponent class="add-hardware-component">
+        <igx-dialog-title>
+          Add Hardware Component
+        </igx-dialog-title>
+        <ng-container>
+          <form class="column-layout column-layout_7 dialog-scroll" [formGroup]="partForm" (ngSubmit)="addComponent(addHardwareComponent)" id="add-component-form" novalidate>
+            <p class="ig-typography__body-2 live-telemetry-synchronized">
+              Add a new PC hardware specification to the GameForge live catalog and initialize inventory tracking.
+            </p>
+            <igx-input-group type="border" class="user-input">
+              <igx-prefix>
+                <igx-icon class="icon_7" aria-hidden="true">
+                  memory
+                </igx-icon>
+              </igx-prefix>
+              <input type="text" formControlName="name" placeholder="e.g. GeForce RTX 4080 Super" maxlength="80" igxInput />
+              <label igxLabel>Component Name</label>
+              @if (showAddError('name')) {
+                <igx-hint>Enter the component name.</igx-hint>
+              }
+            </igx-input-group>
+            <igx-input-group type="border" class="user-input">
+              <igx-prefix>
+                <igx-icon class="icon_7" aria-hidden="true">
+                  verified
+                </igx-icon>
+              </igx-prefix>
+              <input type="text" formControlName="brand" placeholder="e.g. ASUS ROG, Corsair, MSI" maxlength="40" igxInput />
+              <label igxLabel>Brand / Manufacturer</label>
+              @if (showAddError('brand')) {
+                <igx-hint>Enter the brand.</igx-hint>
+              }
+            </igx-input-group>
+            <div class="row-layout row-layout_12">
+              <igx-select type="border" formControlName="category" placeholder="Select category" class="retail-price-usd">
+                @for (category of categories; track category) {
+                  <igx-select-item [value]="category">
+                    {{ categoryLabels[category] }}
+                  </igx-select-item>
+                }
+                <label igxLabel>Component Category</label>
+              </igx-select>
+              <igx-select type="border" formControlName="performanceTier" class="retail-price-usd">
+                @for (tier of performanceTiers; track tier) {
+                  <igx-select-item [value]="tier">
+                    {{ tier }}
+                  </igx-select-item>
+                }
+                <label igxLabel>Performance Tier</label>
+              </igx-select>
+            </div>
+            <div class="row-layout row-layout_12">
+              <igx-input-group type="border" class="retail-price-usd">
+                <igx-prefix>
+                  <igx-icon class="icon_7" aria-hidden="true">
+                    attach_money
+                  </igx-icon>
+                </igx-prefix>
+                <input type="number" formControlName="price" placeholder="999.00" min="1" step="0.01" igxInput />
+                <label igxLabel>Retail Price (USD)</label>
+                @if (showAddError('price')) {
+                  <igx-hint>Enter a price from $1 to $20,000.</igx-hint>
+                }
+              </igx-input-group>
+              <igx-input-group type="border" class="retail-price-usd">
+                <igx-prefix>
+                  <igx-icon class="icon_7" aria-hidden="true">
+                    inventory_2
+                  </igx-icon>
+                </igx-prefix>
+                <input type="number" formControlName="initialStock" placeholder="25" min="0" step="1" igxInput />
+                <label igxLabel>Initial Stock</label>
+                @if (showAddError('initialStock')) {
+                  <igx-hint>Enter whole units (0 or more).</igx-hint>
+                }
+              </igx-input-group>
+            </div>
+            <div class="row-layout row-layout_12">
+              <igx-input-group type="border" class="retail-price-usd">
+                <igx-prefix>
+                  <igx-icon class="icon_7" aria-hidden="true">
+                    speed
+                  </igx-icon>
+                </igx-prefix>
+                <input type="number" formControlName="benchmarkScore" placeholder="30000" min="0" step="1" igxInput />
+                <label igxLabel>Benchmark Score</label>
+                @if (showAddError('benchmarkScore')) {
+                  <igx-hint>Enter a whole-number score.</igx-hint>
+                }
+              </igx-input-group>
+              @if (newPartCategory() !== 'PSU') {
+                <igx-input-group type="border" class="retail-price-usd">
+                  <igx-prefix>
+                    <igx-icon class="icon_7" aria-hidden="true">
+                      bolt
+                    </igx-icon>
+                  </igx-prefix>
+                  <input type="number" formControlName="tdpWattage" placeholder="170" min="0" step="1" igxInput />
+                  <label igxLabel>Rated Power Draw (W)</label>
+                  @if (showAddError('tdpWattage')) {
+                    <igx-hint>Enter 0–1000 W.</igx-hint>
+                  }
+                </igx-input-group>
+              }
+            </div>
+            <fieldset class="column-layout spec-fieldset">
+              <legend class="ig-typography__subtitle-2 content">
+                {{ categoryLabels[newPartCategory()] }} Compatibility Specifications
+              </legend>
+              @switch (newPartCategory()) {
+                @case ('CPU') {
+                  <igx-select type="border" formControlName="socket" class="user-input">
+                    @for (socket of cpuSockets; track socket) {
+                      <igx-select-item [value]="socket">{{ socket }}</igx-select-item>
+                    }
+                    <label igxLabel>CPU Socket</label>
+                  </igx-select>
+                  <p class="ig-typography__caption live-telemetry-synchronized">Memory support: DDR5.</p>
+                }
+                @case ('Motherboard') {
+                  <div class="row-layout row-layout_12">
+                    <igx-select type="border" formControlName="socket" class="retail-price-usd">
+                      @for (socket of cpuSockets; track socket) {
+                        <igx-select-item [value]="socket">{{ socket }}</igx-select-item>
+                      }
+                      <label igxLabel>CPU Socket</label>
+                    </igx-select>
+                    <igx-select type="border" formControlName="formFactor" class="retail-price-usd">
+                      @for (formFactor of boardFormFactors; track formFactor) {
+                        <igx-select-item [value]="formFactor">{{ formFactor }}</igx-select-item>
+                      }
+                      <label igxLabel>Form Factor</label>
+                    </igx-select>
+                  </div>
+                  <p class="ig-typography__caption live-telemetry-synchronized">Memory support: DDR5.</p>
+                }
+                @case ('GPU') {
+                  <div class="row-layout row-layout_12">
+                    <igx-select type="border" formControlName="interfaceType" class="retail-price-usd">
+                      @for (option of interfaceOptions(); track option) {
+                        <igx-select-item [value]="option">{{ option }}</igx-select-item>
+                      }
+                      <label igxLabel>Interface</label>
+                    </igx-select>
+                    <igx-input-group type="border" class="retail-price-usd">
+                      <input type="number" formControlName="lengthMm" placeholder="304" min="100" step="1" igxInput />
+                      <label igxLabel>Card Length (mm)</label>
+                      @if (showAddError('lengthMm')) {
+                        <igx-hint>Enter 100–500 mm.</igx-hint>
+                      }
+                    </igx-input-group>
+                  </div>
+                }
+                @case ('RAM') {
+                  <p class="ig-typography__caption live-telemetry-synchronized">Memory type: DDR5. Checked against the motherboard's memory support.</p>
+                }
+                @case ('Storage') {
+                  <igx-select type="border" formControlName="interfaceType" class="user-input">
+                    @for (option of interfaceOptions(); track option) {
+                      <igx-select-item [value]="option">{{ option }}</igx-select-item>
+                    }
+                    <label igxLabel>Interface / Form Factor</label>
+                  </igx-select>
+                }
+                @case ('Cooling') {
+                  <div class="row-layout row-layout_12">
+                    <igx-select type="border" formControlName="coolerType" class="retail-price-usd">
+                      <igx-select-item value="aio">AIO Liquid</igx-select-item>
+                      <igx-select-item value="air">Tower Air</igx-select-item>
+                      <label igxLabel>Cooler Type</label>
+                    </igx-select>
+                    @if (newPartCoolerType() === 'aio') {
+                      <igx-select type="border" formControlName="radiatorMm" class="retail-price-usd">
+                        @for (size of radiatorSizes; track size) {
+                          <igx-select-item [value]="size">{{ size }}mm</igx-select-item>
+                        }
+                        <label igxLabel>Radiator Size</label>
+                      </igx-select>
+                    } @else {
+                      <igx-input-group type="border" class="retail-price-usd">
+                        <input type="number" formControlName="heightMm" placeholder="165" min="30" step="1" igxInput />
+                        <label igxLabel>Cooler Height (mm)</label>
+                        @if (showAddError('heightMm')) {
+                          <igx-hint>Enter 30–200 mm.</igx-hint>
+                        }
+                      </igx-input-group>
+                    }
+                  </div>
+                  <igx-input-group type="border" class="user-input">
+                    <input type="number" formControlName="coolingCapacityW" placeholder="250" min="50" step="1" igxInput />
+                    <label igxLabel>Thermal Capacity (W)</label>
+                    @if (showAddError('coolingCapacityW')) {
+                      <igx-hint>Enter 50–500 W.</igx-hint>
+                    }
+                  </igx-input-group>
+                  <fieldset class="row-layout row-layout_12 checkbox-group" formGroupName="supportedSockets">
+                    <legend class="ig-typography__caption live-telemetry-synchronized">Mounting kits included</legend>
+                    @for (socket of cpuSockets; track socket) {
+                      <igx-checkbox [formControlName]="socket">{{ socket }}</igx-checkbox>
+                    }
+                  </fieldset>
+                  @if (showAddError('supportedSockets')) {
+                    <p class="ig-typography__caption form-error" role="alert">Select at least one socket.</p>
+                  }
+                }
+                @case ('PSU') {
+                  <div class="row-layout row-layout_12">
+                    <igx-input-group type="border" class="retail-price-usd">
+                      <input type="number" formControlName="wattageCapacity" placeholder="1000" min="300" step="50" igxInput />
+                      <label igxLabel>Rated Output (W)</label>
+                      @if (showAddError('wattageCapacity')) {
+                        <igx-hint>Enter 300–2000 W.</igx-hint>
+                      }
+                    </igx-input-group>
+                    <igx-select type="border" formControlName="efficiency" class="retail-price-usd">
+                      @for (rating of psuEfficiencies; track rating) {
+                        <igx-select-item [value]="rating">80+ {{ rating }}</igx-select-item>
+                      }
+                      <label igxLabel>Efficiency Rating</label>
+                    </igx-select>
+                  </div>
+                }
+                @case ('Case') {
+                  <fieldset class="row-layout row-layout_12 checkbox-group" formGroupName="supportedFormFactors">
+                    <legend class="ig-typography__caption live-telemetry-synchronized">Supported motherboard form factors</legend>
+                    @for (formFactor of boardFormFactors; track formFactor) {
+                      <igx-checkbox [formControlName]="formFactor">{{ formFactor }}</igx-checkbox>
+                    }
+                  </fieldset>
+                  @if (showAddError('supportedFormFactors')) {
+                    <p class="ig-typography__caption form-error" role="alert">Select at least one form factor.</p>
+                  }
+                  <div class="row-layout row-layout_12">
+                    <igx-input-group type="border" class="retail-price-usd">
+                      <input type="number" formControlName="maxGpuLengthMm" placeholder="400" min="150" step="1" igxInput />
+                      <label igxLabel>Max GPU Length (mm)</label>
+                      @if (showAddError('maxGpuLengthMm')) {
+                        <igx-hint>Enter 150–600 mm.</igx-hint>
+                      }
+                    </igx-input-group>
+                    <igx-input-group type="border" class="retail-price-usd">
+                      <input type="number" formControlName="maxCoolerHeightMm" placeholder="167" min="30" step="1" igxInput />
+                      <label igxLabel>Max Cooler Height (mm)</label>
+                      @if (showAddError('maxCoolerHeightMm')) {
+                        <igx-hint>Enter 30–250 mm.</igx-hint>
+                      }
+                    </igx-input-group>
+                  </div>
+                  <igx-select type="border" formControlName="maxRadiatorMm" class="user-input">
+                    @for (size of radiatorSizes; track size) {
+                      <igx-select-item [value]="size">{{ size }}mm</igx-select-item>
+                    }
+                    <label igxLabel>Largest Radiator Mount</label>
+                  </igx-select>
+                }
+              }
+            </fieldset>
+            <igx-input-group type="border" class="user-input">
+              <input type="text" formControlName="specsDetail" placeholder="e.g. 16GB GDDR7, 2.6 GHz boost, 12V-2x6 power" maxlength="160" igxInput />
+              <label igxLabel>Specification Summary</label>
+              @if (showAddError('specsDetail')) {
+                <igx-hint>Describe the key specifications.</igx-hint>
+              }
+            </igx-input-group>
+            <igx-input-group type="border" class="user-input">
+              <input type="text" formControlName="compatibilityNote" placeholder="e.g. 850W+ PSU recommended" maxlength="120" igxInput />
+              <label igxLabel>Compatibility Note (optional)</label>
+            </igx-input-group>
+          </form>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="outlined" type="button" (click)="addHardwareComponent.close()" class="cancel">
+            Cancel
+          </button>
+          <button igxButton="contained" type="submit" form="add-component-form" class="add-component_1">
+            Add Component
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-dialog [closeOnOutsideSelect]="true" #editHardwareComponent class="add-hardware-component">
+        <igx-dialog-title>
+          Edit Hardware Component
+        </igx-dialog-title>
+        <ng-container>
+          <form class="column-layout column-layout_7 dialog-scroll" [formGroup]="editForm" (ngSubmit)="saveComponent(editHardwareComponent)" id="edit-component-form" novalidate>
+            <p class="ig-typography__body-2 live-telemetry-synchronized">
+              Modify pricing tiers, adjust warehouse inventory levels, and update catalog availability.
+            </p>
+            <igx-input-group type="border" class="user-input">
+              <igx-prefix>
+                <igx-icon class="icon_7" aria-hidden="true">
+                  hardware
+                </igx-icon>
+              </igx-prefix>
+              <input type="text" [value]="selectedPart()?.name ?? ''" readonly igxInput />
+              <label igxLabel>Selected Component</label>
+            </igx-input-group>
+            <div class="row-layout row-layout_12">
+              <igx-input-group type="border" class="retail-price-usd">
+                <igx-prefix>
+                  <igx-icon class="icon_7" aria-hidden="true">
+                    price_change
+                  </igx-icon>
+                </igx-prefix>
+                <input type="number" formControlName="price" placeholder="649.00" min="1" step="0.01" igxInput />
+                <label igxLabel>Adjust Price (USD)</label>
+                @if (showEditError('price')) {
+                  <igx-hint>Enter a price from $1 to $20,000.</igx-hint>
+                }
+              </igx-input-group>
+              <igx-input-group type="border" class="retail-price-usd">
+                <igx-prefix>
+                  <igx-icon class="icon_7" aria-hidden="true">
+                    warehouse
+                  </igx-icon>
+                </igx-prefix>
+                <input type="number" formControlName="stockQuantity" placeholder="42" min="0" step="1" igxInput />
+                <label igxLabel>Update Stock Units</label>
+                @if (showEditError('stockQuantity')) {
+                  <igx-hint>Enter whole units (0 or more).</igx-hint>
+                }
+              </igx-input-group>
+            </div>
+            <igx-select type="border" formControlName="availabilityMode" placeholder="Change availability" class="user-input">
+              @for (mode of availabilityModes; track mode.id) {
+                <igx-select-item [value]="mode.id">
+                  {{ mode.label }}
+                </igx-select-item>
+              }
+              <label igxLabel>Availability Status</label>
+            </igx-select>
+            <igx-input-group type="border" class="user-input">
+              <igx-prefix>
+                <igx-icon class="icon_7" aria-hidden="true">
+                  notification_important
+                </igx-icon>
+              </igx-prefix>
+              <input type="number" formControlName="reorderThreshold" placeholder="10" min="0" step="1" igxInput />
+              <label igxLabel>Reorder Threshold</label>
+              @if (showEditError('reorderThreshold')) {
+                <igx-hint>Enter whole units (0 or more).</igx-hint>
+              }
+            </igx-input-group>
+          </form>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="outlined" type="button" (click)="editHardwareComponent.close()" class="cancel">
+            Cancel
+          </button>
+          <button igxButton="contained" type="submit" form="edit-component-form" class="add-component_1">
+            Save Changes
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-dialog [closeOnOutsideSelect]="true" #updateOrderStatus class="add-hardware-component">
+        <igx-dialog-title>
+          Update Order Status
+        </igx-dialog-title>
+        <ng-container>
+          <div class="column-layout column-layout_7" [formGroup]="statusForm">
+            <p class="ig-typography__body-2 live-telemetry-synchronized">
+              {{ actionableOrderIds().length === 1 ? 'Order ' + actionableOrderIds()[0] : actionableOrderIds().length + ' selected orders' }}: settle payments and move builds through assembly, dispatch and delivery.
+            </p>
+            <igx-select type="border" formControlName="paymentStatus" placeholder="Keep current payment status" class="user-input">
+              @for (status of paymentStatuses; track status.id) {
+                <igx-select-item [value]="status.id">
+                  {{ status.label }}
+                </igx-select-item>
+              }
+              <label igxLabel>Payment Status</label>
+            </igx-select>
+            <igx-select type="border" formControlName="fulfillmentStatus" placeholder="Keep current fulfillment stage" class="user-input">
+              @for (stage of fulfillmentStages; track stage.id) {
+                <igx-select-item [value]="stage.id">
+                  {{ stage.label }}
+                </igx-select-item>
+              }
+              <label igxLabel>Fulfillment Stage</label>
+            </igx-select>
+          </div>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="outlined" type="button" (click)="updateOrderStatus.close()" class="cancel">
+            Cancel
+          </button>
+          <button igxButton="contained" type="button" (click)="saveOrderStatus(updateOrderStatus)" class="add-component_1">
+            Save Status
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-dialog [closeOnOutsideSelect]="true" #discontinueComponent class="add-hardware-component">
+        <igx-dialog-title>
+          {{ selectedPartDiscontinued() ? 'Restore Component' : 'Discontinue Component' }}
+        </igx-dialog-title>
+        <ng-container>
+          <div class="column-layout column-layout_7">
+            @if (selectedPartDiscontinued()) {
+              <p class="ig-typography__body-2 live-telemetry-synchronized">
+                List <strong>{{ selectedPart()?.name }}</strong> in the storefront again? Customers will be able to select it subject to stock.
+              </p>
+            } @else {
+              <p class="ig-typography__body-2 live-telemetry-synchronized">
+                Withdraw <strong>{{ selectedPart()?.name }}</strong> from sale? It disappears from the storefront catalog, while featured presets, saved builds and past orders that use it keep it, flagged as discontinued so new orders must replace it.
+              </p>
+            }
+          </div>
+        </ng-container>
+        <igx-dialog-actions>
+          <button igxButton="outlined" type="button" (click)="discontinueComponent.close()" class="cancel">
+            Cancel
+          </button>
+          <button igxButton="contained" type="button" (click)="toggleDiscontinued(discontinueComponent)" class="add-component_1">
+            {{ selectedPartDiscontinued() ? 'Restore Component' : 'Discontinue Component' }}
+          </button>
+        </igx-dialog-actions>
+      </igx-dialog>
+      <igx-snackbar actionText="OK" [displayTime]="5000" (clicked)="snackbar.close()" #snackbar class="snackbar">
+        {{ snackbarMessage() }}
+      </igx-snackbar>
+    </div>
+  </div>
+</div>

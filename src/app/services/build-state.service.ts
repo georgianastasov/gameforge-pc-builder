@@ -7,6 +7,12 @@ import { HARDWARE_CATEGORIES, HardwareCategory, HardwarePart } from '../models/h
 import { BuildStorageService } from './build-storage.service';
 import { EliteFlagshipPCTrioService } from './elite-flagship-pctrio.service';
 import { FlagshipPCHardwareCatalogService } from './flagship-pchardware-catalog.service';
+import { InventoryService } from './inventory.service';
+
+export interface UnavailablePart {
+  part: HardwarePart;
+  reason: 'Discontinued' | 'Out of Stock';
+}
 
 const SLOT_IMAGES: Record<HardwareCategory, string> = {
   CPU: '/assets/hardware/cpu.svg',
@@ -43,6 +49,7 @@ export class BuildStateService {
   private readonly catalog = inject(FlagshipPCHardwareCatalogService);
   private readonly presetService = inject(EliteFlagshipPCTrioService);
   private readonly storage = inject(BuildStorageService);
+  private readonly inventory = inject(InventoryService);
 
   private readonly selection = signal<BuildSelection>(emptySelection());
   private readonly loadedPresetId = signal<string | null>(null);
@@ -79,6 +86,19 @@ export class BuildStateService {
   /** Live power budget and compatibility report for the current selection. */
   public readonly analysis = computed(() => analyseBuild(this.selectedParts()));
 
+  /** Selected parts that can't be ordered right now: discontinued or out of stock. */
+  public readonly unavailableParts = computed<UnavailablePart[]>(() =>
+    this.slots().flatMap(({ part }): UnavailablePart[] => {
+      if (!part) {
+        return [];
+      }
+      if (this.catalog.isDiscontinued(part.id)) {
+        return [{ part, reason: 'Discontinued' }];
+      }
+      return this.inventory.isOrderable(part.id) ? [] : [{ part, reason: 'Out of Stock' }];
+    })
+  );
+
   public readonly pricing = computed(() => calculatePricing(this.subtotal(), this.assemblyTier(), this.precisionTuning()));
 
   /** The preset last loaded, or `null` once the build has been changed. */
@@ -97,7 +117,7 @@ export class BuildStateService {
       this.precisionTuning.set(saved.precisionTuning);
       return;
     }
-    const [defaultPreset] = this.presetService.presets;
+    const [defaultPreset] = this.presetService.presets();
     if (defaultPreset) {
       this.loadPreset(defaultPreset.id);
     }

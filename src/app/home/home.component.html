@@ -111,7 +111,7 @@
           <igx-badge type="info" value="BENCHMARK CERTIFIED" class="badge"></igx-badge>
         </div>
         <div class="row-layout row-layout_9">
-          @for (item of eliteFlagshipPCTrioCustomPcBuilds; track item.id) {
+          @for (item of eliteFlagshipPCTrioCustomPcBuilds(); track item.id) {
             <igx-card class="card">
               <igx-card-media height="200px">
                 <img [src]="item.imageUrl" [alt]="item.name + ' build render'" class="image_1" />

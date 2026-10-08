@@ -84,6 +84,14 @@
                     <p class="ig-typography__body-2 text_1">
                       {{ item.specsDetail }}
                     </p>
+                    @if (item.availabilityIssue; as issue) {
+                      <div class="row-layout row-layout_14">
+                        <igx-badge type="error" icon="remove_shopping_cart" [value]="issue" class="availability-badge"></igx-badge>
+                        <p class="ig-typography__caption text_2 check-issue is-error">
+                          Change this part to check out.
+                        </p>
+                      </div>
+                    }
                     <div class="row-layout row-layout_7">
                       <div class="row-layout row-layout_8">
                         <igx-icon class="icon_1">
@@ -326,6 +334,16 @@
                   </igx-icon>
                   <p class="ig-typography__caption physical-clearance-bus-check">
                     All {{ analysis().checks.length }} compatibility and power checks passed.
+                  </p>
+                </div>
+              }
+              @for (unavailable of unavailableParts(); track unavailable.part.id) {
+                <div class="row-layout row-layout_14">
+                  <igx-icon class="icon_5 is-error" aria-hidden="true">
+                    remove_shopping_cart
+                  </igx-icon>
+                  <p class="ig-typography__caption text_2 check-issue is-error">
+                    <strong>{{ unavailable.part.category }} availability:</strong> {{ unavailable.part.name }} is {{ unavailable.reason === 'Discontinued' ? 'discontinued' : 'out of stock' }}.
                   </p>
                 </div>
               }

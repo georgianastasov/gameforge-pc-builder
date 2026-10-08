@@ -1,0 +1,111 @@
+<div class="column-layout column-layout_1">
+  <div class="row-layout row-layout_1">
+    <div class="column-layout column-layout_2">
+      <div class="column-layout admin-authentication-section">
+        <div class="column-layout admin-login-panel">
+          <div class="row-layout branding-header-row">
+            <igx-avatar shape="rounded" class="avatar" aria-hidden="true">
+              <igx-icon class="icon">
+                security
+              </igx-icon>
+            </igx-avatar>
+            <igx-badge type="info" value="CONSOLE V2.8" class="console-v28"></igx-badge>
+          </div>
+          <div class="column-layout title-group">
+            <p class="ig-typography__overline gameforge-backoffice">
+              GAMEFORGE BACKOFFICE
+            </p>
+            <h3 class="admin-login">
+              Admin Login
+            </h3>
+            <p class="ig-typography__body-2 text">
+              Restricted gateway for GameForge administrators to manage hardware inventory, configure build presets, and audit component compatibility.
+            </p>
+            <p class="ig-typography__caption demo-access">
+              Demo access (client-side only): <strong>{{ demoCredentials.email }}</strong> / <strong>{{ demoCredentials.password }}</strong>
+            </p>
+          </div>
+          <form class="column-layout admin-credentials-form" [formGroup]="loginForm" (ngSubmit)="signIn()" novalidate>
+            <igx-input-group type="border" class="admin-email-input">
+              <igx-prefix>
+                <igx-icon class="icon_1" aria-hidden="true">
+                  badge
+                </igx-icon>
+              </igx-prefix>
+              <input type="email" formControlName="email" placeholder="staff.admin@gameforge.tech" autocomplete="username" igxInput />
+              <label igxLabel>Administrator Email</label>
+              @if (showError('email')) {
+                <igx-hint>{{ loginForm.controls.email.hasError('required') ? 'This field is required' : 'Enter a valid email address' }}</igx-hint>
+              }
+            </igx-input-group>
+            <igx-input-group type="border" class="admin-email-input">
+              <igx-prefix>
+                <igx-icon class="icon_1" aria-hidden="true">
+                  lock
+                </igx-icon>
+              </igx-prefix>
+              <input type="password" formControlName="password" placeholder="••••••••••••" autocomplete="current-password" igxInput />
+              <label igxLabel>Security Key / Password</label>
+              @if (showError('password')) {
+                <igx-hint>This field is required</igx-hint>
+              }
+            </igx-input-group>
+            <div class="row-layout options-row">
+              <igx-checkbox labelPosition="after" formControlName="remember" class="remember-workstation">
+                Remember Workstation
+              </igx-checkbox>
+            </div>
+            @if (signInFailed()) {
+              <p class="ig-typography__caption sign-in-error" role="alert">
+                Those credentials don't match the GameForge administrator account.
+              </p>
+            }
+            <div class="column-layout actions-column">
+              <button igxButton="contained" type="submit" class="sign-in-button">
+                <igx-icon class="icon" aria-hidden="true">
+                  login
+                </igx-icon>
+                <span>Sign In</span>
+              </button>
+              <button igxButton="outlined" type="button" [routerLink]="[`/home`]" class="back-to-store-button">
+                <igx-icon class="icon_2" aria-hidden="true">
+                  storefront
+                </igx-icon>
+                <span>Back to Store</span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="row-layout system-status-telemetry-strip">
+          <div class="row-layout status-item-catalog">
+            <igx-icon class="icon_3" aria-hidden="true">
+              dns
+            </igx-icon>
+            <p class="ig-typography__caption hardware-catalog-v-28-online">
+              Hardware Catalog: {{ partCount() }} Parts Online
+            </p>
+          </div>
+          <div class="row-layout status-item-catalog">
+            <igx-icon class="icon_3" aria-hidden="true">
+              check_circle
+            </igx-icon>
+            <p class="ig-typography__caption hardware-catalog-v-28-online">
+              Auth Service: Demo Client-Side Sign-In
+            </p>
+          </div>
+          <div class="row-layout status-item-catalog">
+            <igx-icon class="icon_3" aria-hidden="true">
+              speed
+            </igx-icon>
+            <p class="ig-typography__caption hardware-catalog-v-28-online">
+              Session: 1h per tab, 8h on a remembered workstation
+            </p>
+          </div>
+        </div>
+      </div>
+      <igx-snackbar actionText="Dismiss" [displayTime]="4000" (clicked)="snackbar.close()" #snackbar class="snackbar">
+        Sign in as an administrator to open the Backoffice.
+      </igx-snackbar>
+    </div>
+  </div>
+</div>

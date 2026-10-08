@@ -125,6 +125,7 @@ export class BuildSummaryComponent {
 
   // Checkout
   public readonly checkoutForm = new FormGroup({
+    customerName: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.maxLength(80), Validators.pattern(/\S/)] }),
     shipping: new FormControl<ShippingId>('ground', { nonNullable: true, validators: Validators.required }),
     payment: new FormControl<PaymentId | null>(null, Validators.required)
   });
@@ -137,14 +138,20 @@ export class BuildSummaryComponent {
   });
   public readonly shippingOption = computed(() => getShippingOption(this.checkoutValue().shipping ?? null));
 
-  /** Ordering requires every slot filled and no failing compatibility check. */
-  public readonly canOrder = computed(() => this.analysis().health !== 'fail');
+  /** Ordering requires every slot filled, no failing compatibility check, and every part in stock. */
+  public readonly canOrder = computed(() => this.analysis().health !== 'fail' && this.buildState.unavailableParts().length === 0);
   public readonly orderBlockReason = computed(() => {
     const { isComplete, missingSlots, failureCount } = this.analysis();
     if (!isComplete) {
       return `Fill the remaining ${missingSlots.length === 1 ? 'slot' : 'slots'} (${missingSlots.join(', ')}) in PC Builder before ordering.`;
     }
-    return failureCount ? `Resolve ${failureCount} compatibility ${failureCount === 1 ? 'failure' : 'failures'} in PC Builder before ordering.` : null;
+    if (failureCount) {
+      return `Resolve ${failureCount} compatibility ${failureCount === 1 ? 'failure' : 'failures'} in PC Builder before ordering.`;
+    }
+    const unavailable = this.buildState.unavailableParts();
+    return unavailable.length
+      ? `${unavailable.map(({ part, reason }) => `${part.name} (${reason.toLowerCase()})`).join(', ')} can't be ordered. Replace ${unavailable.length === 1 ? 'it' : 'them'} in PC Builder.`
+      : null;
   });
 
   public readonly configurationName = computed(() => this.buildState.activePreset()?.name ?? 'Custom GameForge Configuration');
@@ -187,7 +194,7 @@ export class BuildSummaryComponent {
   public confirmOrder(dialog: IgxDialogComponent, snackbar: IgxSnackbarComponent): void {
     this.submitAttempted.set(true);
     this.checkoutForm.markAllAsTouched();
-    const { shipping, payment } = this.checkoutForm.getRawValue();
+    const { customerName, shipping, payment } = this.checkoutForm.getRawValue();
     if (!this.canOrder() || this.checkoutForm.invalid || !payment) {
       return;
     }
@@ -195,6 +202,7 @@ export class BuildSummaryComponent {
       ? [{ category: slot.category, partId: slot.part.id, name: slot.part.name, price: slot.part.price }]
       : []);
     this.orders.placeOrder({
+      customerName: customerName.trim(),
       configurationName: this.configurationName(),
       selection: { ...this.buildState.currentSelection() },
       lines,
@@ -213,7 +221,7 @@ export class BuildSummaryComponent {
     snackbar.close();
     this.orders.clearLastOrder();
     this.buildState.startNewBuild();
-    this.checkoutForm.reset({ shipping: 'ground', payment: null });
+    this.checkoutForm.reset({ customerName: '', shipping: 'ground', payment: null });
     this.router.navigate(['/pc-builder']);
   }
 }

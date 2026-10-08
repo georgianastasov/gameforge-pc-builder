@@ -39,9 +39,16 @@ export class PCBuilderComponent {
 
   public readonly assemblyTier = this.buildState.assemblyTier;
   public readonly precisionTuning = this.buildState.precisionTuning;
-  public readonly flagshipEnthusiastPCBuildPcBuilderSlots = computed(() =>
-    this.buildState.slots().map((slot, index) => ({ ...slot, imageUrl: cardImage(PC_BUILDER_SLOT_IMAGES, index) }))
-  );
+  /** Selected parts the admin has discontinued or that are out of stock. */
+  public readonly unavailableParts = this.buildState.unavailableParts;
+  public readonly flagshipEnthusiastPCBuildPcBuilderSlots = computed(() => {
+    const unavailable = new Map(this.unavailableParts().map(({ part, reason }) => [part.category, reason]));
+    return this.buildState.slots().map((slot, index) => ({
+      ...slot,
+      imageUrl: cardImage(PC_BUILDER_SLOT_IMAGES, index),
+      availabilityIssue: unavailable.get(slot.category) ?? null
+    }));
+  });
   public readonly filledSlotCount = this.buildState.filledSlotCount;
   public readonly totalSlotCount = this.buildState.totalSlotCount;
   public readonly pricing = this.buildState.pricing;
@@ -97,7 +104,7 @@ export class PCBuilderComponent {
     this.buildState.slots().map(slot => ({ category: slot.category, label: REVIEW_LABELS[slot.category], part: slot.part }))
   );
 
-  public readonly canCheckout = computed(() => this.analysis().health !== 'fail');
+  public readonly canCheckout = computed(() => this.analysis().health !== 'fail' && this.unavailableParts().length === 0);
   public readonly snackbarMessage = signal(DEFAULT_SNACKBAR_MESSAGE);
 
   public clickResetOptions(): void {

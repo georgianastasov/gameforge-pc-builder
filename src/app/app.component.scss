@@ -40,6 +40,22 @@
   min-width: 50px;
   min-height: 50px;
 }
+/* App Builder sizes this group at 90% width; growing into the free space keeps the same layout without overflowing narrow navbars. */
+.group {
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 1rem;
+  position: relative;
+  flex-grow: 1;
+  min-width: 0;
+}
+.group_1 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  position: relative;
+}
 .column-layout {
   display: flex;
   flex-direction: column;
@@ -225,6 +241,12 @@
   --foreground: var(--ig-gray-800);
   --ig-size: var(--ig-size-medium);
   height: max-content;
+  flex-shrink: 0;
+}
+.admin {
+  --ig-size: var(--ig-size-small);
+  height: max-content;
+  flex-shrink: 0;
 }
 .contact-button {
   --foreground: var(--ig-gray-800);

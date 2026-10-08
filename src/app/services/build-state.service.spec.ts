@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { BuildStateService } from './build-state.service';
 import { EliteFlagshipPCTrioService } from './elite-flagship-pctrio.service';
 import { FlagshipPCHardwareCatalogService } from './flagship-pchardware-catalog.service';
+import { InventoryService } from './inventory.service';
 
 describe('BuildStateService', () => {
   afterEach(() => localStorage.clear());
@@ -19,14 +20,14 @@ describe('BuildStateService', () => {
   });
 
   it('starts with the first featured preset fully loaded', () => {
-    const [first] = presets.presets;
+    const [first] = presets.presets();
     expect(service.filledSlotCount()).toBe(8);
     expect(service.activePreset()?.id).toBe(first.id);
     expect(service.subtotal()).toBe(first.price);
   });
 
   it('every preset references valid parts in the matching slot', () => {
-    for (const preset of presets.presets) {
+    for (const preset of presets.presets()) {
       for (const [category, partId] of Object.entries(preset.parts)) {
         expect(catalog.getPartById(partId)?.category).toBe(category);
       }
@@ -95,7 +96,7 @@ describe('BuildStateService', () => {
     localStorage.setItem('gameforge.savedBuild', '{not json');
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({});
-    expect(TestBed.inject(BuildStateService).activePreset()?.id).toBe(presets.presets[0].id);
+    expect(TestBed.inject(BuildStateService).activePreset()?.id).toBe(presets.presets()[0].id);
 
     localStorage.setItem('gameforge.savedBuild', JSON.stringify({ version: 1, selection: { CPU: 'retired-part', GPU: 'cpu-ryzen7-9800x3d' } }));
     TestBed.resetTestingModule();
@@ -111,5 +112,39 @@ describe('BuildStateService', () => {
     expect(service.precisionTuning()).toBe(false);
     expect(service.analysis().isComplete).toBe(false);
     expect(localStorage.getItem('gameforge.savedBuild')).toBeNull();
+  });
+  it('reprices the build and presets when an admin changes a part price', () => {
+    const cpu = service.selectedParts().CPU!;
+    const before = service.subtotal();
+    const presetBefore = presets.getPresetById('apex-titan')!.price;
+    catalog.updatePrice(cpu.id, cpu.price + 100);
+    expect(service.subtotal()).toBe(before + 100);
+    expect(presets.getPresetById('apex-titan')!.price).toBe(presetBefore + 100);
+  });
+
+  it('keeps discontinued parts in the build but flags them as unavailable', () => {
+    const gpu = service.selectedParts().GPU!;
+    expect(service.unavailableParts()).toEqual([]);
+    catalog.setDiscontinued(gpu.id, true);
+    expect(service.selectedParts().GPU?.id).toBe(gpu.id);
+    expect(service.unavailableParts()).toEqual([{ part: gpu, reason: 'Discontinued' }]);
+  });
+
+  it('flags parts that are out of stock', () => {
+    const psu = service.selectedParts().PSU!;
+    TestBed.inject(InventoryService).update(psu.id, { availabilityMode: 'hold' });
+    expect(service.unavailableParts().map(({ part, reason }) => [part.id, reason])).toEqual([[psu.id, 'Out of Stock']]);
+  });
+
+  it('restores a saved build that contains a discontinued part', () => {
+    service.loadPreset('raptor');
+    service.saveConfiguration();
+    catalog.setDiscontinued('cpu-core-i7-14700k', true);
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    const restored = TestBed.inject(BuildStateService);
+    expect(restored.selectedParts().CPU?.id).toBe('cpu-core-i7-14700k');
+    expect(restored.unavailableParts()[0].reason).toBe('Discontinued');
   });
 });

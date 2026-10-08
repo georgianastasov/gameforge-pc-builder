@@ -1,0 +1,250 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  gap: 0;
+}
+.column-layout {
+  display: flex;
+  flex-direction: column;
+}
+.column-layout_1 {
+  background-color: var(--ig-surface-50);
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  gap: 24px 0;
+  position: relative;
+  padding: 48px 24px;
+  width: 100%;
+  min-width: 100%;
+  min-height: 600px;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.row-layout {
+  display: flex;
+}
+.row-layout_1 {
+  justify-content: center;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 0;
+  position: relative;
+  padding: 48px 32px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.column-layout_2 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 32px;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 1280px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.admin-authentication-section {
+  background-color: var(--ig-surface-100);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 24px;
+  position: relative;
+  padding: 40px 24px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.admin-login-panel {
+  background-color: var(--ig-surface-50);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 12px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  min-width: 320px;
+  max-width: 460px;
+  flex-shrink: 0;
+}
+.branding-header-row {
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.title-group {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 6px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.options-row {
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.actions-column {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.system-status-telemetry-strip {
+  background-color: var(--ig-surface-50);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px 24px;
+  position: relative;
+  padding: 10px 16px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.status-item-catalog {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 0 6px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.avatar {
+  --ig-size: var(--ig-size-medium);
+  --igx-avatar-background: var(--ig-primary-500);
+}
+.icon {
+  color: var(--ig-primary-500-contrast);
+}
+.gameforge-backoffice {
+  color: var(--ig-primary-600);
+  height: max-content;
+  min-width: min-content;
+}
+.admin-login {
+  color: var(--ig-gray-900);
+  height: max-content;
+  min-width: min-content;
+}
+.text {
+  color: var(--ig-gray-700);
+  height: max-content;
+  min-width: min-content;
+}
+.icon_1 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-gray-700);
+}
+.icon_2 {
+  color: var(--ig-gray-800);
+}
+.icon_3 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-primary-600);
+}
+.hardware-catalog-v-28-online {
+  color: var(--ig-gray-800);
+  height: max-content;
+  min-width: min-content;
+}
+.avatar::part(base) {
+  --igx-avatar-color: var(--ig-primary-500-contrast);
+}
+.console-v28 {
+  width: max-content;
+  height: max-content;
+}
+.snackbar {
+  /* The default secondary action color is 3.2:1 on the dark snackbar; the lighter tint meets WCAG AA. */
+  --ig-snackbar-button-color: color-mix(in srgb, var(--ig-secondary-500) 45%, white);
+  height: max-content;
+  min-width: min-content;
+}
+.admin-credentials-form {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.admin-email-input {
+  height: max-content;
+  min-width: min-content;
+}
+.remember-workstation {
+  width: max-content;
+  height: max-content;
+}
+.sign-in-button {
+  --foreground: var(--ig-primary-500-contrast);
+  --background: var(--ig-primary-500);
+  --ig-size: var(--ig-size-large);
+  height: max-content;
+}
+.back-to-store-button {
+  --foreground: var(--ig-gray-800);
+  --border-color: var(--ig-gray-300);
+  --ig-size: var(--ig-size-large);
+  height: max-content;
+}
+.demo-access {
+  color: var(--ig-gray-700);
+  height: max-content;
+}
+.sign-in-error {
+  color: var(--ig-error-900);
+  height: max-content;
+}
