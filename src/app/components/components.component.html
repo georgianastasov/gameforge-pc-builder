@@ -244,6 +244,7 @@
                     @if (isInBuild(item)) {
                       <igx-badge type="success" icon="check" value="In Your Rig" class="badge"></igx-badge>
                     }
+                    <igx-badge [type]="stockBadgeType[stockStatus(item)]" [value]="stockStatus(item)" class="badge"></igx-badge>
                   </div>
                   <div class="column-layout column-layout_5">
                     <div class="row-layout row-layout_10">
@@ -298,11 +299,11 @@
               </igx-card-content>
               <igx-card-actions>
                 <ng-container igxStart>
-                  <button igxButton="contained" type="button" [disabled]="isInBuild(item)" (click)="selectForRig(item, snackbar)" class="select-for-rig">
+                  <button igxButton="contained" type="button" [disabled]="isInBuild(item) || !isOrderable(item)" (click)="selectForRig(item, snackbar)" class="select-for-rig">
                     <igx-icon class="icon_1">
-                      {{ isInBuild(item) ? 'check_circle' : 'add_shopping_cart' }}
+                      {{ isInBuild(item) ? 'check_circle' : isOrderable(item) ? 'add_shopping_cart' : 'remove_shopping_cart' }}
                     </igx-icon>
-                    <span>{{ isInBuild(item) ? 'Selected in Rig' : 'Select for Rig' }}</span>
+                    <span>{{ isInBuild(item) ? 'Selected in Rig' : isOrderable(item) ? 'Select for Rig' : 'Out of Stock' }}</span>
                   </button>
                   <button igxButton="outlined" type="button" (click)="openSpecs(componentArchitecturalSpecifications, item)" class="benchmarks">
                     <igx-icon class="icon_4">

@@ -545,3 +545,9 @@
     outline-offset: 2px;
   }
 }
+
+.availability-badge {
+  width: max-content;
+  height: max-content;
+  flex-shrink: 0;
+}

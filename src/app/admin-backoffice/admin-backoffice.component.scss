@@ -1,0 +1,468 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 0;
+}
+.column-layout {
+  display: flex;
+  flex-direction: column;
+}
+.column-layout_1 {
+  background-color: var(--ig-surface-50);
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 28px 0;
+  position: relative;
+  padding: 36px 40px 48px;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+.row-layout {
+  display: flex;
+}
+.row-layout_1 {
+  justify-content: center;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 0;
+  position: relative;
+  padding: 48px 32px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.column-layout_2 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 32px;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 1280px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.admin-overview-section {
+  background-color: var(--ig-surface-100);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 12px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 24px;
+  position: relative;
+  padding: 24px;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_2 {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+.column-layout_3 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 6px;
+  position: relative;
+  min-width: 320px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.row-layout_3 {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_4 {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-width: 240px;
+}
+.row-layout_5 {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+.card {
+  --background: var(--ig-surface-50);
+  --outline-color: var(--ig-gray-200);
+  --border-radius: 8px;
+  min-width: 240px;
+  flex-grow: 1;
+  flex-basis: 240px;
+}
+.column-layout_4 {
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 12px;
+  position: relative;
+  padding: 16px;
+  min-width: 50px;
+  min-height: 50px;
+}
+.row-layout_6 {
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px 8px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_7 {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 4px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.row-layout_8 {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px;
+  position: relative;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+.row-layout_9 {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 12px 16px;
+  position: relative;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+.row-layout_10 {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 12px 16px;
+  position: relative;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+.row-layout_11 {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: flex-start;
+  gap: 8px 12px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.column-layout_5 {
+  background-color: var(--ig-surface-50);
+  border-color: var(--ig-gray-200);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px;
+  position: relative;
+  padding: 20px;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+.column-layout_6 {
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 4px;
+  position: relative;
+  min-width: 280px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.column-layout_7 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  gap: 16px 0;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+}
+.row-layout_12 {
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  gap: 0 12px;
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  flex-shrink: 0;
+}
+.gameforge-backoffice {
+  width: max-content;
+  height: max-content;
+}
+.add-hardware-component {
+  position: absolute;
+}
+.snackbar {
+  /* The default secondary action color is 3.2:1 on the dark snackbar; the lighter tint meets WCAG AA. */
+  --ig-snackbar-button-color: color-mix(in srgb, var(--ig-secondary-500) 45%, white);
+  height: max-content;
+  min-width: min-content;
+}
+.live-telemetry-synchronized {
+  color: var(--ig-gray-700);
+  height: max-content;
+  min-width: min-content;
+}
+.content {
+  color: var(--ig-gray-900);
+  height: max-content;
+  min-width: min-content;
+}
+.icon {
+  color: var(--ig-gray-800);
+}
+.icon_1 {
+  color: var(--ig-primary-500-contrast);
+}
+.avatar {
+  --ig-size: var(--ig-size-small);
+  --igx-avatar-background: var(--ig-primary-100);
+}
+.icon_2 {
+  color: var(--ig-primary-100-contrast);
+}
+.icon_3 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  /* Darker than App Builder's success-500 so the glyph meets 4.5:1 on white. */
+  color: var(--ig-success-800);
+}
+.text {
+  color: var(--ig-success-900);
+  height: max-content;
+  min-width: min-content;
+}
+.icon_4 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-primary-600);
+}
+.awaiting-review {
+  color: var(--ig-primary-600);
+  height: max-content;
+  min-width: min-content;
+}
+.avatar_1 {
+  --ig-size: var(--ig-size-small);
+  --igx-avatar-background: var(--ig-warn-100);
+}
+.icon_5 {
+  color: var(--ig-warn-100-contrast);
+}
+.icon_6 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-warn-800);
+}
+.reorder-threshold {
+  color: var(--ig-warn-900);
+  height: max-content;
+  min-width: min-content;
+}
+.all-orders-1-4-2 {
+  --ig-size: var(--ig-size-small);
+  width: max-content;
+  height: max-content;
+}
+.icon_7 {
+  --size: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--ig-gray-700);
+}
+.icon_8 {
+  color: var(--ig-error-600);
+}
+.icon_9 {
+  --size: 24px;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: var(--ig-primary-600);
+}
+.avatar_2::part(base) {
+  --igx-avatar-color: var(--ig-primary-100-contrast);
+}
+.avatar_3::part(base) {
+  --igx-avatar-color: var(--ig-primary-100-contrast);
+}
+.avatar_4::part(base) {
+  --igx-avatar-color: var(--ig-primary-100-contrast);
+}
+.avatar_1_1::part(base) {
+  --igx-avatar-color: var(--ig-warn-100-contrast);
+}
+.sync-inventory {
+  --foreground: var(--ig-gray-800);
+  --border-color: var(--ig-gray-300);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+  flex-shrink: 0;
+}
+.add-component {
+  --foreground: var(--ig-primary-500-contrast);
+  --background: var(--ig-primary-500);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+  flex-shrink: 0;
+}
+.search-orders {
+  min-width: 280px;
+  flex-grow: 2;
+  flex-basis: 280px;
+}
+.payment-status {
+  min-width: 180px;
+  flex-grow: 1;
+  flex-basis: 180px;
+}
+.reset {
+  --foreground: var(--ig-gray-800);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+  flex-shrink: 0;
+}
+.delete-component {
+  --foreground: var(--ig-error-600);
+  --border-color: var(--ig-error-300);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+  flex-shrink: 0;
+}
+.user-input {
+  height: max-content;
+  min-width: min-content;
+}
+.retail-price-usd {
+  height: max-content;
+  min-width: min-content;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.cancel {
+  --foreground: var(--ig-gray-800);
+  --border-color: var(--ig-gray-300);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+}
+.add-component_1 {
+  --foreground: var(--ig-primary-500-contrast);
+  --background: var(--ig-primary-500);
+  --ig-size: var(--ig-size-medium);
+  height: max-content;
+}
+.grid {
+  --ig-size: var(--ig-size-medium);
+  min-width: 100%;
+  min-height: 450px;
+  max-width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.grid_1 {
+  --ig-size: var(--ig-size-medium);
+  min-width: 100%;
+  min-height: 380px;
+  max-width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+.status-badge {
+  width: max-content;
+  height: max-content;
+}
+.part-thumbnail {
+  display: block;
+  object-fit: contain;
+}
+/* igx-dialog clips overflow and has no max-height, so long forms scroll inside the dialog body. */
+.dialog-scroll {
+  max-height: min(65vh, 640px);
+  overflow-y: auto;
+  padding: 8px 4px 4px;
+}
+.spec-fieldset {
+  border: 1px solid var(--ig-gray-200);
+  border-radius: 8px;
+  gap: 16px;
+  margin: 0;
+  padding: 12px 16px 16px;
+}
+.checkbox-group {
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  > legend {
+    padding: 0;
+    margin-bottom: 4px;
+    width: 100%;
+  }
+}
+.form-error {
+  color: var(--ig-error-900);
+  height: max-content;
+}

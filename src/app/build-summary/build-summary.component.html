@@ -381,7 +381,7 @@
                         check_circle
                       </igx-icon>
                       <p class="ig-typography__body-2 text">
-                        {{ order.configurationName }} ({{ order.lines.length }} parts) entered assembly.
+                        {{ order.configurationName }} ({{ order.lines.length }} parts) for {{ order.customerName }} {{ order.fulfillmentStatus === 'On Hold' ? 'is reserved and enters assembly once the wire transfer clears' : 'entered assembly' }}.
                       </p>
                     </div>
                     <div class="row-layout row-layout_5">
@@ -474,6 +474,18 @@
                 </p>
               </div>
             </div>
+            <igx-input-group type="border" class="shipping-logistics-tier">
+              <igx-prefix>
+                <igx-icon aria-hidden="true">
+                  person
+                </igx-icon>
+              </igx-prefix>
+              <input igxInput formControlName="customerName" type="text" autocomplete="name" maxlength="80" />
+              <label igxLabel>Customer Name</label>
+              @if (checkoutForm.controls.customerName.invalid && (checkoutForm.controls.customerName.touched || submitAttempted())) {
+                <igx-hint>Enter the name the order should be placed under.</igx-hint>
+              }
+            </igx-input-group>
             <igx-select type="border" formControlName="shipping" class="shipping-logistics-tier">
               <igx-select-item value="ground">
                 Complimentary Insured Ground Rig Freight (3-5 Days)
@@ -521,7 +533,7 @@
         </igx-dialog-actions>
       </igx-dialog>
       <igx-snackbar actionText="Dismiss" (clicked)="snackbar.close()" #snackbar class="snackbar">
-        Order {{ confirmedOrder()?.id }} placed successfully! Your custom GameForge PC build has entered assembly.
+        Order {{ confirmedOrder()?.id }} placed successfully! {{ confirmedOrder()?.fulfillmentStatus === 'On Hold' ? 'Assembly starts once your wire transfer clears.' : 'Your custom GameForge PC build has entered assembly.' }}
       </igx-snackbar>
     </div>
   </div>
